@@ -5,7 +5,7 @@
     []: # API: REST
     []: # Blockchain - IPFS - Metamask - Ethereum
 
-This is a blockchain-based for open-source software license management system.
+This is a blockchain-based for software license management market system.
 
 #### How to run?
 
