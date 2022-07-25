@@ -3,7 +3,7 @@
     []: # Frontend Framework: Angular - PrimeNG UI
     []: # Backend Framework: NodeJS - ExpressJS
     []: # API: REST
-    []: # Blockchain - IPFS - Metamask - Ethereum
+    []: # Blockchain - IPFS - Smart Constract
 
 This is a blockchain-based for software license management market system.
 
