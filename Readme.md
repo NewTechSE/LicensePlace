@@ -1,4 +1,4 @@
-# BLOCKCHAIN OPEN-SOURCE SOFTWARE LICENSE MANAGEMENT
+# BLOCKCHAIN SOFTWARE LICENSE MANAGEMENT MARKET
 
     []: # Frontend Framework: Angular - PrimeNG UI
     []: # Backend Framework: NodeJS - ExpressJS
