@@ -12,7 +12,7 @@ contract("LicensePlace", (accounts) => {
 
   it("Should show default app price", async () => {
     const licensePlace = await LicensePlace.deployed();
-    const price = await licensePlace.APP_PRICE();
+    const price = await licensePlace.appPrice();
     assert.equal(price.toNumber(), 10);
   });
 
@@ -28,7 +28,7 @@ contract("LicensePlace", (accounts) => {
   it("Should allow owner to edit app price", async () => {
     const licensePlace = await LicensePlace.deployed();
     await licensePlace.setAppPrice(20, { from: creatorAddress });
-    const price = await licensePlace.APP_PRICE();
+    const price = await licensePlace.appPrice();
     assert.equal(price.toNumber(), 20);
   });
 });
