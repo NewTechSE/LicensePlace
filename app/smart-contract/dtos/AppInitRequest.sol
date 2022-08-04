@@ -6,5 +6,4 @@ struct AppInitRequest {
     string symbol;
     string cid;
     address publisher;
-    bool isValid;
 }

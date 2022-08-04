@@ -12,6 +12,7 @@ contract ERC721App is ERC721, Ownable {
     Counters.Counter private _tokenIdCounter;
 
     address public publisher = address(0x0);
+    string public cid = "";
 
     constructor(AppInitRequest memory request)
         ERC721(request.name, request.symbol)
@@ -20,12 +21,8 @@ contract ERC721App is ERC721, Ownable {
             request.publisher != address(0x0),
             "Publisher address is not set"
         );
-        publisher = request.publisher;
-    }
 
-    function safeMint(address to) public onlyOwner {
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-        _safeMint(to, tokenId);
+        publisher = request.publisher;
+        cid = request.cid;
     }
 }
