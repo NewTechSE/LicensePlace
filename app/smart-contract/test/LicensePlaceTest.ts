@@ -41,24 +41,45 @@ contract("LicensePlace", (accounts) => {
     it("Should allow client to register their app", async () => {
       const licensePlace = await LicensePlace.deployed();
 
+      const cid = web3.utils.asciiToHex("0x123456789012345678901234567890");
       const response = await licensePlace.registerApp(
         {
           name: "My App",
           symbol: "MYAPP",
           publisher: externalAddress,
-          cid: "0x1234567890123456789012345678901234567890",
+          cid: cid,
         },
-        { from: externalAddress, value: web3.utils.toWei("10", "wei") }
+        { from: externalAddress, value: web3.utils.toWei("30", "wei") }
       );
 
       const contractAddress = response.logs[0].address;
       const erc721App = await ERC721App.at(contractAddress);
 
       assert.equal(await erc721App.name(), "My App", "App name is not correct");
-      assert.equal(await erc721App.symbol(), "MYAPP", "App symbol is not correct"); 
-      assert.equal(await erc721App.publisher(), externalAddress, "App publisher is not correct");
-      assert.equal(await erc721App.owner(), licensePlace.address, "App owner is not correct");
-      assert.equal(await erc721App.cid(), "0x1234567890123456789012345678901234567890", "App cid is not correct");
+
+      assert.equal(
+        await erc721App.symbol(),
+        "MYAPP",
+        "App symbol is not correct"
+      );
+
+      assert.equal(
+        await erc721App.publisher(),
+        externalAddress,
+        "App publisher is not correct"
+      );
+
+      assert.equal(
+        await erc721App.owner(),
+        licensePlace.address,
+        "App owner is not correct"
+      );
+
+      assert.equal(
+        await erc721App.tokenURI(0),
+        web3.utils.hexToAscii(cid),
+        "App tokenURI is not correct"
+      );
     });
   });
 });

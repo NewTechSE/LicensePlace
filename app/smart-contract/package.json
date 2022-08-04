@@ -6,7 +6,8 @@
   "scripts": {
     "test": "truffle test",
     "generate-types": "npx typechain --target=truffle-v5 'build/contracts/*.json'",
-    "compile": "npx truffle compile && npm run generate-types"
+    "compile": "npx truffle compile && npm run generate-types",
+    "export": "npm run compile && copyfiles -f build/contracts/*.json ../shared/contracts && copyfiles -f types/truffle-contracts/*.d.ts ../shared/types/contracts"
   },
   "author": "Kafka Wanna Fly",
   "license": "MIT",
@@ -19,6 +20,7 @@
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
     "chai-as-promised": "^7.1.1",
+    "copyfiles": "^2.4.1",
     "eslint": "^8.21.0",
     "eslint-plugin-mocha": "^10.1.0",
     "truffle": "^5.5.24",

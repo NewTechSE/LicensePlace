@@ -18,16 +18,23 @@ contract LicensePlace is Ownable {
         appPrice = _price;
     }
 
-    function registerApp(AppInitRequest memory request) public payable returns (address) {
+    function registerApp(AppInitRequest memory request)
+        public
+        payable
+        returns (address)
+    {
         require(msg.value >= appPrice, "Not enought ether");
 
         bytes32 appSymbol = keccak256(abi.encodePacked(request.symbol));
 
-        require(!appSymbols.contains(appSymbol), "App with this symbol already exists");
+        require(
+            !appSymbols.contains(appSymbol),
+            "App with this symbol already exists"
+        );
 
         request.publisher = msg.sender;
         ERC721App newApp = new ERC721App(request);
-        
+
         appMapping[appSymbol] = newApp;
         appSymbols.add(appSymbol);
 
