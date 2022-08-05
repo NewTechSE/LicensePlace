@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
-import "./ERC721App.sol";
+import "./Application.sol";
 import "../dtos/AppInitRequest.sol";
 
 contract LicensePlace is Ownable {
@@ -11,7 +11,7 @@ contract LicensePlace is Ownable {
 
     uint256 public appPrice = 10 wei;
 
-    mapping(bytes32 => ERC721App) public appMapping;
+    mapping(bytes32 => Application) public appMapping;
     EnumerableSet.Bytes32Set internal appSymbols;
 
     function setAppPrice(uint256 _price) public onlyOwner {
@@ -33,7 +33,7 @@ contract LicensePlace is Ownable {
         );
 
         request.publisher = msg.sender;
-        ERC721App newApp = new ERC721App(request);
+        Application newApp = new Application(request);
 
         appMapping[appSymbol] = newApp;
         appSymbols.add(appSymbol);

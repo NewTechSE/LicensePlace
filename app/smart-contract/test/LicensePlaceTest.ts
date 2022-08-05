@@ -1,11 +1,19 @@
+import {
+  ApplicationInstance,
+  LicensePlaceContract,
+  LicensePlaceInstance,
+} from "../types/truffle-contracts";
+import { OwnershipTransferred } from "../types/truffle-contracts/LicensePlace";
+
 const LicensePlace = artifacts.require("LicensePlace");
-const ERC721App = artifacts.require("ERC721App");
+const Application = artifacts.require("Application");
 
 contract("LicensePlace", (accounts) => {
   console.log("accounts:", accounts);
 
   const creatorAddress = accounts[0];
   const externalAddress = accounts[3];
+  const visitorAddress = accounts[7];
 
   describe("Contructor and Access Control", () => {
     it("Should have default owner", async () => {
@@ -38,11 +46,18 @@ contract("LicensePlace", (accounts) => {
   });
 
   describe("Client register app to sell", () => {
-    it("Should allow client to register their app", async () => {
-      const licensePlace = await LicensePlace.deployed();
+    let licensePlace: LicensePlaceInstance;
+    let response: Truffle.TransactionResponse<OwnershipTransferred>;
 
-      const cid = web3.utils.asciiToHex("0x123456789012345678901234567890");
-      const response = await licensePlace.registerApp(
+    let application: ApplicationInstance;
+
+    let cid: string;
+
+    before(async () => {
+      licensePlace = await LicensePlace.deployed();
+
+      cid = web3.utils.asciiToHex("0x123456789012345678901234567890");
+      response = await licensePlace.registerApp(
         {
           name: "My App",
           symbol: "MYAPP",
@@ -53,33 +68,70 @@ contract("LicensePlace", (accounts) => {
       );
 
       const contractAddress = response.logs[0].address;
-      const erc721App = await ERC721App.at(contractAddress);
+      application = await Application.at(contractAddress);
+    });
 
-      assert.equal(await erc721App.name(), "My App", "App name is not correct");
+    it("Should allow client to register their app", async () => {
+      assert.equal(
+        await application.name(),
+        "My App",
+        "App name is not correct"
+      );
 
       assert.equal(
-        await erc721App.symbol(),
+        await application.symbol(),
         "MYAPP",
         "App symbol is not correct"
       );
 
       assert.equal(
-        await erc721App.publisher(),
+        await application.publisher(),
         externalAddress,
         "App publisher is not correct"
       );
 
       assert.equal(
-        await erc721App.owner(),
+        await application.owner(),
         licensePlace.address,
         "App owner is not correct"
       );
 
+      assert.equal(await application.cid(), cid, "App CID is not correct");
+    });
+
+    it("Should allow client to change app name", async () => {
+      await application.setName("My New App", { from: externalAddress });
       assert.equal(
-        await erc721App.tokenURI(0),
-        web3.utils.hexToAscii(cid),
-        "App tokenURI is not correct"
+        await application.name(),
+        "My New App",
+        "App name is not correct"
       );
+    });
+
+    it("Should not allow random user to change app name", async () => {
+      try {
+        await application.setName("My New App", { from: visitorAddress });
+      } catch (error: any) {
+        expect(error.toString()).to.contain("revert");
+      }
+    });
+
+    it("Should allow client to change app cid", async () => {
+      const newCid = web3.utils.asciiToHex("0x555555555555555555555555555555");
+      await application.setCid(newCid, { from: externalAddress });
+
+      assert.equal(await application.cid(), newCid, "App CID is not correct");
+    });
+
+    it("Should not allow random user to change app cid", async () => {
+      try {
+        const newCid = web3.utils.asciiToHex(
+          "0x555555555555555555555555555555"
+        );
+        await application.setCid(newCid, { from: visitorAddress });
+      } catch (error: any) {
+        expect(error.toString()).to.contain("revert");
+      }
     });
   });
 });
