@@ -2,10 +2,11 @@
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
-import "../dtos/AppInitRequest.sol";
+import "../dtos/AppDtos.sol";
 
-contract Application is Ownable, AccessControlEnumerable {
+contract Application is Ownable, Pausable, AccessControlEnumerable {
     bytes32 public constant ADMIN = keccak256("ADMIN");
 
     string public name;
@@ -35,11 +36,28 @@ contract Application is Ownable, AccessControlEnumerable {
         _grantRole(ADMIN, publisher);
     }
 
-    function setName(string memory _name) public onlyRole(ADMIN) {
+    function setName(string memory _name) public onlyRole(ADMIN) whenNotPaused {
         name = _name;
     }
 
-    function setCid(bytes32 _cid) public onlyRole(ADMIN) {
+    function setCid(bytes32 _cid) public onlyRole(ADMIN) whenNotPaused {
         cid = _cid;
+    }
+
+    function setPublisher(address _publisher) public onlyRole(ADMIN) whenNotPaused {
+        _revokeRole(ADMIN, publisher);
+
+        publisher = _publisher;
+        _grantRole(ADMIN, _publisher);
+    }
+
+    function _pause() internal override whenNotPaused onlyRole(ADMIN) {
+        super._pause();
+        emit Paused(_msgSender());
+    }
+
+    function _unpause() internal override whenPaused onlyRole(ADMIN) {
+        super._unpause();
+        emit Unpaused(_msgSender());
     }
 }

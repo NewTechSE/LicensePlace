@@ -7,7 +7,8 @@
     "test": "truffle test",
     "generate-types": "npx typechain --target=truffle-v5 'build/contracts/*.json'",
     "compile": "npx truffle compile && npm run generate-types",
-    "export": "npm run compile && copyfiles -f build/contracts/*.json ../shared/contracts && copyfiles -f types/truffle-contracts/*.d.ts ../shared/types/contracts"
+    "export": "npm run compile && copyfiles -f build/contracts/*.json ../shared/contracts && copyfiles -f types/truffle-contracts/*.d.ts ../shared/types/contracts",
+    "lint": "eslint --fix --ext .ts"
   },
   "author": "Kafka Wanna Fly",
   "license": "MIT",

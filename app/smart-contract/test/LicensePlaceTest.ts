@@ -1,6 +1,5 @@
 import {
   ApplicationInstance,
-  LicensePlaceContract,
   LicensePlaceInstance,
 } from "../types/truffle-contracts";
 import { OwnershipTransferred } from "../types/truffle-contracts/LicensePlace";
@@ -132,6 +131,67 @@ contract("LicensePlace", (accounts) => {
       } catch (error: any) {
         expect(error.toString()).to.contain("revert");
       }
+    });
+
+    it("Should be able to get app", async () => {
+      const contractAddress = await licensePlace.getApp("MYAPP");
+
+      assert.equal(
+        contractAddress,
+        application.address,
+        "App address is not correct"
+      );
+    });
+
+    it("Should get all apps symbol", async () => {
+      const apps = await licensePlace.getAppSymbols();
+      assert.equal(apps.length, 1, "App count is not correct");
+
+      assert.isTrue(
+        web3.utils.toAscii(apps[0]).includes("MYAPP"),
+        "App symbol is not correct"
+      );
+    });
+
+    it("Should not be able to get app with wrong symbol", async () => {
+      try {
+        await licensePlace.getApp("TO_BE_OR_NOT_TO_BE");
+      } catch (error: any) {
+        expect(error.toString()).to.contain("revert");
+      }
+    });
+
+    it("Should be able to update app info", async () => {
+      await licensePlace.setApp("MYAPP", {
+        name: "License Place",
+        cid: web3.utils.asciiToHex("0x123456789012345678901234567890"),
+        publisher: visitorAddress,
+      });
+
+      assert.equal(await application.name(), "License Place");
+      assert.equal(
+        web3.utils.hexToAscii(await application.cid()),
+        "0x123456789012345678901234567890"
+      );
+      assert.equal(await application.publisher(), visitorAddress);
+    });
+
+    it("Should be able to remove app", async () => {
+      await licensePlace.removeApp("MYAPP", { from: creatorAddress });
+
+      licensePlace
+        .getApp("MYAPP")
+        .then(() => {
+          assert.fail("App should not exist");
+        })
+        .catch((error) => expect(error.toString()).to.contain("revert"));
+
+      application
+        .setName("My App", { from: externalAddress })
+        .then(() => {
+          assert.fail("App name can't be set anymore");
+        })
+        .catch((error) => expect(error.toString()).to.contain("revert"));
     });
   });
 });

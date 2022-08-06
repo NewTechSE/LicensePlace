@@ -7,3 +7,9 @@ struct AppInitRequest {
     bytes32 cid;
     address publisher;
 }
+
+struct AppUpdateRequest {
+    string name;
+    bytes32 cid;
+    address publisher;
+}
