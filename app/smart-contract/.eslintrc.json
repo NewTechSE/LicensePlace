@@ -10,5 +10,7 @@
     "ecmaVersion": "latest"
   },
   "plugins": ["@typescript-eslint", "mocha"],
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }
