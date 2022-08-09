@@ -151,6 +151,13 @@ contract("LicensePlace", (accounts) => {
         web3.utils.toAscii(apps[0]).includes("MYAPP"),
         "App symbol is not correct"
       );
+
+      const contractAddress = await licensePlace.getApp(web3.utils.toAscii(apps[0]));
+      assert.equal(
+        contractAddress,
+        application.address,
+        "App address is not correct"
+      );
     });
 
     it("Should not be able to get app with wrong symbol", async () => {

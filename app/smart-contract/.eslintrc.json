@@ -12,5 +12,6 @@
   "plugins": ["@typescript-eslint", "mocha"],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off"
-  }
+  },
+  "ignorePatterns": ["migrations/*.js"]
 }
