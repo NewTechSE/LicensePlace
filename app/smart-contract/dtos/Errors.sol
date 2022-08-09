@@ -9,4 +9,4 @@ error DuplicateError(string name);
 
 error NotExistedResourceError(string name);
 
-error Unauthorized();
+error UnauthorizedError();

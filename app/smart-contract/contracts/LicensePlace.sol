@@ -77,7 +77,7 @@ contract LicensePlace is Ownable {
 
         Application app = appMapping[appSymbol];
         if (app.publisher() != msg.sender && app.owner() != msg.sender && this.owner() != msg.sender) {
-            revert Unauthorized();
+            revert UnauthorizedError();
         }
 
         appSymbols.remove(appSymbol);
