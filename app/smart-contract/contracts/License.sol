@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 
+import "../dtos/Errors.sol";
 import "../dtos/LicenseDtos.sol";
 
 contract License is ERC721, Pausable, Ownable {
@@ -23,6 +24,14 @@ contract License is ERC721, Pausable, Ownable {
         cid = request.cid;
     }
 
+    function setPrice(uint256 _price) public onlyOwner whenNotPaused {
+        price = _price;
+    }
+
+    function setCid(bytes32 _cid) public onlyOwner whenNotPaused {
+        cid = _cid;
+    }
+
     function pause() public onlyOwner {
         _pause();
     }
@@ -31,10 +40,16 @@ contract License is ERC721, Pausable, Ownable {
         _unpause();
     }
 
-    function safeMint(address to) public whenNotPaused onlyOwner {
-        uint256 tokenId = _tokenIdCounter.current();
+    function buyLicense() public payable returns (uint256) {
+        if (msg.value < this.price()) {
+            revert InsufficientBalanceError(this.price(), msg.value);
+        }
+
+        uint256 _tokenId = _tokenIdCounter.current();   
+        _safeMint(msg.sender, _tokenId);
         _tokenIdCounter.increment();
-        _safeMint(to, tokenId);
+
+        return _tokenId;
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId)

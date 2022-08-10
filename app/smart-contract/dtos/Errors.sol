@@ -10,3 +10,5 @@ error DuplicateError(string name);
 error NotExistedResourceError(string name);
 
 error UnauthorizedError();
+
+error InsufficientBalanceError(uint256 expectedAmount, uint256 actualAmount);

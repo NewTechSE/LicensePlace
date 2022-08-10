@@ -1,7 +1,7 @@
 import {
     ApplicationInstance,
     LicenseInstance,
-    LicensePlaceInstance,
+    LicensePlaceInstance
 } from "../types/truffle-contracts";
 import { assertRevert } from "./utils/assertion-utils";
 
@@ -87,5 +87,35 @@ contract("Application And License", (accounts) => {
                 "Only publisher can add license contract"
             );
         });
+
+        it("Should allow publisher to update license info", async () => {
+            await Promise.all([
+                license.setPrice(20, { from: publisherAddress }),
+                license.setCid(web3.utils.asciiToHex("0x555555555555"), { from: publisherAddress })
+            ]);
+
+            assert.equal((await license.price()).toNumber(), 20);
+            assert.equal(web3.utils.hexToString(await license.cid()), "0x555555555555");
+        });
+    });
+
+    describe("Application License", () => {
+        it("Should let everyone buy license", async () => {
+            const response = await license.buyLicense(
+                { from: rarndomUserAddress, value: web3.utils.toWei("25", "wei") }
+            );
+
+            const tokenId = (response.logs[0].args as any)["tokenId"] as string;
+
+            const ownerAddress = await license.ownerOf(tokenId);
+            assert.equal(ownerAddress, rarndomUserAddress);
+        });
+
+        it("Should not allow to buy if they don't pay", async () => {
+            assertRevert(
+                license.buyLicense({ from: rarndomUserAddress }),
+                "Not enought ether"
+            );
+        })
     });
 });
