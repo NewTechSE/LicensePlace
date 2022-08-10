@@ -11,7 +11,9 @@
   },
   "plugins": ["@typescript-eslint", "mocha"],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "indent": ["error", 4],
+    "max-len": ["error", { "code": 120 }]
   },
   "ignorePatterns": ["migrations/*.js"]
 }

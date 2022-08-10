@@ -13,8 +13,8 @@ contract License is ERC721, Pausable, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    uint256 price;
-    bytes32 cid;
+    uint256 public price;
+    bytes32 public cid;
 
     constructor(CreateLicenseRequest memory request)
         ERC721(request.name, request.symbol)
