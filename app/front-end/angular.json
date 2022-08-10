@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "licenseplace-fe": {
+    "front-end": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -14,9 +14,6 @@
           "skipTests": true
         },
         "@schematics/angular:service": {
-          "skipTests": true
-        },
-        "@schematics/angular:module": {
           "skipTests": true
         },
         "@schematics/angular:directive": {
@@ -42,7 +39,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/webapp-ui",
+            "outputPath": "dist/front-end",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -53,7 +50,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/mdc-light-deeppurple/theme.css",
+              "node_modules/primeng/resources/primeng.min.css"
             ],
             "scripts": []
           },
@@ -94,10 +94,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "webapp-ui:build:production"
+              "browserTarget": "front-end:build:production"
             },
             "development": {
-              "browserTarget": "webapp-ui:build:development"
+              "browserTarget": "front-end:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -105,7 +105,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "webapp-ui:build"
+            "browserTarget": "front-end:build"
           }
         },
         "test": {
