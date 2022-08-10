@@ -7,3 +7,9 @@ struct CreateLicenseRequest {
     uint256 price;
     bytes32 cid;
 }
+
+struct LicenseForSale {
+    uint256 tokenId;
+    uint256 price;
+    bytes32 cid;
+}

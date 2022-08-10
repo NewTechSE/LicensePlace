@@ -14,6 +14,7 @@ contract("Application And License", (accounts) => {
 
     const publisherAddress = accounts[3];
     const rarndomUserAddress = accounts[7];
+    const buyerAddress = accounts[8];
 
     let licensePlace: LicensePlaceInstance;
     let application: ApplicationInstance;
@@ -116,6 +117,36 @@ contract("Application And License", (accounts) => {
                 license.buyLicense({ from: rarndomUserAddress }),
                 "Not enought ether"
             );
-        })
+        });
+
+        it("Should let user sell their license", async () => {
+            await license.putLicenseForSale(
+                {
+                    tokenId: 0,
+                    price: web3.utils.toWei("5", "wei"),
+                    cid: web3.utils.asciiToHex("0x123456789012345678901234567890"),
+                },
+                { from: rarndomUserAddress }
+            );
+
+            const saleTokenIds = await license.getLicenseForSale();
+
+            assert.equal(saleTokenIds.length, 1);
+            assert.equal(saleTokenIds[0].toNumber(), 0);
+        });
+
+        it("Should let user buy license from another user", async () => {
+            const tokenId = 0;
+
+            await license.buyLicenseByTokenId(
+                tokenId,
+                { from: buyerAddress, value: web3.utils.toWei("25", "wei") }
+            );
+
+            const tokenOwner = await license.ownerOf(tokenId);
+
+            assert.equal(tokenOwner, buyerAddress);
+            assert.notEqual(tokenOwner, rarndomUserAddress);
+        });
     });
 });
