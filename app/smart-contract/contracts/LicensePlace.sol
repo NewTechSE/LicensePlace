@@ -3,8 +3,10 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
+
 import "./Application.sol";
 import "../dtos/AppDtos.sol";
+import "../dtos/Errors.sol";
 
 contract LicensePlace is Ownable {
     using EnumerableSet for EnumerableSet.Bytes32Set;
@@ -23,14 +25,15 @@ contract LicensePlace is Ownable {
         payable
         returns (address)
     {
-        require(msg.value >= appPrice, "Not enough ether");
+        if (msg.value < appPrice) {
+            revert NotEnoughBalanceError(appPrice, msg.value);
+        }
 
         bytes32 appSymbol = bytes32(abi.encodePacked(request.symbol));
 
-        require(
-            !appSymbols.contains(appSymbol),
-            "App with this symbol already exists"
-        );
+        if (appSymbols.contains(appSymbol)) {
+            revert DuplicateError(request.symbol);
+        }
 
         request.publisher = msg.sender;
         Application newApp = new Application(request);
@@ -44,19 +47,19 @@ contract LicensePlace is Ownable {
     function getApp(string memory _symbol) public view returns (Application) {
         bytes32 appSymbol = bytes32(abi.encodePacked(_symbol));
 
-        require(
-            appSymbols.contains(appSymbol),
-            "App with this symbol does not exist"
-        );
+        if (!appSymbols.contains(appSymbol)) {
+            revert NotExistedResourceError(_symbol);
+        }
+
         return appMapping[appSymbol];
     }
 
     function setApp(string memory _symbol, AppUpdateRequest memory request) public {
         bytes32 appSymbol = bytes32(abi.encodePacked(_symbol));
-        require(
-            appSymbols.contains(appSymbol),
-            "App with this symbol does not exist"
-        );
+
+        if (!appSymbols.contains(appSymbol)) {
+            revert NotExistedResourceError(_symbol);
+        }
 
         Application app = appMapping[appSymbol];
 
@@ -67,16 +70,15 @@ contract LicensePlace is Ownable {
 
     function removeApp(string memory _symbol) public {
         bytes32 appSymbol = bytes32(abi.encodePacked(_symbol));
-        require(
-            appSymbols.contains(appSymbol),
-            "App with this symbol does not exist"
-        );
+
+        if (!appSymbols.contains(appSymbol)) {
+            revert NotExistedResourceError(_symbol);
+        }
 
         Application app = appMapping[appSymbol];
-        require(
-            app.publisher() == msg.sender || app.owner() == msg.sender || this.owner() == msg.sender,
-            "You are not the publisher or owner"
-        );
+        if (app.publisher() != msg.sender && app.owner() != msg.sender && this.owner() != msg.sender) {
+            revert UnauthorizedError();
+        }
 
         appSymbols.remove(appSymbol);
         delete appMapping[appSymbol];

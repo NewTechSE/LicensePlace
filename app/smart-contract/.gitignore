@@ -1,6 +1,8 @@
 # truffle
 build
 
+bin
+
 # typechain
 types
 

@@ -1,12 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
+import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
+import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
+
 import "../dtos/AppDtos.sol";
+import "../dtos/Errors.sol";
+import "./License.sol";
+import "../dtos/LicenseDtos.sol";
 
 contract Application is Ownable, Pausable, AccessControlEnumerable {
+    using EnumerableSet for EnumerableSet.AddressSet;
+
     bytes32 public constant ADMIN = keccak256("ADMIN");
 
     string public name;
@@ -14,18 +21,25 @@ contract Application is Ownable, Pausable, AccessControlEnumerable {
     bytes32 public cid;
     address public publisher = address(0x0);
 
+    EnumerableSet.AddressSet private licenseContractAddresses;
+
     constructor(AppInitRequest memory request)
     {
-        require(bytes(request.name).length != 0, "Name is not set");
+        if (bytes(request.name).length == 0) {
+            revert EmptyField("name");
+        }
 
-        require(bytes(request.symbol).length != 0, "Symbol is not set");
+        if (bytes(request.symbol).length == 0) {
+            revert EmptyField("symbol");
+        }
 
-        require(request.cid != bytes32(0x0), "CID is not set");
+        if (request.cid == bytes32(0x0)) {
+            revert EmptyField("cid");
+        }
 
-        require(
-            request.publisher != address(0x0),
-            "Publisher address is not set"
-        );
+        if (request.publisher == address(0x0)) {
+            revert EmptyField("publisher");
+        }
 
         name = request.name;
         symbol = request.symbol;
@@ -49,6 +63,23 @@ contract Application is Ownable, Pausable, AccessControlEnumerable {
 
         publisher = _publisher;
         _grantRole(ADMIN, _publisher);
+    }
+
+    function addLicenseContract(address _licenseContract) public onlyRole(ADMIN) whenNotPaused {
+        License license = License(_licenseContract);
+        if (license.owner() != publisher) {
+            revert UnauthorizedError();
+        }
+
+        licenseContractAddresses.add(_licenseContract);
+    }
+
+    function removeLicenseContract(address _licenseContract) public onlyRole(ADMIN) whenNotPaused {
+        licenseContractAddresses.remove(_licenseContract);
+    }
+
+    function getLicenseContracts() public view returns (address[] memory) {
+        return licenseContractAddresses.values();
     }
 
     function _pause() internal override whenNotPaused onlyRole(ADMIN) {
