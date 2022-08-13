@@ -1,7 +1,10 @@
-import { OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-export class SubscriptionAwareAbstract implements OnDestroy {
+@Component({
+  template: ''
+})
+export class SubscriptionAwareAbstractComponent implements OnDestroy {
   protected subscriptions: Subscription[] = [];
 
   registerSubscription(subscription: Subscription): void {

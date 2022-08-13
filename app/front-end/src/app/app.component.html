@@ -1,3 +1,13 @@
-<div>
-  Hello Licenseplace
+<div class='app-container'>
+  <div class='supported-container'>
+    <app-snackbar></app-snackbar>
+    <app-navbar></app-navbar>
+    <div class='main-container'>
+      <app-process-bar></app-process-bar>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div class='unsupported-container'>
+    <app-error-page [error]='NotSupportedErrorModel.init()'></app-error-page>
+  </div>
 </div>

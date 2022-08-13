@@ -4,14 +4,14 @@ import { AppRouteConstant } from '../../common/app-route.constant';
 import { AppSrcAssetsConstant } from '../../common/app-src-assets.constant';
 import { ErrorEnum } from '../../enums/error.enum';
 import { ErrorModel } from '../../models/error.model';
-import { SubscriptionAwareAbstract } from '../subscription-aware.abstract';
+import { SubscriptionAwareAbstractComponent } from '../subscription-aware.abstract.component';
 
 @Component({
   selector: 'app-error-page',
   templateUrl: './error-page.component.html',
   styleUrls: ['./error-page.component.scss']
 })
-export class ErrorPageComponent extends SubscriptionAwareAbstract implements OnInit {
+export class ErrorPageComponent extends SubscriptionAwareAbstractComponent implements OnInit {
   @Input() error: ErrorModel;
 
   readonly AppRouteConstant = AppRouteConstant;

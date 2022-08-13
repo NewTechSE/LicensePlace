@@ -4,19 +4,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { NgxIntlModule } from '../ngx-intl.module';
 import { PrimengModule } from '../primeng.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { ProcessBarComponent } from './loading/process-bar/process-bar.component';
 import { ProcessSpinnerComponent } from './loading/process-spinner/process-spinner.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
+import { SubscriptionAwareAbstractComponent } from './subscription-aware.abstract.component';
 
 @NgModule({
   declarations: [
+    SubscriptionAwareAbstractComponent,
     ErrorPageComponent,
     ProcessSpinnerComponent,
     ProcessBarComponent,
-    SnackbarComponent
+    SnackbarComponent,
+    NavbarComponent,
   ],
   imports: [
     CommonModule,
@@ -26,8 +29,14 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
     BrowserModule,
     BrowserAnimationsModule,
     PrimengModule,
-    NgxIntlModule,
-  ]
+  ],
+  exports: [
+    NavbarComponent,
+    ErrorPageComponent,
+    ProcessBarComponent,
+    ProcessSpinnerComponent,
+    SnackbarComponent,
+  ],
 })
 export class ComponentsModule {
 }
