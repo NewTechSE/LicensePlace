@@ -24,18 +24,19 @@ contract("Application And License", (accounts) => {
         licensePlace = await LicensePlace.deployed();
 
         const cid = web3.utils.asciiToHex("0x123456789012345678901234567890");
-        const response = await licensePlace.registerApp(
+        application = await Application.new(
             {
                 name: "My App",
                 symbol: "MYAPP",
                 publisher: publisherAddress,
                 cid: cid,
-            },
-            { from: publisherAddress, value: web3.utils.toWei("30", "wei") }
+            }
         );
 
-        const contractAddress = response.logs[0].address;
-        application = await Application.at(contractAddress);
+        await licensePlace.registerApp(
+            application.address,
+            { from: publisherAddress, value: web3.utils.toWei("30", "wei") }
+        );
     });
 
     describe("Application Publisher", () => {

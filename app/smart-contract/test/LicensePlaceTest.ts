@@ -2,7 +2,6 @@ import {
     ApplicationInstance,
     LicensePlaceInstance,
 } from "../types/truffle-contracts";
-import { OwnershipTransferred } from "../types/truffle-contracts/LicensePlace";
 
 const LicensePlace = artifacts.require("LicensePlace");
 const Application = artifacts.require("Application");
@@ -46,7 +45,6 @@ contract("LicensePlace", (accounts) => {
 
     describe("Client register app to sell", () => {
         let licensePlace: LicensePlaceInstance;
-        let response: Truffle.TransactionResponse<OwnershipTransferred>;
 
         let application: ApplicationInstance;
 
@@ -56,18 +54,20 @@ contract("LicensePlace", (accounts) => {
             licensePlace = await LicensePlace.deployed();
 
             cid = web3.utils.asciiToHex("0x123456789012345678901234567890");
-            response = await licensePlace.registerApp(
+            application = await Application.new(
                 {
                     name: "My App",
                     symbol: "MYAPP",
                     publisher: externalAddress,
                     cid: cid,
                 },
-                { from: externalAddress, value: web3.utils.toWei("30", "wei") }
+                { from: externalAddress }
             );
 
-            const contractAddress = response.logs[0].address;
-            application = await Application.at(contractAddress);
+            await licensePlace.registerApp(
+                application.address,
+                { from: externalAddress, value: web3.utils.toWei("30", "wei") }
+            );
         });
 
         it("Should allow client to register their app", async () => {
@@ -91,7 +91,7 @@ contract("LicensePlace", (accounts) => {
 
             assert.equal(
                 await application.owner(),
-                licensePlace.address,
+                externalAddress,
                 "App owner is not correct"
             );
 
@@ -133,47 +133,23 @@ contract("LicensePlace", (accounts) => {
             }
         });
 
-        it("Should be able to get app", async () => {
-            const contractAddress = await licensePlace.getApp("MYAPP");
-
-            assert.equal(
-                contractAddress,
-                application.address,
-                "App address is not correct"
-            );
-        });
-
-        it("Should get all apps symbol", async () => {
-            const apps = await licensePlace.getAppSymbols();
-            assert.equal(apps.length, 1, "App count is not correct");
-
-            assert.isTrue(
-                web3.utils.toAscii(apps[0]).includes("MYAPP"),
-                "App symbol is not correct"
-            );
-
-            const contractAddress = await licensePlace.getApp(web3.utils.toAscii(apps[0]));
-            assert.equal(
-                contractAddress,
-                application.address,
-                "App address is not correct"
-            );
-        });
-
-        it("Should not be able to get app with wrong symbol", async () => {
-            try {
-                await licensePlace.getApp("TO_BE_OR_NOT_TO_BE");
-            } catch (error: any) {
-                expect(error.toString()).to.contain("revert");
-            }
+        it("Should get all apps address", async () => {
+            const addresses = await licensePlace.getAppAddresses();
+            assert.equal(addresses.length, 1, "App count is not correct");
+            assert.equal(addresses[0], application.address, "App address is not correct");
         });
 
         it("Should be able to update app info", async () => {
-            await licensePlace.setApp("MYAPP", {
-                name: "License Place",
-                cid: web3.utils.asciiToHex("0x123456789012345678901234567890"),
-                publisher: visitorAddress,
-            });
+            await Promise.all([
+                application.setName("License Place", { from: externalAddress }),
+                application.setCid(
+                    web3.utils.asciiToHex("0x123456789012345678901234567890"),
+                    {
+                        from: externalAddress,
+                    }
+                ),
+                application.setPublisher(visitorAddress, { from: externalAddress }),
+            ]);
 
             assert.equal(await application.name(), "License Place");
             assert.equal(
@@ -183,22 +159,11 @@ contract("LicensePlace", (accounts) => {
             assert.equal(await application.publisher(), visitorAddress);
         });
 
-        it("Should be able to remove app", async () => {
-            await licensePlace.removeApp("MYAPP", { from: creatorAddress });
+        it("Should remove app", async () => {
+            await licensePlace.removeApp(application.address, { from: externalAddress });
 
-            licensePlace
-                .getApp("MYAPP")
-                .then(() => {
-                    assert.fail("App should not exist");
-                })
-                .catch((error) => expect(error.toString()).to.contain("revert"));
-
-            application
-                .setName("My App", { from: externalAddress })
-                .then(() => {
-                    assert.fail("App name can't be set anymore");
-                })
-                .catch((error) => expect(error.toString()).to.contain("revert"));
+            const addresses = await licensePlace.getAppAddresses(); 
+            assert.equal(addresses.length, 0, "App count is not correct");
         });
     });
 });

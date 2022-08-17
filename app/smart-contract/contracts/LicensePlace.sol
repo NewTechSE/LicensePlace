@@ -9,83 +9,51 @@ import "../dtos/AppDtos.sol";
 import "../dtos/Errors.sol";
 
 contract LicensePlace is Ownable {
-    using EnumerableSet for EnumerableSet.Bytes32Set;
+    using EnumerableSet for EnumerableSet.AddressSet;
 
     uint256 public appPrice = 10 wei;
 
-    mapping(bytes32 => Application) public appMapping;
-    EnumerableSet.Bytes32Set internal appSymbols;
+    EnumerableSet.AddressSet private appContractAddresses;
 
     function setAppPrice(uint256 _price) public onlyOwner {
         appPrice = _price;
     }
 
-    function registerApp(AppInitRequest memory request)
+    function registerApp(address _appAddress)
         public
         payable
-        returns (address)
     {
         if (msg.value < appPrice) {
             revert NotEnoughBalanceError(appPrice, msg.value);
         }
 
-        bytes32 appSymbol = bytes32(abi.encodePacked(request.symbol));
-
-        if (appSymbols.contains(appSymbol)) {
-            revert DuplicateError(request.symbol);
+        if (appContractAddresses.contains(_appAddress)) {
+            revert DuplicateError("Application address");
         }
 
-        request.publisher = msg.sender;
-        Application newApp = new Application(request);
+        Application app = Application(_appAddress);
+        if (app.publisher() != msg.sender) {
+            revert UnauthorizedError();
+        }
 
-        appMapping[appSymbol] = newApp;
-        appSymbols.add(appSymbol);
-
-        return address(newApp);
+        appContractAddresses.add(_appAddress);
     }
 
-    function getApp(string memory _symbol) public view returns (Application) {
-        bytes32 appSymbol = bytes32(abi.encodePacked(_symbol));
-
-        if (!appSymbols.contains(appSymbol)) {
-            revert NotExistedResourceError(_symbol);
+    function removeApp(address _address) public {
+        if (!appContractAddresses.contains(_address)) {
+            revert NotExistedResourceError("Application address");
         }
 
-        return appMapping[appSymbol];
-    }
-
-    function setApp(string memory _symbol, AppUpdateRequest memory request) public {
-        bytes32 appSymbol = bytes32(abi.encodePacked(_symbol));
-
-        if (!appSymbols.contains(appSymbol)) {
-            revert NotExistedResourceError(_symbol);
-        }
-
-        Application app = appMapping[appSymbol];
-
-        app.setName(request.name);
-        app.setCid(request.cid);
-        app.setPublisher(request.publisher);
-    }
-
-    function removeApp(string memory _symbol) public {
-        bytes32 appSymbol = bytes32(abi.encodePacked(_symbol));
-
-        if (!appSymbols.contains(appSymbol)) {
-            revert NotExistedResourceError(_symbol);
-        }
-
-        Application app = appMapping[appSymbol];
+        Application app = Application(_address);
         if (app.publisher() != msg.sender && app.owner() != msg.sender && this.owner() != msg.sender) {
             revert UnauthorizedError();
         }
 
-        appSymbols.remove(appSymbol);
-        delete appMapping[appSymbol];
+        appContractAddresses.remove(_address);
         app.paused();
     }
 
-    function getAppSymbols() public view returns (bytes32[] memory) {
-        return appSymbols.values();
+    function getAppAddresses() public view returns (address[] memory) {
+        return appContractAddresses.values();
     }
 }
