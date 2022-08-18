@@ -10,12 +10,11 @@ services:
       - 9545:9545
     volumes:
       - ./app/smart-contract:/app/smart-contract
+      - /app/smart-contract/node_modules
     command: >
       sh -c "
       truffle develop &&
-      truffle migrate &&
-      
-      tail -f /dev/null
+      truffle migrate
       "
     restart: always
 
