@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.2",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "web3": "^1.7.5"
   }
 }

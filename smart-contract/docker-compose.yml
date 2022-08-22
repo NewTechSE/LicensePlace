@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  hardhat:
+    build: .
+    container_name: hardhat
+    image: hardhat
+    command: >
+      sh -c "
+        npx hardhat node
+      "
+    ports:
+      - 8545:8545
+      - 22000:22000
+    volumes:
+      - .:/app
+      - /app/node_modules
