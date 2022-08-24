@@ -1,6 +1,7 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
+const bs58 = require("bs58")
 const Application = artifacts.require('Application')
 const License = artifacts.require('License')
 
@@ -10,6 +11,9 @@ const getAccounts = async () => {
     const publisher = accounts[1];
     const random = accounts[2];
     return { buyer, publisher, random }
+}
+const to32ByteString = (hash) => {
+    return web3.utils.bytesToHex(bs58.decode(hash).slice(2))
 }
 
 const deploy = async () => {
@@ -25,6 +29,8 @@ contract("Application And License", () => {
     var publisher = null
     var buyer = null
     var random = null
+    var cid = null
+    var newCid = null
 
     before(async () => {
         licensePlace = await deploy()
@@ -33,7 +39,17 @@ contract("Application And License", () => {
         publisher = accounts.publisher
         random = accounts.random
 
-        const cid = web3.utils.asciiToHex("0x123456789012345678901234567890");
+
+        cidStr1 = "QmfLEpjnXrZoeC5gYFpPf6Frr3kpcy1aYbTioLH3KbjSJz"
+        cidStr2 = "QmP3wj5BPtj8cmU6hpDvnFscKDChj1hLzLifeh2QwFmR9e"
+        cidStr3 = "QmaPUvMcehBFgcan76crra9pHJaPQVN2XUFcsQZRCp33fh"
+        // cid = ethers.utils.hexlify(cidStr1);
+        // newCid = web3.utils.asciiToHex(cidStr2)
+
+        cid = to32ByteString(cidStr1)
+        newCid = to32ByteString(cidStr2)
+        // const cid = web3.utils.asciiToHex("QmP3wj5BPtj8cmU6hpDvnFscKDChj1hLzLifeh2QwFmR9e");
+
         application = await Application.new(
             {
                 name: "My App",
@@ -57,7 +73,8 @@ contract("Application And License", () => {
                     name: "MIT",
                     symbol: "MIT",
                     price: 10,
-                    cid: web3.utils.asciiToHex("0x123456789012345678901234567890"),
+                    cid: cid,
+                    // cid: web3.utils.asciiToHex("QmP3wj5BPtj8cmU6hpDvnFscKDChj1hLzLifeh2QwFmR9e"),
                 },
                 { from: publisher.address }
             );
@@ -65,7 +82,7 @@ contract("Application And License", () => {
             expect(await license.name()).to.equal("MIT");
             expect(await license.symbol()).to.equal("MIT");
             expect((await license.price()).toNumber()).to.equal(10);
-            expect(await license.cid()).to.equal(web3.utils.asciiToHex("0x123456789012345678901234567890"));
+            expect(await license.cid()).to.equal(cid);
         });
 
         it("Should allow publisher to register their license contract", async () => {
@@ -81,7 +98,8 @@ contract("Application And License", () => {
                     name: "VSCode",
                     symbol: "VSC",
                     price: 10,
-                    cid: web3.utils.asciiToHex("0x123456789012345678901234567890"),
+                    cid: cid
+                    // cid: web3.utils.asciiToHex("QmP3wj5BPtj8cmU6hpDvnFscKDChj1hLzLifeh2QwFmR9e"),
                 },
                 { from: random.address }
             );
@@ -97,11 +115,11 @@ contract("Application And License", () => {
         it("Should allow publisher to update license info", async () => {
             await Promise.all([
                 license.setPrice(20, { from: publisher.address }),
-                license.setCid(web3.utils.asciiToHex("0x555555555555"), { from: publisher.address })
+                license.setCid(newCid, { from: publisher.address })
             ]);
 
             expect((await license.price()).toNumber()).to.equal(20);
-            expect(web3.utils.hexToString(await license.cid())).to.equal("0x555555555555");
+            expect(await license.cid()).to.equal(newCid);
         });
     });
 
@@ -125,7 +143,7 @@ contract("Application And License", () => {
                 {
                     tokenId: 0,
                     price: web3.utils.toWei("5", "wei"),
-                    cid: web3.utils.asciiToHex("0x123456789012345678901234567890"),
+                    cid: newCid,
                 },
                 { from: random.address }
             );

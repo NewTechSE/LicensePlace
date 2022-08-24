@@ -1,6 +1,8 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
+const bs58 = require("bs58")
+
 const Application = artifacts.require('Application')
 const License = artifacts.require('License')
 
@@ -11,7 +13,9 @@ const getAccounts = async () => {
   const visitor = accounts[2];
   return { creator, publisher, visitor }
 }
-
+const to32ByteString = (hash) => {
+    return web3.utils.bytesToHex(bs58.decode(hash).slice(2))
+}
 const deploy = async () => {
   const LicensePlace = await ethers.getContractFactory("LicensePlace");
   const licensePlace = await LicensePlace.deploy();
@@ -60,15 +64,22 @@ contract('License Place', () => {
     let application = null
     let cid = null
 
+    let newCid = null
     before(async () => {
       licensePlace = await deploy()
       const accounts = await getAccounts()
       creator = accounts.creator
       publisher = accounts.publisher
       visitor = accounts.visitor
+      
+      cidStr1 = "QmfLEpjnXrZoeC5gYFpPf6Frr3kpcy1aYbTioLH3KbjSJz"
+      cidStr2 = "QmP3wj5BPtj8cmU6hpDvnFscKDChj1hLzLifeh2QwFmR9e"
+      cidStr3 = "QmaPUvMcehBFgcan76crra9pHJaPQVN2XUFcsQZRCp33fh"
+      // cid = ethers.utils.hexlify(cidStr1);
+      // newCid = web3.utils.asciiToHex(cidStr2)
 
-      // cid = web3.utils.asciiToHex("0x48656c6c6f20576f726c64210");
-      cid = ethers.utils.hexlify("0x48656c6c6f20576f726c64210000000000000000000000000000000000000000");
+      cid = to32ByteString(cidStr1)
+      newCid = to32ByteString(cidStr2)
 
       application = await Application.new(
         {
@@ -110,16 +121,16 @@ contract('License Place', () => {
     });
 
     it("Should allow client to change app cid", async () => {
-      const newCid = ethers.utils.hexlify("0x48656c6c6f20576f726c64210000000000000000000000000000000000000999");
+      // const newCid = ethers.utils.hexlify("QmP3wj5BPtj8cmU6hpDvnFscKDChj1hLzLifeh2QwFmR9e");
       await application.setCid(newCid, { from: publisher.address });
       expect(await application.cid()).to.equal(newCid)
     });
 
     it("Should not allow random user to change app cid", async () => {
       try {
-        const newCid = web3.utils.asciiToHex(
-          "0x555555555555555555555555555555"
-        );
+        // const newCid = web3.utils.asciiToHex(
+        //   "0x555555555555555555555555555555"
+        // );
         await application.setCid(newCid, { from: visitor });
       } catch (error) {
         expect(1).to.equal(1);
@@ -133,11 +144,12 @@ contract('License Place', () => {
     });
 
     it("Should be able to update app info", async () => {
-      const newCID = "0x48656c6c6f20576f726c64210000000000000000000000000000000000000111"
+      // const newCID = "QmP3wj5BPtj8cmU6hpDvnFscKDChj1hLzLifeh2QwFmR9e"
       await Promise.all([
         application.setName("License Place", { from: publisher.address }),
         application.setCid(
-          ethers.utils.hexlify(newCID),
+          newCid,
+          // ethers.utils.hexlify(newCID),
           {
             from: publisher.address,
           }
@@ -146,7 +158,7 @@ contract('License Place', () => {
       ]);
 
       expect(await application.name()).to.equal("License Place");
-      expect((await application.cid())).to.equal(newCID)
+      expect((await application.cid())).to.equal(newCid)
 
       expect(await application.publisher()).to.equal(visitor.address);
     });
