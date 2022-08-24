@@ -2,19 +2,30 @@ version: '3'
 
 services:
   blockchain:
-    build: ./app/smart-contract
-    container_name: blockchain
-    image: blockchain
-    ports:
-      - 8545:8545
-      - 9545:9545
-    volumes:
-      - ./app/smart-contract:/app/smart-contract
-      - /app/smart-contract/node_modules
+    build: ./smart-contract
+    container_name: hardhat
+    image: hardhat
     command: >
       sh -c "
-      truffle develop &&
-      truffle migrate
+        npx hardhat node
       "
-    restart: always
-
+    ports:
+      - 8545:8545
+      - 22000:22000
+    volumes:
+      - ./smart-contract:/app
+      - /app/node_modules
+  
+  webapp:
+    build: ./app/webapp
+    container_name: webapp
+    image: webapp
+    command: > 
+      sh -c "
+        npm start
+      "
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app/webapp:/app
+      - /app/node_modules
