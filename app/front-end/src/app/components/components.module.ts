@@ -11,6 +11,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { ProcessBarComponent } from './loading/process-bar/process-bar.component';
 import { ProcessSpinnerComponent } from './loading/process-spinner/process-spinner.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SearchbarComponent } from './searchbar/searchbar.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SubscriptionAwareAbstractComponent } from './subscription-aware.abstract.component';
 
@@ -24,6 +25,7 @@ import { SubscriptionAwareAbstractComponent } from './subscription-aware.abstrac
     NavbarComponent,
     HomepageComponent,
     AppCardComponent,
+    SearchbarComponent,
   ],
   imports: [
     CommonModule,
