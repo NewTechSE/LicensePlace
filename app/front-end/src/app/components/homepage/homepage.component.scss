@@ -1,0 +1,18 @@
+@import "~src/variables";
+
+:host {
+  @include expand-full();
+  @include set-flex(column, flex-start, center);
+  flex: 1;
+}
+
+.homepage-container {
+  @include expand-full();
+  @include set-flex(column, flex-start, flex-start);
+  padding: 0 20px;
+
+  app-searchbar {
+    margin-left: 250px;
+    margin-bottom: 50px;
+  }
+}

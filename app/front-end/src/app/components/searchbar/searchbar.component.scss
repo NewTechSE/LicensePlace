@@ -1,0 +1,14 @@
+@import "~src/variables";
+
+.searchbar-container {
+  i {
+    font-size: 14px;
+  }
+
+  input {
+    font-family: $font-family-tertiary;
+    font-size: 15px;
+    padding: 7.5px 10px 7.5px 35px;
+    width: 485px;
+  }
+}
