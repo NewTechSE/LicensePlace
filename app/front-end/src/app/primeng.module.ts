@@ -27,7 +27,7 @@ import { ToastModule } from 'primeng/toast';
     BreadcrumbModule,
     InputTextModule,
     PanelModule,
-    TabViewModule
+    TabViewModule,
   ],
   providers: [
     MessageService

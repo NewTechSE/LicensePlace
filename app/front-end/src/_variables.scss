@@ -109,6 +109,15 @@ $font-family-mono: 'Roboto Mono', monospace;
   height: 100%;
 }
 
+@mixin ellipsis($line: 1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: initial;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
+
 @mixin custom-scrollbar {
   &::-webkit-scrollbar {
     width: 15.5px;

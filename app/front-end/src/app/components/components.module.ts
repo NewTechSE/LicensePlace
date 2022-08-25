@@ -5,7 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { PrimengModule } from '../primeng.module';
+import { AppCardComponent } from './app-card/app-card.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { HomepageComponent } from './homepage/homepage.component';
 import { ProcessBarComponent } from './loading/process-bar/process-bar.component';
 import { ProcessSpinnerComponent } from './loading/process-spinner/process-spinner.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -20,6 +22,8 @@ import { SubscriptionAwareAbstractComponent } from './subscription-aware.abstrac
     ProcessBarComponent,
     SnackbarComponent,
     NavbarComponent,
+    HomepageComponent,
+    AppCardComponent,
   ],
   imports: [
     CommonModule,
