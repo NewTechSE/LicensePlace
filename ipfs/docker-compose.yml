@@ -41,6 +41,10 @@ services:
       - 8080:8080
     volumes:
       - ./compose/ipfs0:/data/ipfs
+      - ./cors.sh:/cors.sh
+      - ./start_ipfs.sh:/start_ipfs.sh
+    entrypoint: /bin/sh
+    command: /start_ipfs.sh
 
   cluster0:
     container_name: cluster0
@@ -54,6 +58,8 @@ services:
       CLUSTER_CRDT_TRUSTEDPEERS: '*' # Trust all peers in Cluster
       CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS: /ip4/0.0.0.0/tcp/9094 # Expose API
       CLUSTER_MONITORPINGINTERVAL: 2s # Speed up peer discovery
+      # CLUSTER_RESTAPI_CORSALLOWEDMETHODS: '["PUT", "POST", "GET"]''
+      # CLUSTER_RESTAPI_CORSALLOWEDORIGINS: '["*"]''
     ports:
       # Open API port (allows ipfs-cluster-ctl usage on host)
       - "127.0.0.1:9094:9094"
