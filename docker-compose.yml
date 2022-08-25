@@ -22,10 +22,9 @@ services:
     image: webapp
     command: > 
       sh -c "
-        npm start
+        tail -f /dev/null
       "
     ports:
       - 3000:3000
     volumes:
-      - ./app/webapp:/app
-      - /app/node_modules
+      - ./app/webapp/src:/app/src
