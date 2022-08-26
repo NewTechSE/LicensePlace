@@ -1,0 +1,18 @@
+@import "~src/variables";
+
+:host {
+  @include set-flex(column, flex-start, center);
+  flex: 1;
+  align-self: stretch;
+}
+
+.your-application-page-container {
+  @include set-flex(column, flex-start, flex-start);
+  align-self: stretch;
+  padding: 25px 100px;
+
+  app-searchbar {
+    margin-left: 250px;
+    margin-bottom: 35px;
+  }
+}

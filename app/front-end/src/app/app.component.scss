@@ -2,16 +2,16 @@
 
 :host {
   flex: 1;
-  @include expand-full();
+  @include set-flex(column, center, stretch);
 }
 
 :host ::ng-deep .app-container {
-  @include expand-full();
-  @include set-flex($direction: column, $justify: center, $align: stretch);
+  flex: 1;
+  @include set-flex(column, center, stretch);
 
   .supported-container {
     flex: 1;
-    @include set-flex($direction: column, $justify: flex-start, $align: stretch);
+    @include set-flex(column, flex-start, stretch);
 
     app-navbar {
       position: fixed;
@@ -22,7 +22,7 @@
 
     .main-container {
       flex: 1;
-      @include set-flex($direction: column, $justify: center, $align: center);
+      @include set-flex(column, center, center);
       margin-top: $app-navbar-height;
       background-color: $color-background-gray;
       padding: 0 25px;
@@ -54,12 +54,6 @@
           }
         }
       }
-
-      > router-outlet + * {
-        margin-top: 25px;
-        margin-bottom: 15px;
-      }
-
     }
   }
 
@@ -76,7 +70,7 @@
     }
 
     .unsupported-container {
-      @include set-flex($direction: column, $justify: center, $align: stretch);
+      @include set-flex(column, center, stretch);
     }
   }
 }

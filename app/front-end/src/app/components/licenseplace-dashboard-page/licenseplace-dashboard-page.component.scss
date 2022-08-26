@@ -1,18 +1,18 @@
 @import "~src/variables";
 
 :host {
-  @include expand-full();
   @include set-flex(column, flex-start, center);
   flex: 1;
+  align-self: stretch;
 }
 
-.homepage-container {
-  @include expand-full();
+.licenseplace-dashboard-page-container {
   @include set-flex(column, flex-start, flex-start);
-  padding: 0 20px;
+  align-self: stretch;
+  padding: 25px 20px;
 
   app-searchbar {
     margin-left: 250px;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
   }
 }

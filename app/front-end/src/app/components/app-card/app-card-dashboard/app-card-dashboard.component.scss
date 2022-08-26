@@ -1,6 +1,6 @@
-@import "~src/variables";
+@import "src/variables";
 
-:host ::ng-deep .app-card-container .p-card {
+:host ::ng-deep .app-card-dashboard-container .p-card {
   box-shadow: 0 0 1.5px 0 rgba(0, 0, 0, 0.045), 0 0 8.5px 0 rgba(0, 0, 0, 0.1);
   border: 1px solid $color-border-gray;
   border-radius: 12.5px;
