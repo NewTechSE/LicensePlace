@@ -1,0 +1,16 @@
+@import "~src/variables";
+
+:host {
+  @include set-flex(column, flex-start, center);
+  flex: 1;
+  align-self: stretch;
+}
+
+@import "~src/variables";
+
+:host ::ng-deep .license-tabview-container {
+  @include set-flex(column, flex-start, flex-start);
+  align-self: stretch;
+  flex: 1;
+
+}

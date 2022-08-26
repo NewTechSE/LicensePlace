@@ -54,6 +54,12 @@
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
       padding: 15px 25px;
+      @include set-flex(column, flex-start, stretch);
+
+      p-tabpanel, .p-tabview-panel {
+        flex: 1;
+        @include set-flex(column, flex-start, stretch);
+      }
     }
   }
 }

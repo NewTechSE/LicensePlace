@@ -7,8 +7,10 @@ import { RouterModule } from '@angular/router';
 import { PrimengModule } from '../primeng.module';
 import { AppCardDashboardComponent } from './app-card/app-card-dashboard/app-card-dashboard.component';
 import { AppCardOwnComponent } from './app-card/app-card-own/app-card-own.component';
+import { AppDialogComponent } from './app-dialog/app-dialog.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LicenseCardOwnComponent } from './license-card/license-card-own/license-card-own.component';
+import { LicenseDialogComponent } from './license-dialog/license-dialog.component';
 import {
   LicenseplaceDashboardPageComponent
 } from './licenseplace-dashboard-page/licenseplace-dashboard-page.component';
@@ -38,6 +40,8 @@ import { YourLicensePageComponent } from './your-license-page/your-license-page.
     LicenseCardOwnComponent,
     YourLicensePageComponent,
     LicenseTabviewComponent,
+    AppDialogComponent,
+    LicenseDialogComponent,
   ],
   imports: [
     CommonModule,

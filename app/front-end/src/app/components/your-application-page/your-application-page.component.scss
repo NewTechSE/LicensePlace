@@ -13,6 +13,21 @@
 
   app-searchbar {
     margin-left: 250px;
+    margin-bottom: 25px;
+  }
+
+  .create-new-application {
+    background: $color-primary;
+    font-size: 14px;
+    font-family: $font-family-tertiary;
     margin-bottom: 35px;
+
+    &:active {
+      @include outline-focus($color-focus-gray);
+    }
+
+    &:hover {
+      background: $color-primary-overlay;
+    }
   }
 }
