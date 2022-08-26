@@ -6,7 +6,8 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { PageNotFoundErrorModel } from './models/error.model';
 
 const routes: Routes = [
-  {path: AppRouteConstant.HOME, component: HomepageComponent},
+  {path: AppRouteConstant.HOME, redirectTo: AppRouteConstant.LICENSEPLACE_DASHBOARD, pathMatch: 'full'},
+  {path: AppRouteConstant.LICENSEPLACE_DASHBOARD, component: HomepageComponent},
   {path: AppRouteConstant.OTHER, component: ErrorPageComponent, data: PageNotFoundErrorModel.init()}
 ];
 

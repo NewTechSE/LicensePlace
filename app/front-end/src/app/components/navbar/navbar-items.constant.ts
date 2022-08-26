@@ -3,13 +3,13 @@ import { AppRouteConstant } from '../../common/app-route.constant';
 
 export const NavbarItems: MenuItem[] = [
   {
-    label: 'License Dashboard',
-    routerLink: [`/${AppRouteConstant.LICENSE_DASHBOARD}`]
+    label: 'Licenseplace Dashboard',
+    routerLink: [`/${AppRouteConstant.LICENSEPLACE_DASHBOARD}`]
   }, {
-    label: 'Buy License',
-    routerLink: [`/${AppRouteConstant.BUY_LICENSE}`]
+    label: 'Your Application',
+    routerLink: [`/${AppRouteConstant.YOUR_APPLICATION}`]
   }, {
-    label: 'Sell License',
-    routerLink: [`/${AppRouteConstant.SELL_LICENSE}`]
+    label: 'Your License',
+    routerLink: [`/${AppRouteConstant.YOUR_LICENSE}`]
   }
 ];
