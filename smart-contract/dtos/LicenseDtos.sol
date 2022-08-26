@@ -14,7 +14,7 @@ struct LicenseForSale {
     bytes32 cid;
 }
 
-enum LicenseState {ACTIVE, INACTIVE, SALE, EXPIRED}
+enum LicenseState {INACTIVE, ACTIVE, SALE, EXPIRED}
 
 struct LicenseInfo {
     uint256 tokenId;

@@ -124,34 +124,37 @@ contract("Application And License", () => {
     });
 
     describe("Application License", () => {
+
         it("Should let everyone buy license", async () => {
             const response = await license.buyLicense(
                 { from: random.address, value: web3.utils.toWei("25", "wei") }
             );
 
             const tokenId = (response.logs[0].args)["tokenId"]
+            const token = await license.getLicenseByTokenId(0)
             const ownerAddress = await license.ownerOf(tokenId);
+            expect(token.state).to.equal('0')
             expect(ownerAddress).to.equal(random.address);
         });
 
         it("Should not allow to buy if they don't pay", async () => {
             await expect(license.buyLicense({ from: random.address })).to.be.reverted;
         });
+        it("Should let user activate their license", async () => {
 
+            await license.activate(0, { from: random.address })
+            const token = await license.getLicenseByTokenId(0)
+            expect(token.state).to.equal('1')
+        })
         it("Should let user sell their license", async () => {
             await license.putLicenseForSale(
-                {
-                    tokenId: 0,
-                    price: web3.utils.toWei("5", "wei"),
-                    cid: newCid,
-                },
+                0, web3.utils.toWei("5", "wei"),
                 { from: random.address }
             );
 
-            const saleTokenIds = await license.getLicenseForSale();
-
-            expect(saleTokenIds.length).to.equal(1);
-            expect(saleTokenIds[0].toNumber()).to.equal(0);
+            const token = await license.getLicenseByTokenId(0)
+            expect(token.state).to.equal('2')
+            expect(token.price).to.equal('5')
         });
 
         it("Should let user buy license from another user", async () => {

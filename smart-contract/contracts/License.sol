@@ -68,47 +68,52 @@ contract License is ERC721, Pausable, Ownable {
             expiresOn: 0
         });
 
-
-        _safeMint(msg.sender, _tokenId);
+        _mint(msg.sender, _tokenId);
 
         _tokenIdCounter.increment();
 
         tokensMapping[_tokenId] = token;
     }
 
-    function activate(uint256 _tokenId) public onlyOwner {
+    function activate(uint256 _tokenId) public {
+        if (msg.sender != this.ownerOf(_tokenId)) {
+            revert UnauthorizedError();
+        }
+
         LicenseInfo storage token = tokensMapping[_tokenId];
         require(token.registeredOn != 0);
         require(token.state == LicenseState.INACTIVE);
 
         token.state = LicenseState.ACTIVE;
+        tokensMapping[_tokenId] = token;
         token.expiresOn = block.timestamp + LICENSE_LIFE_TIME;
     }
 
-    function verify(uint256 _tokenId)
-        public
-        view
-        returns (uint256 state)
-    {
+    function verify(uint256 _tokenId) public returns (uint256 state) {
         LicenseInfo memory token = tokensMapping[_tokenId];
-        require (msg.sender == this.ownerOf(_tokenId));
+        require(msg.sender == this.ownerOf(_tokenId));
         if (
             token.expiresOn < block.timestamp &&
             token.state == LicenseState.ACTIVE
         ) {
             token.state = LicenseState.EXPIRED;
+            tokensMapping[_tokenId] = token;
             return uint256(LicenseState.EXPIRED);
         }
 
         return uint256(token.state);
     }
 
-    function getLicenseByTokenId(uint256 _tokenId) public view returns (LicenseInfo memory) {
+    function getLicenseByTokenId(uint256 _tokenId)
+        public
+        view
+        returns (LicenseInfo memory)
+    {
         return tokensMapping[_tokenId];
     }
 
     function buyLicenseByTokenId(uint256 _tokenId) public payable {
-        if (!tokens.contains(_tokenId)) {
+        if (!_exists(_tokenId)) {
             revert NotExistedResourceError("tokenId");
         }
 
@@ -123,15 +128,25 @@ contract License is ERC721, Pausable, Ownable {
         tokenOwner.transfer(request.price);
     }
 
-    function putLicenseForSale(uint256 _tokenId, uint256 price) public whenNotPaused onlyOwner{
-       if (!tokens.contains(_tokenId)) {
+    function putLicenseForSale(uint256 _tokenId, uint256 _price)
+        public
+        whenNotPaused
+    {
+        if (msg.sender != this.ownerOf(_tokenId)) {
+            revert UnauthorizedError();
+        }
+        if (!_exists(_tokenId)) {
             revert NotExistedResourceError("tokenId");
-        } 
+        }
         LicenseInfo memory token = tokensMapping[_tokenId];
         require(token.state == LicenseState.ACTIVE);
         token.state = LicenseState.SALE;
-        token.price = price;
+        token.price = _price;
+
+        tokensMapping[_tokenId] = token;
+        
     }
+
     // function putLicenseInfo(LicenseInfo memory request) public whenNotPaused {
     //     if (msg.sender != this.ownerOf(request.tokenId)) {
     //         revert UnauthorizedError();
