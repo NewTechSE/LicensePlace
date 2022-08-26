@@ -1,13 +1,14 @@
 version: '3'
 
 services:
-  blockchain:
+  hardhat:
     build: ./smart-contract
     container_name: hardhat
     image: hardhat
     command: >
       sh -c "
-        npx hardhat node
+        npx hardhat node &&
+        npx hardhat run ./scripts/deploy.js
       "
     ports:
       - 8545:8545

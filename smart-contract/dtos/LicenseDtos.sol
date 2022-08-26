@@ -13,3 +13,14 @@ struct LicenseForSale {
     uint256 price;
     bytes32 cid;
 }
+
+enum LicenseState {ACTIVE, INACTIVE, SALE, EXPIRED}
+
+struct LicenseInfo {
+    uint256 tokenId;
+    uint256 price;
+    uint registeredOn;
+    uint expiresOn;
+    address owner;
+    LicenseState state;
+}

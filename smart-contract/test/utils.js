@@ -8,7 +8,7 @@ const to32ByteString = (hash) => {
 const from32ByteString = (ipfsHash) => {
     return bs58.encode(web3.utils.hexToBytes("0x1220"+ipfsHash.slice(2)))
 }
-
+console.log(to32ByteString("QmfLEpjnXrZoeC5gYFpPf6Frr3kpcy1aYbTioLH3KbjSJz"))
 module.export = {
     to32ByteString,
     from32ByteString
