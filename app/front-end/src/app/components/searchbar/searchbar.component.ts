@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { SizeEnum } from '../../enums/size.enum';
 
 @Component({
   selector: 'app-searchbar',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./searchbar.component.scss']
 })
 export class SearchbarComponent implements OnInit {
+  @Input() size: SizeEnum; // small medium
+  readonly SizeEnum = SizeEnum;
 
   constructor() {
   }

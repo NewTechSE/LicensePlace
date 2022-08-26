@@ -11,4 +11,10 @@
     padding: 7.5px 10px 7.5px 35px;
     width: 485px;
   }
+
+  &.small input {
+    font-size: 13px;
+    padding: 6.5px 10px 6.5px 35px;
+    width: 350px;
+  }
 }

@@ -1,0 +1,59 @@
+@import "~src/variables";
+
+:host {
+  @include set-flex(column, flex-start, center);
+  flex: 1;
+  align-self: stretch;
+}
+
+@import "~src/variables";
+
+:host ::ng-deep .your-license-page-container {
+  @include set-flex(column, flex-start, flex-start);
+  align-self: stretch;
+  flex: 1;
+  padding: 25px 85px;
+
+  .tabview-container, p-tabview, .p-tabview {
+    flex: 1;
+    align-self: stretch;
+    @include set-flex(column, flex-start, stretch);
+  }
+
+  .p-tabview {
+    border: 1px solid $color-border-gray;
+    border-radius: 5px;
+
+    .p-tabview-panels {
+      flex: 1;
+      min-height: 550px;
+    }
+
+    .p-tabview-nav-container {
+      .p-tabview-nav-content {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+
+      .p-tabview-nav {
+        font-family: $font-family-primary;
+        font-size: 14px;
+
+        .p-tabview-nav-link {
+          padding: 15px 25px;
+          border: 0;
+        }
+
+        .p-tabview-ink-bar, .p-highlight .p-tabview-nav-link {
+          color: $color-primary;
+        }
+      }
+    }
+
+    .p-tabview-panels {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      padding: 15px 25px;
+    }
+  }
+}
