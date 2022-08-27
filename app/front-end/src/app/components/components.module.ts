@@ -5,9 +5,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { PrimengModule } from '../primeng.module';
-import { AppCardDashboardComponent } from './app-card/app-card-dashboard/app-card-dashboard.component';
-import { AppCardOwnComponent } from './app-card/app-card-own/app-card-own.component';
-import { AppDialogComponent } from './app-dialog/app-dialog.component';
+import {
+  ApplicationCardDashboardComponent
+} from './application-card/application-card-dashboard/application-card-dashboard.component';
+import { ApplicationCardOwnComponent } from './application-card/application-card-own/application-card-own.component';
+import { AppDialogComponent } from './application-dialog/app-dialog.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LicenseCardOwnComponent } from './license-card/license-card-own/license-card-own.component';
 import { LicenseDialogComponent } from './license-dialog/license-dialog.component';
@@ -33,9 +35,9 @@ import { YourLicensePageComponent } from './your-license-page/your-license-page.
     SnackbarComponent,
     NavbarComponent,
     LicenseplaceDashboardPageComponent,
-    AppCardDashboardComponent,
+    ApplicationCardDashboardComponent,
     SearchbarComponent,
-    AppCardOwnComponent,
+    ApplicationCardOwnComponent,
     YourApplicationPageComponent,
     LicenseCardOwnComponent,
     YourLicensePageComponent,

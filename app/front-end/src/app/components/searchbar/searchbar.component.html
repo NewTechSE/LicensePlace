@@ -4,5 +4,6 @@
     pInputText
     type='text'
     placeholder='Enter search name, description, or tags, ...'
+    (input)="keywordChangedEmitter.emit($any($event).target.value)"
   />
 </span>

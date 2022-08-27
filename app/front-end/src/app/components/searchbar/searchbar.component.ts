@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SizeEnum } from '../../enums/size.enum';
 
 @Component({
@@ -6,14 +6,9 @@ import { SizeEnum } from '../../enums/size.enum';
   templateUrl: './searchbar.component.html',
   styleUrls: ['./searchbar.component.scss']
 })
-export class SearchbarComponent implements OnInit {
+export class SearchbarComponent {
   @Input() size: SizeEnum; // small medium
   readonly SizeEnum = SizeEnum;
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
+  @Output() keywordChangedEmitter = new EventEmitter<string>();
 }

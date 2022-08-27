@@ -1,4 +1,7 @@
 <div class="licenseplace-dashboard-page-container">
-  <app-searchbar></app-searchbar>
-  <app-app-card-dashboard></app-app-card-dashboard>
+  <app-searchbar (keywordChangedEmitter)="search($event)"></app-searchbar>
+  <div class="application-list-container">
+    <app-application-card-dashboard *ngFor="let application of applicationsFiltered" [item]="application">
+    </app-application-card-dashboard>
+  </div>
 </div>

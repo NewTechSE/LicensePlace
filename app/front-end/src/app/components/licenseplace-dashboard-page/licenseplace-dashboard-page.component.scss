@@ -7,12 +7,24 @@
 }
 
 .licenseplace-dashboard-page-container {
-  @include set-flex(column, flex-start, flex-start);
+  @include set-flex(column, flex-start, center);
   align-self: stretch;
   padding: 25px 20px;
 
   app-searchbar {
-    margin-left: 250px;
     margin-bottom: 35px;
+    margin-left: 25px;
+    align-self: flex-start;
+  }
+
+  .application-list-container {
+    @include set-flex(row, flex-start, flex-start);
+    flex-wrap: wrap;
+    align-self: stretch;
+
+    & > app-application-card-dashboard {
+      margin-bottom: 20px;
+      margin-left: 25px;
+    }
   }
 }

@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
 
 @Component({
-  selector: 'app-app-card-dashboard',
-  templateUrl: './app-card-dashboard.component.html',
-  styleUrls: ['./app-card-dashboard.component.scss']
+  selector: 'app-application-card-own',
+  templateUrl: './application-card-own.component.html',
+  styleUrls: ['./application-card-own.component.scss']
 })
-export class AppCardDashboardComponent {
+export class ApplicationCardOwnComponent {
   readonly AppSrcAssetsConstant = AppSrcAssetsConstant;
 
   constructor() {
