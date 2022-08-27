@@ -29,7 +29,7 @@ import { ToastModule } from 'primeng/toast';
     InputTextModule,
     PanelModule,
     TabViewModule,
-    DialogModule
+    DialogModule,
   ],
   providers: [
     MessageService

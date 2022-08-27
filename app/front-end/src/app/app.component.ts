@@ -5,7 +5,7 @@ import { AppRouteConstant } from './common/app-route.constant';
 import { SubscriptionAwareAbstractComponent } from './components/subscription-aware.abstract.component';
 
 import { NotSupportedErrorModel } from './models/error.model';
-import { MetamaskAccountService } from './services/metamask-account.service';
+import { BreadcrumbService } from './services/breadcrumb.service';
 
 @Component({
   selector: 'app-root',
@@ -21,14 +21,12 @@ export class AppComponent
     public titleService: Title,
     public router: Router,
     public route: ActivatedRoute,
-    public metamaskAccountService: MetamaskAccountService
+    public breadcrumbService: BreadcrumbService
   ) {
     super();
   }
 
   ngOnInit() {
     this.titleService.setTitle(AppRouteConstant.TAB_TITLE);
-
-    this.metamaskAccountService.bootstrap().then();
   }
 }

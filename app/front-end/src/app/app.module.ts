@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { HttpErrorHandlerInterceptor } from './interceptors/http-error-handler';
 import { LoadingInterceptor } from './interceptors/loading';
+import { PrimengModule } from './primeng.module';
 import { LoadingService } from './services/loading.service';
 import { SnackbarService } from './services/snackbar.service';
 
@@ -19,6 +20,7 @@ import { SnackbarService } from './services/snackbar.service';
     HttpClientModule,
     ComponentsModule,
     AppRoutingModule,
+    PrimengModule
   ],
   providers: [
     {

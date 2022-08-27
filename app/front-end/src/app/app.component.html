@@ -4,6 +4,7 @@
     <app-navbar></app-navbar>
     <div class='main-container'>
       <app-process-bar></app-process-bar>
+      <p-breadcrumb class='breadcrumb' [model]='breadcrumbService.breadcrumb.value'></p-breadcrumb>
       <router-outlet></router-outlet>
     </div>
   </div>
