@@ -35,6 +35,7 @@ contract("Application And License", () => {
     before(async () => {
         licensePlace = await deploy()
         const accounts = await getAccounts()
+        console.log(accounts)
         buyer = accounts.buyer
         publisher = accounts.publisher
         random = accounts.random
@@ -127,16 +128,19 @@ contract("Application And License", () => {
 
         it("Should let everyone buy license", async () => {
             const response = await license.buyLicense(
-                { from: random.address, value: web3.utils.toWei("25", "wei") }
+                { from: random.address, value: web3.utils.toWei("250", "ether") }
             );
-
             const tokenId = (response.logs[0].args)["tokenId"]
-            const token = await license.getLicenseByTokenId(0)
+            const token = await license.getLicenseByTokenId(tokenId)
             const ownerAddress = await license.ownerOf(tokenId);
             expect(token.state).to.equal('0')
             expect(ownerAddress).to.equal(random.address);
         });
+        it("Should let publisher withdraw money", async () => {
+            await license.withdraw({from: publisher.address});
+            expect(await web3.eth.getBalance(license.address)).to.equal('0')
 
+        })
         it("Should not allow to buy if they don't pay", async () => {
             await expect(license.buyLicense({ from: random.address })).to.be.reverted;
         });

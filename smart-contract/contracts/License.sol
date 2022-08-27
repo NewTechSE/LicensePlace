@@ -52,7 +52,7 @@ contract License is ERC721, Pausable, Ownable {
         _unpause();
     }
 
-    function buyLicense() public payable {
+    function buyLicense() public payable returns (uint256 _tokenId) {
         if (msg.value < this.price()) {
             revert InsufficientBalanceError(this.price(), msg.value);
         }
@@ -73,6 +73,12 @@ contract License is ERC721, Pausable, Ownable {
         _tokenIdCounter.increment();
 
         tokensMapping[_tokenId] = token;
+ 
+        return _tokenId;
+    }
+
+    function withdraw() public onlyOwner {
+        payable(this.owner()).transfer(address(this).balance);
     }
 
     function activate(uint256 _tokenId) public {
