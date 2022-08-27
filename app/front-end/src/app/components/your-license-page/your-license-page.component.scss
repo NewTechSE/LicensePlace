@@ -12,7 +12,22 @@
   @include set-flex(column, flex-start, flex-start);
   align-self: stretch;
   flex: 1;
-  padding: 25px 85px;
+  padding: 15px 85px;
+
+  .create-new-license {
+    background: $color-primary;
+    font-size: 13px;
+    font-family: $font-family-tertiary;
+    margin-bottom: 15px;
+
+    &:active {
+      @include outline-focus($color-focus-gray);
+    }
+
+    &:hover {
+      background: $color-primary-overlay;
+    }
+  }
 
   .tabview-container, p-tabview, .p-tabview {
     flex: 1;
@@ -54,11 +69,10 @@
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
       padding: 15px 25px;
-      @include set-flex(column, flex-start, stretch);
+
 
       p-tabpanel, .p-tabview-panel {
-        flex: 1;
-        @include set-flex(column, flex-start, stretch);
+
       }
     }
   }

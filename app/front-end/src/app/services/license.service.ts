@@ -53,4 +53,33 @@ export class LicenseService {
   getMyRemainLicenseTicketsInMarket(appAddress: string) {
     return 100;
   }
+
+  getMyLicenseTicketsInMarket() {
+    const licenseList: LicenseModel[] = [];
+    Array.from({length: 3}).forEach((_, i) => {
+      const license = new LicenseModel({
+        address: '0x' + i.toString(16),
+        updatedOn: '2019-01-01',
+        expiresOn: '2019-01-01',
+        status: 'selling',
+        symbol: 'Vip',
+        price: i,
+        ownerAddress: '0x' + i.toString(16),
+        applicationAddress: '0x' + i.toString(16),
+      });
+      licenseList.push(license);
+    });
+    return new Observable<LicenseModel[]>(observer => {
+      observer.next(licenseList);
+    });
+  }
+
+  getMyLicenseTicketsInUsage() {
+    return this.getMyLicenseTicketsInMarket();
+  }
+
+  getMyLicenseTicketsInOutdated() {
+    return this.getMyLicenseTicketsInMarket();
+  }
 }
+

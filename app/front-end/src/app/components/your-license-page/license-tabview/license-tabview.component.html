@@ -1,4 +1,8 @@
 <div class="license-tabview-container">
-  <app-searchbar [size]="SizeEnum.SMALL"></app-searchbar>
-  <app-license-card-own></app-license-card-own>
+  <app-searchbar [size]="SizeEnum.SMALL" (keywordChangedEmitter)="search($event)"
+                 placeholder="Search by license address and symbol or application address">
+  </app-searchbar>
+  <div class="license-list-container">
+    <app-license-card-own *ngFor="let license of licensesFiltered ?? []" [item]="license"></app-license-card-own>
+  </div>
 </div>
