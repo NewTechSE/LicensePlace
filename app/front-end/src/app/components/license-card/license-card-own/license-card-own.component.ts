@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
 
 @Component({
@@ -6,13 +6,7 @@ import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
   templateUrl: './license-card-own.component.html',
   styleUrls: ['./license-card-own.component.scss']
 })
-export class LicenseCardOwnComponent implements OnInit {
+export class LicenseCardOwnComponent {
   readonly AppSrcAssetsConstant = AppSrcAssetsConstant;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
 }

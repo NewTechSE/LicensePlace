@@ -13,8 +13,9 @@
   </div>
 
   <div class="action-group">
-    <button pButton class="view-detail-button" label="View Detail"></button>
-    <button pButton class="buy-license" label="Buy License"></button>
+    <button pButton class="view-detail-button" label="View Detail" (click)="onActionButtonClick('overview')"></button>
+    <button pButton class="buy-license" label="Buy License" (click)="onActionButtonClick('license-market')"></button>
   </div>
 </p-card>
+
 

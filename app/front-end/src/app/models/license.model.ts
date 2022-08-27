@@ -7,13 +7,13 @@ export interface ILicense {
 
   expiresOn: string;
   status: string;
-  category: string;
+  symbol: string;
   price: number;
 
   ownerAddress: string;
 
   applicationAddress: string;
-  application: ApplicationModel;
+  application?: ApplicationModel;
 }
 
 export class LicenseModel extends ObjectUtil.autoImplement<ILicense>() {
@@ -25,11 +25,11 @@ export class LicenseModel extends ObjectUtil.autoImplement<ILicense>() {
 
     this.expiresOn = licenseShape.expiresOn;
     this.status = licenseShape.status;
-    this.category = licenseShape.category;
+    this.symbol = licenseShape.symbol;
     this.price = licenseShape.price;
     this.ownerAddress = licenseShape.ownerAddress;
 
     this.applicationAddress = licenseShape.applicationAddress;
-    this.application = licenseShape.application;
+    this.application = licenseShape.application ?? null;
   }
 }

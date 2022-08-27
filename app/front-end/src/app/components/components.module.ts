@@ -9,8 +9,13 @@ import {
   ApplicationCardDashboardComponent
 } from './application-card/application-card-dashboard/application-card-dashboard.component';
 import { ApplicationCardOwnComponent } from './application-card/application-card-own/application-card-own.component';
+import { ApplicationDetailPageComponent } from './application-detail-page/application-detail-page.component';
 import { AppDialogComponent } from './application-dialog/app-dialog.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import {
+  LicenseCardDescriptionComponent
+} from './license-card/license-card-description/license-card-description.component';
+import { LicenseCardMarketComponent } from './license-card/license-card-market/license-card-market.component';
 import { LicenseCardOwnComponent } from './license-card/license-card-own/license-card-own.component';
 import { LicenseDialogComponent } from './license-dialog/license-dialog.component';
 import {
@@ -44,6 +49,9 @@ import { YourLicensePageComponent } from './your-license-page/your-license-page.
     LicenseTabviewComponent,
     AppDialogComponent,
     LicenseDialogComponent,
+    ApplicationDetailPageComponent,
+    LicenseCardDescriptionComponent,
+    LicenseCardMarketComponent,
   ],
   imports: [
     CommonModule,

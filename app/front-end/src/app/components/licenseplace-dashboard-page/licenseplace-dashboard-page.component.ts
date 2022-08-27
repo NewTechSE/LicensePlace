@@ -13,7 +13,7 @@ import { SubscriptionAwareAbstractComponent } from '../subscription-aware.abstra
   styleUrls: ['./licenseplace-dashboard-page.component.scss']
 })
 export class LicenseplaceDashboardPageComponent extends SubscriptionAwareAbstractComponent implements OnInit {
-  breadcrumb: MenuItem = {
+  static breadcrumb: MenuItem = {
     label: 'Licenseplace Dashboard',
     routerLink: [AppRouteConstant.LICENSEPLACE_DASHBOARD]
   };
@@ -30,7 +30,7 @@ export class LicenseplaceDashboardPageComponent extends SubscriptionAwareAbstrac
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.breadcrumbService.initBreadcrumb([this.breadcrumb]);
+      this.breadcrumbService.initBreadcrumb([LicenseplaceDashboardPageComponent.breadcrumb]);
     }, 0);
 
     this.applicationService.getApplications().subscribe({

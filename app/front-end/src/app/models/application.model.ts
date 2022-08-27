@@ -1,4 +1,5 @@
 import { ObjectUtil } from '../utils/object.util';
+import { LicenseTypeModel } from './license-type.model';
 import { LicenseModel } from './license.model';
 
 export interface IApplication {
@@ -17,6 +18,7 @@ export interface IApplication {
   shortDescription: string;
 
   licenses?: LicenseModel[];
+  licenseTypes: LicenseTypeModel[];
 }
 
 export class ApplicationModel extends ObjectUtil.autoImplement<IApplication>() {
@@ -38,11 +40,12 @@ export class ApplicationModel extends ObjectUtil.autoImplement<IApplication>() {
     this.shortDescription = applicationShape.shortDescription;
 
     this.licenses = applicationShape?.licenses ?? [];
+    this.licenseTypes = applicationShape?.licenseTypes ?? [];
   }
 
   public getLowestLicensePrice(): number {
-    return this.licenses?.reduce((acc, curr) => {
-      return acc.price < curr.price ? acc : curr;
-    }, this.licenses[0])?.price ?? 0;
+    return this.licenseTypes?.reduce((lowestPrice, licenseType) => {
+      return lowestPrice < licenseType.price ? lowestPrice : licenseType.price;
+    }, 0) ?? 0;
   }
 }

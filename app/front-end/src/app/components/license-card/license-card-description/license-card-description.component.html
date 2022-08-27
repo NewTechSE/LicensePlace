@@ -1,0 +1,10 @@
+<p-card class="license-card-description-container">
+  <p class="license-symbol">{{item.symbol}}</p>
+  <p class="license-price">
+    <img [src]="AppSrcAssetsConstant.ETH_LOGO" alt="eth-logo">
+    <span>{{item.price.toFixed(3)}}</span>
+  </p>
+  <p class="license-description">
+    {{item.description}}
+  </p>
+</p-card>

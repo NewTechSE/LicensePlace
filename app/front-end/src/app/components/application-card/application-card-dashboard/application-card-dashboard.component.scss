@@ -94,6 +94,7 @@
         font-family: $font-family-tertiary;
         font-size: 12.5px;
         border-radius: 0;
+        color: $color-on-primary;
 
         &:active {
           @include outline-focus($color-focus-gray);
@@ -104,6 +105,7 @@
         @extend .base-button;
         background-color: #979797;
         border-bottom-left-radius: 10px;
+        text-decoration: none;
 
         &:hover {
           background-color: #5d5d5d;
