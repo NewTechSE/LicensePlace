@@ -13,8 +13,9 @@
   </p>
   <p class="app-publish-on"><em>Publish on: {{item.publishOn}}</em></p>
   <div class="action-group">
-    <button pButton class="view-detail-button p-button-outlined">View Detail</button>
-    <button pButton class="view-license-button">View License</button>
+    <button pButton class="view-detail-button p-button-outlined" (click)="onViewDetailButtonClicked()">View Detail
+    </button>
+    <button pButton class="view-license-button" (click)="onViewLicenseButtonClicked()">View License</button>
   </div>
 </p-card>
 

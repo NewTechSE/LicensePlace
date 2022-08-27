@@ -16,7 +16,8 @@
   <p class="license-type">{{item.symbol}}</p>
   <p class="license-updated-on"><em>Updated on: {{item.updatedOn}}</em></p>
   <div class="action-group">
-    <button pButton class="view-detail-button p-button-outlined" label="View Detail"></button>
+    <button pButton class="view-detail-button p-button-outlined" label="View Detail"
+            (click)="onViewDetailButtonClicked()"></button>
   </div>
 </p-card>
 

@@ -23,4 +23,12 @@ export class ApplicationCardOwnComponent {
   getMyRemainLicense(): number {
     return this.licenseService.getMyRemainLicenseTicketsInMarket(this.item.address);
   }
+
+  onViewDetailButtonClicked(): void {
+    alert('View and update application information');
+  }
+
+  onViewLicenseButtonClicked(): void {
+    alert('View license list');
+  }
 }

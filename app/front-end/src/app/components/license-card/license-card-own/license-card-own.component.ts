@@ -28,4 +28,8 @@ export class LicenseCardOwnComponent implements OnInit {
       this.application = application;
     });
   }
+
+  onViewDetailButtonClicked(): void {
+    alert('View and update license information');
+  }
 }

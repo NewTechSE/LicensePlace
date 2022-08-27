@@ -18,4 +18,7 @@ export class LicenseCardMarketComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onBuyButtonClicked(): void {
+    alert('Buy license');
+  }
 }
