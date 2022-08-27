@@ -73,4 +73,8 @@ export class ApplicationService {
       }));
     });
   }
+
+  getMyApplications(): Observable<ApplicationModel[]> {
+    return this.getApplications();
+  }
 }

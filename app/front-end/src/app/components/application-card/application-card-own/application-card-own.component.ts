@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
+import { ApplicationModel } from '../../../models/application.model';
+import { LicenseService } from '../../../services/license.service';
 
 @Component({
   selector: 'app-application-card-own',
@@ -9,6 +11,16 @@ import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
 export class ApplicationCardOwnComponent {
   readonly AppSrcAssetsConstant = AppSrcAssetsConstant;
 
-  constructor() {
+  @Input() item: ApplicationModel;
+
+  constructor(public licenseService: LicenseService) {
+  }
+
+  getMyTotalLicense(): number {
+    return this.licenseService.getMyTotalLicenseTickets(this.item.address);
+  }
+
+  getMyRemainLicense(): number {
+    return this.licenseService.getMyRemainLicenseTicketsInMarket(this.item.address);
   }
 }

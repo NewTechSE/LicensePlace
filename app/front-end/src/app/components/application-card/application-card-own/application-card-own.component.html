@@ -1,20 +1,20 @@
 <p-card class="app-card-own-container">
-  <p class="app-name">Application Name</p>
+  <p class="app-name">{{item.name}}</p>
   <img [src]="AppSrcAssetsConstant.EMPTY_LOGO_APP_CARD" class="app-logo" alt="app-logo-card">
   <p class="app-address">
     <span class="app-address-label">Address:</span>
-    <span class="app-address-value">0x083498V5N340853908NVC23734HJDKV5</span>
+    <span class="app-address-value">{{item.address}}</span>
   </p>
   <p class="app-version">Version: 1.1.0</p>
-  <p class="app-short-description">Short description</p>
+  <p class="app-short-description">{{item.shortDescription}}</p>
   <p class="app-number-of-license">
     <span class="app-number-of-license-label">&#9940; Number of license: </span>
-    <span class="app-number-of-license-value">100/100</span>
+    <span class="app-number-of-license-value">{{getMyRemainLicense() + '/' + getMyTotalLicense()}}</span>
   </p>
-  <p class="app-publish-on"><em>Publish on: DD/MM/YYYY</em></p>
+  <p class="app-publish-on"><em>Publish on: {{item.publishOn}}</em></p>
   <div class="action-group">
     <button pButton class="view-detail-button p-button-outlined">View Detail</button>
-    <button pButton class="view-license">View License</button>
+    <button pButton class="view-license-button">View License</button>
   </div>
 </p-card>
 

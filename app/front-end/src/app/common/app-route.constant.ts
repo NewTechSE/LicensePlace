@@ -6,8 +6,8 @@ export class AppRouteConstant {
 
   static readonly HOME = '';
   static readonly LICENSEPLACE_DASHBOARD = 'licenseplace-dashboard';
-  static readonly YOUR_APPLICATION = 'Your Application';
-  static readonly YOUR_LICENSE = 'Your License';
+  static readonly YOUR_APPLICATION = 'your-application';
+  static readonly YOUR_LICENSE = 'your-license';
 
   static readonly PAGE_NOT_FOUND = 'page-not-found';
   static readonly OTHER = '**';

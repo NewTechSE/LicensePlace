@@ -45,4 +45,12 @@ export class LicenseService {
       observer.next(licenseList);
     });
   }
+
+  getMyTotalLicenseTickets(appAddress: string) {
+    return 1000;
+  }
+
+  getMyRemainLicenseTicketsInMarket(appAddress: string) {
+    return 100;
+  }
 }
