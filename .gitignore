@@ -89,7 +89,7 @@ build
 types
 
 # buidler
-artifacts
+# artifacts
 cache
 
 node_modules
