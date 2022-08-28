@@ -1,0 +1,30 @@
+@import "~src/variables";
+
+:host {
+  @include set-flex(column, flex-start, center);
+  flex: 1;
+  align-self: stretch;
+}
+
+.licenseplace-dashboard-page-container {
+  @include set-flex(column, flex-start, center);
+  align-self: stretch;
+  padding: 25px 20px;
+
+  app-searchbar {
+    margin-bottom: 35px;
+    margin-left: 25px;
+    align-self: flex-start;
+  }
+
+  .application-list-container {
+    @include set-flex(row, flex-start, flex-start);
+    flex-wrap: wrap;
+    align-self: stretch;
+
+    & > app-application-card-dashboard {
+      margin-bottom: 20px;
+      margin-left: 25px;
+    }
+  }
+}

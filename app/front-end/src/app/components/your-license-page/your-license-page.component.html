@@ -1,0 +1,15 @@
+<div class='your-license-page-container'>
+  <button pButton class="create-new-license" label="Create your new license"
+          (click)="onCreateLicenseButtonClicked()"></button>
+  <p-tabView>
+    <p-tabPanel header='License in Market'>
+      <app-license-tabview [licenses]="licenseTicketsInMarket"></app-license-tabview>
+    </p-tabPanel>
+    <p-tabPanel header='License in Usage'>
+      <app-license-tabview [licenses]="licenseTicketsInUsage"></app-license-tabview>
+    </p-tabPanel>
+    <p-tabPanel header='License in Outdated'>
+      <app-license-tabview [licenses]="licenseTicketsInOutdated"></app-license-tabview>
+    </p-tabPanel>
+  </p-tabView>
+</div>

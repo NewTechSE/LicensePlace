@@ -1,0 +1,24 @@
+<p-card class="license-card-own-container">
+  <p class="app-name">{{application.name}}</p>
+  <img [src]="AppSrcAssetsConstant.EMPTY_LOGO_APP_CARD" class="app-logo" alt="app-logo-card">
+  <p class="app-address">
+    <span class="app-address-label">App Address:</span>
+    <span class="app-address-value">{{application.address}}</span>
+  </p>
+  <p class="license-address">
+    <span class="app-address-label">License Address:</span>
+    <span class="app-address-value">{{item.address}}</span>
+  </p>
+  <p class="license-price">
+    <img [src]="AppSrcAssetsConstant.ETH_LOGO" alt="eth-logo">
+    <span>{{item.price.toFixed(3)}}</span>
+  </p>
+  <p class="license-type">{{item.symbol}}</p>
+  <p class="license-updated-on"><em>Updated on: {{item.updateOn}}</em></p>
+  <div class="action-group">
+    <button pButton class="view-detail-button p-button-outlined" label="View Detail"
+            (click)="onViewDetailButtonClicked()"></button>
+  </div>
+</p-card>
+
+
