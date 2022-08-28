@@ -5,6 +5,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { MessageModule } from 'primeng/message';
@@ -30,6 +31,7 @@ import { ToastModule } from 'primeng/toast';
     PanelModule,
     TabViewModule,
     DialogModule,
+    DynamicDialogModule
   ],
   providers: [
     MessageService

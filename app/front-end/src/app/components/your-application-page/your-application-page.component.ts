@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AppRouteConstant } from '../../common/app-route.constant';
 import { ApplicationModel } from '../../models/application.model';
 import { ApplicationService } from '../../services/application.service';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
 import { SnackbarService } from '../../services/snackbar.service';
+import { ApplicationDialogComponent } from '../application-dialog/application-dialog.component';
 import { SubscriptionAwareAbstractComponent } from '../subscription-aware.abstract.component';
 
 @Component({
   selector: 'app-your-application-page',
   templateUrl: './your-application-page.component.html',
-  styleUrls: ['./your-application-page.component.scss']
+  styleUrls: ['./your-application-page.component.scss'],
+  providers: [DialogService]
 })
 export class YourApplicationPageComponent extends SubscriptionAwareAbstractComponent implements OnInit {
   static breadcrumb: MenuItem = {
@@ -22,9 +25,12 @@ export class YourApplicationPageComponent extends SubscriptionAwareAbstractCompo
   keywordFilter: string = '';
   applicationsFiltered: ApplicationModel[] = [];
 
+  applicationDialog: DynamicDialogRef;
+
   constructor(public breadcrumbService: BreadcrumbService,
               public applicationService: ApplicationService,
-              public snackbarService: SnackbarService) {
+              public snackbarService: SnackbarService,
+              public dialogService: DialogService) {
     super();
   }
 
@@ -53,4 +59,11 @@ export class YourApplicationPageComponent extends SubscriptionAwareAbstractCompo
     });
   }
 
+  onCreateApplicationButtonClicked() {
+    this.applicationDialog = this.dialogService.open(ApplicationDialogComponent, {
+      header: 'Create Your Own Application',
+      width: '50vw',
+      baseZIndex: 10000,
+    });
+  }
 }

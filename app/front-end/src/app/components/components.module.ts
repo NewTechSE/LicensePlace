@@ -10,7 +10,7 @@ import {
 } from './application-card/application-card-dashboard/application-card-dashboard.component';
 import { ApplicationCardOwnComponent } from './application-card/application-card-own/application-card-own.component';
 import { ApplicationDetailPageComponent } from './application-detail-page/application-detail-page.component';
-import { AppDialogComponent } from './application-dialog/app-dialog.component';
+import { ApplicationDialogComponent } from './application-dialog/application-dialog.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import {
   LicenseCardDescriptionComponent
@@ -27,6 +27,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SubscriptionAwareAbstractComponent } from './subscription-aware.abstract.component';
+import { UserAccountPanelComponent } from './user-account-panel/user-account-panel.component';
 import { YourApplicationPageComponent } from './your-application-page/your-application-page.component';
 import { LicenseTabviewComponent } from './your-license-page/license-tabview/license-tabview.component';
 import { YourLicensePageComponent } from './your-license-page/your-license-page.component';
@@ -47,11 +48,12 @@ import { YourLicensePageComponent } from './your-license-page/your-license-page.
     LicenseCardOwnComponent,
     YourLicensePageComponent,
     LicenseTabviewComponent,
-    AppDialogComponent,
+    ApplicationDialogComponent,
     LicenseDialogComponent,
     ApplicationDetailPageComponent,
     LicenseCardDescriptionComponent,
     LicenseCardMarketComponent,
+    UserAccountPanelComponent,
   ],
   imports: [
     CommonModule,
@@ -68,6 +70,7 @@ import { YourLicensePageComponent } from './your-license-page/your-license-page.
     ProcessBarComponent,
     ProcessSpinnerComponent,
     SnackbarComponent,
+    UserAccountPanelComponent
   ],
 })
 export class ComponentsModule {

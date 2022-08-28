@@ -1,12 +1,20 @@
 <div class='app-container'>
-  <div class='supported-container'>
+  <div class='supported-container' *ngIf="providerService.provider | async">
     <app-snackbar></app-snackbar>
     <app-navbar></app-navbar>
     <div class='main-container'>
       <app-process-bar></app-process-bar>
       <p-breadcrumb class='breadcrumb' [model]='breadcrumbService.breadcrumb.value'></p-breadcrumb>
+      <app-user-account-panel [item]="account"></app-user-account-panel>
       <router-outlet></router-outlet>
     </div>
+  </div>
+  <div class="connect-your-metamask-account" *ngIf="!(providerService.provider | async)">
+    <img [src]="AppSrcAssetsConstant.ERROR_NOT_SUPPORTED" alt='' class="connect-your-metamask-waiting">
+    <app-process-spinner></app-process-spinner>
+    <h3 class='oops'>WE ARE TRYING TO CONNECT YOUR METAMASK WALLET</h3>
+    <p class='connect-des'>Please connect to your metamask account before using our <strong>Licenseplace</strong> dapp.
+    </p>
   </div>
   <div class='unsupported-container'>
     <app-error-page [error]='NotSupportedErrorModel.init()'></app-error-page>

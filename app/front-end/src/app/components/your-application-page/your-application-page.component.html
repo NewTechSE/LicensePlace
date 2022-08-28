@@ -1,7 +1,11 @@
 <div class="your-application-page-container">
   <app-searchbar (keywordChangedEmitter)="search($event)"
                  placeholder="Search by application address, name and description"></app-searchbar>
-  <button pButton class="create-new-application" label="Create your new application"></button>
+  <button pButton
+          class="create-new-application"
+          label="Create your new application"
+          (click)="onCreateApplicationButtonClicked()">
+  </button>
   <div class="application-list-container">
     <app-application-card-own *ngFor="let application of applicationsFiltered" [item]="application">
     </app-application-card-own>
