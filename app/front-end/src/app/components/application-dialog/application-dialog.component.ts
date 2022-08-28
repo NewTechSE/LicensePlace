@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ApplicationModel } from '../../models/application.model';
+import { IpfsService } from '../../services/ipfs.service';
+import { SnackbarService } from '../../services/snackbar.service';
+import { IpfsUtil } from '../../utils/ipfs.util';
 
 @Component({
   selector: 'app-application-dialog',
@@ -17,14 +20,17 @@ export class ApplicationDialogComponent implements OnInit {
 
   constructor(public ref: DynamicDialogRef,
               public config: DynamicDialogConfig,
-              public fb: FormBuilder) {
+              public fb: FormBuilder,
+              public snackbarService: SnackbarService,
+              public ipfsService: IpfsService) {
 
     this.applicationFormGroup = this.fb.group({
       name: ['', Validators.required],
       symbol: ['', Validators.required],
-      shortDescription: ['', Validators.required],
-      description: ['', Validators.required],
+      shortDescription: [''],
+      description: [''],
       logoCid: ['', Validators.required],
+      logo: [''],
     });
   }
 
@@ -37,7 +43,7 @@ export class ApplicationDialogComponent implements OnInit {
         symbol: this.data.symbol,
         shortDescription: this.data.shortDescription,
         description: this.data.description,
-        logoCid: this.data.logo
+        logoCid: IpfsUtil.cidToLink(this.data.cid),
       })
     }
   }
@@ -49,8 +55,20 @@ export class ApplicationDialogComponent implements OnInit {
     });
   }
 
-  onUploadLogoToIpfsButtonClicked() {
-    alert('Upload logo to IPFS');
+  onLogoFileChanged(event: any) {
+    const formFiles = event.target?.files;
+    if (!formFiles || formFiles?.length === 0) {
+      this.snackbarService.openErrorAnnouncement('Please select a logo file');
+      return;
+    }
+
+    const logoFile = formFiles[0];
+    this.patch('logo', logoFile);
+  }
+
+  async onUploadLogoToIpfsButtonClicked() {
+    const logoCid = await this.ipfsService.upload(this.applicationFormGroup.get('logo').value);
+    this.patch('logoCid', logoCid);
   }
 
   onResetButtonClicked() {
@@ -60,7 +78,7 @@ export class ApplicationDialogComponent implements OnInit {
         symbol: this.data.symbol,
         shortDescription: this.data.shortDescription,
         description: this.data.description,
-        logoCid: this.data.logo
+        logoCid: IpfsUtil.cidToLink(this.data.cid),
       })
     } else {
       this.applicationFormGroup.reset();
@@ -70,6 +88,14 @@ export class ApplicationDialogComponent implements OnInit {
   onSaveButtonClicked() {
     this.applicationFormGroup.markAllAsTouched();
     this.markFormDirty();
+
+    if (this.applicationFormGroup.invalid) {
+      this.snackbarService.openErrorAnnouncement('Please fill all required fields');
+      return;
+    }
+
+    alert('Save application');
+
   }
 
   markFormDirty() {

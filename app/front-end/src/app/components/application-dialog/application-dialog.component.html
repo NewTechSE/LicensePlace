@@ -12,13 +12,13 @@
   </div>
 
   <span class='p-field app-short-des-input-wrapper'>
-      <label for='app-short-des-input'>Application Short Description<span>*</span>:</label>
+      <label for='app-short-des-input'>Application Short Description:</label>
       <input type='text' id='app-short-des-input' formControlName="shortDescription" pInputText
              placeholder='Application short description'/>
     </span>
 
   <span class='p-field app-des-input-wrapper'>
-      <label for='app-des-input'>Application Description<span>*</span>:</label>
+      <label for='app-des-input'>Application Description:</label>
       <textarea pInputTextarea id='app-des-input' formControlName="description" placeholder='Application description'
                 [autoResize]="true"
                 [rows]="4"></textarea>
@@ -29,9 +29,11 @@
     <label for='app-logo-cid-input'>Application Logo<span>*</span>:</label>
     <input type='text' id='app-logo-cid-input' formControlName="logoCid" pInputText readonly
            placeholder='Application logo CID'/>
-    <input type='file' pInputText/>
+    <input type='file' (change)="onLogoFileChanged($event)" pInputText/>
   </span>
-    <button pButton class="p-button-outlined upload-to-ipfs-btn">Upload this logo to IPFS</button>
+    <button pButton class="p-button-outlined upload-to-ipfs-btn" (click)="onUploadLogoToIpfsButtonClicked()"
+            type="button">Upload this logo to IPFS
+    </button>
   </div>
 
   <div class="action-btn-groups">

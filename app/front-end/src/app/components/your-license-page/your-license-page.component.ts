@@ -3,8 +3,9 @@ import { MenuItem } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AppRouteConstant } from '../../common/app-route.constant';
 import { LicenseModel } from '../../models/license.model';
+import { AccountService } from '../../services/account.service';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
-import { LicenseService } from '../../services/license.service';
+import { LicenseplaceService } from '../../services/licenseplace.service';
 import { LicenseDialogComponent } from '../license-dialog/license-dialog.component';
 import { SubscriptionAwareAbstractComponent } from '../subscription-aware.abstract.component';
 
@@ -27,7 +28,8 @@ export class YourLicensePageComponent extends SubscriptionAwareAbstractComponent
   licenseDialog: DynamicDialogRef;
 
   constructor(public breadcrumbService: BreadcrumbService,
-              public licenseService: LicenseService,
+              public licenseplaceService: LicenseplaceService,
+              public accountService: AccountService,
               public dialogService: DialogService) {
     super();
   }
@@ -37,16 +39,11 @@ export class YourLicensePageComponent extends SubscriptionAwareAbstractComponent
       this.breadcrumbService.initBreadcrumb([YourLicensePageComponent.breadcrumb]);
     }, 0);
 
-    this.licenseService.getMyLicenseTicketsInMarket().subscribe(licenseTickets => {
-      this.licenseTicketsInMarket = licenseTickets;
-    });
-
-    this.licenseService.getMyLicenseTicketsInUsage().subscribe(licenseTickets => {
-      this.licenseTicketsInUsage = licenseTickets;
-    });
-
-    this.licenseService.getMyLicenseTicketsInOutdated().subscribe(licenseTickets => {
-      this.licenseTicketsInOutdated = licenseTickets;
+    const licenses = [];
+    Object.values(this.licenseplaceService.licenseplace.value.applications).forEach(app => {
+      Object.values(app.licenses).forEach(license => {
+        license.publisher === this.accountService.account.value.address && licenses.push(license);
+      });
     });
   }
 

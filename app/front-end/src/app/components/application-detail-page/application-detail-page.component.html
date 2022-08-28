@@ -1,4 +1,4 @@
-<div class="application-detail-page-container">
+<div class="application-detail-page-container" *ngIf="application">
   <div class="app-general-container">
     <img [src]="AppSrcAssetsConstant.EMPTY_LOGO_APP_CARD" alt="app-logo" class="app-logo">
     <div class="general-info">
@@ -19,12 +19,13 @@
         <div class="overview-tabview">
           <p class="app-description">
             <span class="label">Description Application:</span>
-            <span class="value">{{application.description}}</span>
+            <span class="value">{{application?.description}}</span>
           </p>
           <div class="app-license">
             <p class="label">License Description:</p>
             <div class="list-container">
-              <app-license-card-description *ngFor="let licenseType of licenseTypes ?? []" [item]="licenseType">
+              <app-license-card-description *ngFor="let license of Object.values(application.licenses) ?? []"
+                                            [item]="license">
               </app-license-card-description>
             </div>
           </div>
@@ -34,8 +35,9 @@
         <div class="license-market-tabview">
           <app-searchbar [size]="SizeEnum.SMALL" (keywordChangedEmitter)="search($event)"></app-searchbar>
           <div class="list-container">
-            <app-license-card-market *ngFor="let license of licenseInMarketFiltered ?? []"
-                                     [item]="license"></app-license-card-market>
+            <app-license-card-market *ngFor="let license of licenseFiltered ?? []"
+                                     [item]="license">
+            </app-license-card-market>
           </div>
         </div>
       </p-tabPanel>

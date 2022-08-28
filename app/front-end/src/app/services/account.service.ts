@@ -12,16 +12,18 @@ export class AccountService {
   constructor(public providerService: ProviderService) {
   }
 
-  async getAccountInformation() {
+  async getAccountInformation(): Promise<void> {
     const provider = this.providerService.provider.value;
     const signer = this.providerService.singer.value;
 
     if (!signer) return null;
-    return new AccountModel({
+    const account = new AccountModel({
       address: await signer.getAddress(),
       balance: await signer.getBalance(),
       numberOfTransactions: await signer.getTransactionCount(),
       numberOfBlock: await provider.getBlockNumber(),
     })
+
+    this.account.next(account);
   }
 }

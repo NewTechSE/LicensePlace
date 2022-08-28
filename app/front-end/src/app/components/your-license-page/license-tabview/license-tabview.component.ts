@@ -14,7 +14,7 @@ export class LicenseTabviewComponent extends SubscriptionAwareAbstractComponent 
 
   @Input() licenses: LicenseModel[] = [];
 
-  keywordFilter: string = '';
+  searchFilter: string = '';
   licensesFiltered: LicenseModel[] = [];
 
   constructor() {
@@ -35,17 +35,18 @@ export class LicenseTabviewComponent extends SubscriptionAwareAbstractComponent 
 
     if (changedRes) {
       this.licenses = changes['licenses'].currentValue ?? [];
-      this.search(this.keywordFilter);
+      this.search(this.searchFilter);
     }
   }
 
   search(keyword: string) {
-    this.keywordFilter = keyword;
-    this.licensesFiltered = this.licenses.filter(license => {
-      return license.address?.toLowerCase().includes(keyword.toLowerCase())
-        || license.applicationAddress?.toLowerCase().includes(keyword.toLowerCase())
-        || license.symbol?.toLowerCase().includes(keyword.toLowerCase());
-    });
+    this.searchFilter = keyword;
+    this.licensesFiltered = this.licenses.filter(license => (
+      license.name.toLowerCase().includes(keyword.toLowerCase())
+      || license.symbol.toLowerCase().includes(keyword.toLowerCase())
+      || license.price.toString().includes(keyword)
+      || license.publisher.toLowerCase().includes(keyword.toLowerCase())
+    ));
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
-import { LicenseTypeModel } from '../../../models/license-type.model';
+import { LicenseModel } from '../../../models/license.model';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { LicenseTypeModel } from '../../../models/license-type.model';
 })
 export class LicenseCardDescriptionComponent implements OnInit {
   readonly AppSrcAssetsConstant = AppSrcAssetsConstant;
-  @Input() item: LicenseTypeModel;
+  @Input() item: LicenseModel;
 
   constructor() {
   }

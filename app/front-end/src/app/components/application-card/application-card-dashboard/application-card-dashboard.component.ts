@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import moment from 'moment';
 import { AppRouteConstant } from '../../../common/app-route.constant';
 import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
 import { ApplicationModel } from '../../../models/application.model';
+import { IpfsUtil } from '../../../utils/ipfs.util';
 
 @Component({
   selector: 'app-application-card-dashboard',
@@ -12,6 +14,8 @@ import { ApplicationModel } from '../../../models/application.model';
 export class ApplicationCardDashboardComponent {
   readonly AppSrcAssetsConstant = AppSrcAssetsConstant;
   readonly AppRouteConstant = AppRouteConstant;
+  readonly IpfsUtil = IpfsUtil;
+  readonly moment = moment;
 
   @Input() item: ApplicationModel;
 

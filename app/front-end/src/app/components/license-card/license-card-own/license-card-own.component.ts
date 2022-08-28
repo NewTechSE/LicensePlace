@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
 import { ApplicationModel } from '../../../models/application.model';
 import { LicenseModel } from '../../../models/license.model';
-import { ApplicationService } from '../../../services/application.service';
+import { LicenseplaceService } from '../../../services/licenseplace.service';
 
 @Component({
   selector: 'app-license-card-own',
@@ -16,7 +16,7 @@ export class LicenseCardOwnComponent implements OnInit {
 
   application: ApplicationModel;
 
-  constructor(public applicationService: ApplicationService) {
+  constructor(public licenseplaceService: LicenseplaceService) {
   }
 
   ngOnInit(): void {
@@ -24,9 +24,7 @@ export class LicenseCardOwnComponent implements OnInit {
   }
 
   getApplication() {
-    this.applicationService.getApplication(this.item.applicationAddress).subscribe(application => {
-      this.application = application;
-    });
+    this.application = Object.values(this.licenseplaceService.licenseplace.value.applications).find(app => app.licenses[this.item.address]);
   }
 
   onViewDetailButtonClicked(): void {

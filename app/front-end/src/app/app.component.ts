@@ -9,6 +9,7 @@ import { AccountModel } from './models/account.model';
 import { NotSupportedErrorModel } from './models/error.model';
 import { AccountService } from './services/account.service';
 import { BreadcrumbService } from './services/breadcrumb.service';
+import { LicenseplaceService } from './services/licenseplace.service';
 import { ProviderService } from './services/provider.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class AppComponent
     public route: ActivatedRoute,
     public breadcrumbService: BreadcrumbService,
     public providerService: ProviderService,
+    public licenseplaceService: LicenseplaceService,
     public accountService: AccountService
   ) {
     super();
@@ -39,14 +41,16 @@ export class AppComponent
     this.titleService.setTitle(AppRouteConstant.TAB_TITLE);
 
     // TODO: delay here because i dont find any solution when start app blinks
-    setTimeout(() => {
-      this.providerService.connect().then();
+    setTimeout(async () => {
+      await this.providerService.connect();
+      await this.accountService.getAccountInformation();
+      await this.licenseplaceService.loadLicenseplace();
     }, 1500);
 
 
     this.registerSubscription(
-      this.providerService.singer.subscribe(async () => {
-        this.account = await this.accountService.getAccountInformation();
+      this.accountService.account.subscribe(account => {
+        this.account = account;
       })
     );
   }

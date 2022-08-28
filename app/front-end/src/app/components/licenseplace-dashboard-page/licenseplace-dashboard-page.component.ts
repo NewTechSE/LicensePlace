@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { AppRouteConstant } from '../../common/app-route.constant';
 import { ApplicationModel } from '../../models/application.model';
-import { ApplicationService } from '../../services/application.service';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { LicenseplaceService } from '../../services/licenseplace.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { SubscriptionAwareAbstractComponent } from '../subscription-aware.abstract.component';
 
@@ -19,11 +19,12 @@ export class LicenseplaceDashboardPageComponent extends SubscriptionAwareAbstrac
   };
 
   applications: ApplicationModel[] = [];
-  keywordFilter: string = '';
+
+  searchKeyword: string = '';
   applicationsFiltered: ApplicationModel[] = [];
 
   constructor(public breadcrumbService: BreadcrumbService,
-              public applicationService: ApplicationService,
+              public licenseplaceService: LicenseplaceService,
               public snackbarService: SnackbarService) {
     super();
   }
@@ -33,23 +34,28 @@ export class LicenseplaceDashboardPageComponent extends SubscriptionAwareAbstrac
       this.breadcrumbService.initBreadcrumb([LicenseplaceDashboardPageComponent.breadcrumb]);
     }, 0);
 
-    this.applicationService.getApplications().subscribe({
-      next: (applications: ApplicationModel[]) => {
-        this.applications = applications;
-        this.search(this.keywordFilter);
-      },
-      error: (error: any) => {
-        this.snackbarService.openRequestErrorAnnouncement(error);
-      }
-    });
+    this.registerSubscription(
+      this.licenseplaceService.licenseplace.subscribe(licenseplace => {
+        if (licenseplace && licenseplace.applications) {
+          this.applications = Object.values(licenseplace.applications);
+          this.search(this.searchKeyword);
+        } else {
+          this.applications = [];
+        }
+      })
+    );
   }
 
   search(keyword: string) {
-    this.keywordFilter = keyword;
-    this.applicationsFiltered = this.applications.filter(application => {
-      return application.name?.toLowerCase().includes(keyword.toLowerCase())
-        || application.description?.toLowerCase().includes(keyword.toLowerCase())
-        || application.address?.toLowerCase().includes(keyword.toLowerCase());
+    this.searchKeyword = keyword;
+    this.applicationsFiltered = this.applications.filter(app => {
+      return app.name.toLowerCase().includes(keyword.toLowerCase())
+        || app.symbol.toLowerCase().includes(keyword.toLowerCase())
+        || app.description.toLowerCase().includes(keyword.toLowerCase())
+        || app.publisher.toLowerCase().includes(keyword.toLowerCase())
+        || app.publisherName.toLowerCase().includes(keyword.toLowerCase())
+        || app.version.toLowerCase().includes(keyword.toLowerCase())
+        || app.address.toLowerCase().includes(keyword.toLowerCase())
     });
   }
 

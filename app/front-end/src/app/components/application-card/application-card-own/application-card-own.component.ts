@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
+import moment from 'moment';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
 import { ApplicationModel } from '../../../models/application.model';
 import { LicenseService } from '../../../services/license.service';
+import { IpfsUtil } from '../../../utils/ipfs.util';
 import { ApplicationDialogComponent } from '../../application-dialog/application-dialog.component';
 
 @Component({
@@ -13,6 +15,8 @@ import { ApplicationDialogComponent } from '../../application-dialog/application
 })
 export class ApplicationCardOwnComponent {
   readonly AppSrcAssetsConstant = AppSrcAssetsConstant;
+  readonly IpfsUtil = IpfsUtil;
+  readonly moment = moment;
 
   @Input() item: ApplicationModel;
 
@@ -23,11 +27,11 @@ export class ApplicationCardOwnComponent {
   }
 
   getMyTotalLicense(): number {
-    return this.licenseService.getMyTotalLicenseTickets(this.item.address);
+    return 1000;
   }
 
   getMyRemainLicense(): number {
-    return this.licenseService.getMyRemainLicenseTicketsInMarket(this.item.address);
+    return 100;
   }
 
   onViewDetailButtonClicked(): void {

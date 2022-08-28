@@ -1,8 +1,8 @@
-<p-card class="license-card-market-container">
+<p-card class="license-card-market-container" *ngIf="item">
   <img [src]="AppSrcAssetsConstant.EMPTY_LOGO_APP_CARD" class="app-logo" alt="app-logo-card">
   <p class="license-address">
     <span class="license-address-label">License Address:</span>
-    <span class="license-address-value">{{item?.address}}</span>
+    <span class="license-address-value">{{item.address}}</span>
   </p>
   <p class="owner-address">
     <span class="owner-address-label">Owner Address:</span>
@@ -13,7 +13,7 @@
     <span>{{item.price.toFixed(3)}}</span>
   </p>
   <p class="license-symbol">Vip</p>
-  <p class="license-updated-on"><em>Updated on: {{item.updatedOn}}</em></p>
+  <p class="license-updated-on"><em>Updated on: {{item.updateOn}}</em></p>
   <div class="action-group">
     <button pButton class="buy-button p-button-outlined" label="Buy" (click)="onBuyButtonClicked()"></button>
   </div>
