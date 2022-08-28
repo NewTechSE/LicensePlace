@@ -1,5 +1,6 @@
 <div class='your-license-page-container'>
-  <button pButton class="create-new-license" label="Create your new license"></button>
+  <button pButton class="create-new-license" label="Create your new license"
+          (click)="onCreateLicenseButtonClicked()"></button>
   <p-tabView>
     <p-tabPanel header='License in Market'>
       <app-license-tabview [licenses]="licenseTicketsInMarket"></app-license-tabview>

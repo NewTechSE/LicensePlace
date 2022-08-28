@@ -64,7 +64,6 @@ export class ApplicationDialogComponent implements OnInit {
       })
     } else {
       this.applicationFormGroup.reset();
-      console.log('reset');
     }
   }
 

@@ -1,1 +1,55 @@
-<p>license-dialog works!</p>
+<form class="license-dialog-form-container">
+  <span class='p-field app-name-input-wrapper'>
+      <label for='app-name-input'>Application Name<span>*</span>:</label>
+      <input type='text' id='app-name-input' pInputText placeholder='Application name'/>
+  </span>
+
+  <div class="license-name-and-symbol-wrapper">
+    <span class='p-field license-name-input-wrapper'>
+      <label for='license-name-input'>License Name<span>*</span>:</label>
+      <input type='text' id='license-name-input' pInputText placeholder='License name'/>
+    </span>
+
+    <span class='p-field license-symbol-input-wrapper'>
+      <label for='license-symbol-input'>License Symbol <span>*</span>:</label>
+      <input type='text' id='license-symbol-input' pInputText placeholder='License symbol'/>
+    </span>
+  </div>
+
+  <div class="license-price-and-selling-wrapper">
+    <span class='p-field license-price-input-wrapper'>
+      <label for='license-price-input'>License Price<span>*</span>:</label>
+      <input type='text' id='license-price-input' pInputText placeholder='License price'/>
+  </span>
+
+    <span class='p-field license-selling-input-wrapper'>
+      <label for='license-selling-input'>License Price<span>*</span>:</label>
+      <p-inputSwitch id='license-selling-input'></p-inputSwitch>
+  </span>
+  </div>
+
+
+  <span class='p-field license-des-input-wrapper'>
+      <label for='license-des-input'>License Description<span>*</span>:</label>
+      <textarea pInputTextarea id='license-des-input' placeholder='License description'
+                [autoResize]="true"
+                [rows]="4"></textarea>
+  </span>
+
+  <div class="license-logo-input-and-upload-wrapper">
+    <span class='p-field license-logo-input-wrapper'>
+    <label for='license-logo-cid-input'>License Logo<span>*</span>:</label>
+    <input type='text' id='license-logo-cid-input' pInputText readonly
+           placeholder='License logo CID'/>
+    <input type='file' pInputText/>
+  </span>
+    <button pButton class="p-button-outlined upload-to-ipfs-btn">Upload this logo to IPFS</button>
+  </div>
+
+
+  <div class="action-btn-groups">
+    <button pButton class="reset-button p-button-outlined" type="button" label="Reset"></button>
+    <button pButton class="save-button" type="submit" label="Save"></button>
+  </div>
+
+</form>

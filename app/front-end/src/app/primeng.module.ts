@@ -5,7 +5,10 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenubarModule } from 'primeng/menubar';
@@ -33,7 +36,10 @@ import { ToastModule } from 'primeng/toast';
     TabViewModule,
     DialogModule,
     DynamicDialogModule,
-    InputTextareaModule
+    InputTextareaModule,
+    DropdownModule,
+    InputSwitchModule,
+    FileUploadModule
   ],
   providers: [
     MessageService
