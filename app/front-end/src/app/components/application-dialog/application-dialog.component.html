@@ -1,39 +1,43 @@
-<form class="application-dialog-form-container">
+<form class="application-dialog-form-container" [formGroup]="applicationFormGroup" (ngSubmit)="onSaveButtonClicked()">
   <div class="app-name-and-symbol-wrapper">
     <span class='p-field app-name-input-wrapper'>
-      <label for='app-name-input'>Application Name:</label>
-      <input type='text' id='app-name-input' pInputText placeholder='Application name'/>
+      <label for='app-name-input'>Application Name<span>*</span>:</label>
+      <input type='text' id='app-name-input' formControlName="name" pInputText placeholder='Application name'/>
     </span>
 
     <span class='p-field app-symbol-input-wrapper'>
-      <label for='app-symbol-input'>Application Symbol:</label>
-      <input type='text' id='app-symbol-input' pInputText placeholder='Application symbol'/>
+      <label for='app-symbol-input'>Application Symbol <span>*</span>:</label>
+      <input type='text' id='app-symbol-input' formControlName="symbol" pInputText placeholder='Application symbol'/>
     </span>
   </div>
 
   <span class='p-field app-short-des-input-wrapper'>
-      <label for='app-short-des-input'>Application Short Description:</label>
-      <input type='text' id='app-short-des-input' pInputText placeholder='Application short description'/>
+      <label for='app-short-des-input'>Application Short Description<span>*</span>:</label>
+      <input type='text' id='app-short-des-input' formControlName="shortDescription" pInputText
+             placeholder='Application short description'/>
     </span>
 
   <span class='p-field app-des-input-wrapper'>
-      <label for='app-des-input'>Application Description:</label>
-      <textarea pInputTextarea id='app-des-input' placeholder='Application description' [autoResize]="true"
+      <label for='app-des-input'>Application Description<span>*</span>:</label>
+      <textarea pInputTextarea id='app-des-input' formControlName="description" placeholder='Application description'
+                [autoResize]="true"
                 [rows]="4"></textarea>
   </span>
 
   <div class="app-logo-input-and-upload-wrapper">
     <span class='p-field app-logo-input-wrapper'>
-    <label for='app-logo-cid-input'>Application Logo:</label>
-    <input type='text' id='app-logo-cid-input' pInputText readonly placeholder='Application Logo CID'/>
+    <label for='app-logo-cid-input'>Application Logo<span>*</span>:</label>
+    <input type='text' id='app-logo-cid-input' formControlName="logoCid" pInputText readonly
+           placeholder='Application logo CID'/>
     <input type='file' pInputText/>
   </span>
     <button pButton class="p-button-outlined upload-to-ipfs-btn">Upload this logo to IPFS</button>
   </div>
 
   <div class="action-btn-groups">
-    <button pButton class="reset-button p-button-outlined" label="Reset"></button>
-    <button pButton class="save-button" label="Save"></button>
+    <button pButton class="reset-button p-button-outlined" type="button" label="Reset"
+            (click)="onResetButtonClicked()"></button>
+    <button pButton class="save-button" type="submit" label="Save"></button>
   </div>
 
 </form>

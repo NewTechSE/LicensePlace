@@ -6,6 +6,7 @@ export interface IApplication {
   address: string;
   name: string;
   cid: string;
+  symbol: string;
   publishOn: string;
 
   logo: string;
@@ -28,6 +29,7 @@ export class ApplicationModel extends ObjectUtil.autoImplement<IApplication>() {
     this.address = applicationShape.address;
     this.name = applicationShape.name;
     this.cid = applicationShape.cid;
+    this.symbol = applicationShape.symbol;
     this.publishOn = applicationShape.publishOn;
 
     this.logo = applicationShape.logo;
