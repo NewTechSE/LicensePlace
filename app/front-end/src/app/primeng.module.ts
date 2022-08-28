@@ -7,6 +7,7 @@ import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenubarModule } from 'primeng/menubar';
 import { MessageModule } from 'primeng/message';
 import { PanelModule } from 'primeng/panel';
@@ -31,7 +32,8 @@ import { ToastModule } from 'primeng/toast';
     PanelModule,
     TabViewModule,
     DialogModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    InputTextareaModule
   ],
   providers: [
     MessageService

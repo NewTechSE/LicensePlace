@@ -1,12 +1,116 @@
-:host ::ng-deep .p-button {
-  margin: 0 .5rem 0 0;
-  min-width: 10rem;
-}
+@import "~src/variables";
 
-p {
-  margin: 0;
-}
+:host ::ng-deep .application-dialog-form-container {
+  @include set-flex(column, flex-start, stretch);
+  font-family: $font-family-tertiary;
 
-:host ::ng-deep .p-dialog .p-button {
-  min-width: 6rem;
+  .base-button {
+    font-family: $font-family-tertiary;
+    font-size: 12.5px;
+    border-radius: 5px;
+
+    &:active {
+      @include outline-focus($color-focus-gray);
+    }
+
+    &:not(:last-child) {
+      margin-right: 5.5px;
+    }
+  }
+
+  .app-name-and-symbol-wrapper, .app-logo-input-and-upload-wrapper {
+    @include set-flex(row, space-between, flex-start);
+
+    & > *:not(:last-child) {
+      margin-right: 15px;
+    }
+
+    .app-name-input-wrapper {
+      flex: 8;
+    }
+
+    .app-logo-input-wrapper {
+      flex: 9;
+    }
+
+    .app-symbol-input-wrapper {
+      flex: 4;
+    }
+
+    .upload-to-ipfs-btn {
+      flex: 3;
+    }
+
+    .upload-to-ipfs-btn {
+      align-self: flex-end;
+      margin-bottom: 22.5px;
+    }
+  }
+
+  .p-field {
+    margin-bottom: 22.5px;
+
+    & * {
+      display: block;
+      width: 100%;
+    }
+
+    label {
+      margin-bottom: 2.5px;
+      font-size: 13.5px;
+      color: $color-on-background-gray-dark;
+    }
+
+    input, textarea {
+      padding: 10.5px 15px;
+      font-size: 15px;
+      background: rgba(245, 245, 245, 0.8);
+    }
+
+    //&.app-logo-input-wrapper {
+    //  align-self: flex-start;
+    //
+    //  & * {
+    //    width: 250px;
+    //  }
+    //}
+  }
+
+  .upload-to-ipfs-btn {
+    @extend .base-button;
+    color: $color-primary;
+
+    &:hover {
+      background-color: $color-primary-mask;
+      color: #fff;
+    }
+  }
+
+  #app-logo-cid-input {
+    margin-bottom: 15px;
+  }
+
+  .action-btn-groups {
+    align-self: flex-end;
+
+    .reset-button {
+      @extend .base-button;
+      color: $color-on-background-gray-dark;
+
+      &:hover {
+        background-color: #5d5d5d;
+        color: #fff;
+      }
+    }
+
+    .save-button {
+      @extend .base-button;
+      background-color: $color-primary;
+      flex: 1;
+
+      &:hover {
+        background-color: $color-primary-overlay;
+      }
+    }
+  }
 }
