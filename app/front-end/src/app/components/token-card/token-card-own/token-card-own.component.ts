@@ -4,6 +4,7 @@ import { ApplicationModel } from '../../../models/application.model';
 import { LicenseModel, TokenModel, TokenStateEnum } from '../../../models/license.model';
 import { LicenseService } from '../../../services/license.service';
 import { LicenseplaceService } from '../../../services/licenseplace.service';
+import { IpfsUtil } from '../../../utils/ipfs.util';
 import { SubscriptionAwareAbstractComponent } from '../../subscription-aware.abstract.component';
 
 @Component({
@@ -13,6 +14,8 @@ import { SubscriptionAwareAbstractComponent } from '../../subscription-aware.abs
 })
 export class TokenCardOwnComponent extends SubscriptionAwareAbstractComponent implements OnInit {
   readonly AppSrcAssetsConstant = AppSrcAssetsConstant;
+  readonly TokenModel = TokenModel;
+  readonly IpfsUtil = IpfsUtil;
   readonly TokenStateEnum = TokenStateEnum;
 
   @Input() item: TokenModel;

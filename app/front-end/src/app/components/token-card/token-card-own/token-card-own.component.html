@@ -1,5 +1,5 @@
 <p-card class="token-card-own-container" *ngIf="item">
-  <img [src]="AppSrcAssetsConstant.EMPTY_LOGO_APP_CARD" class="license-logo" alt="license-card">
+  <img [src]="IpfsUtil.cidToLink(license.cid)" class="license-logo" alt="license-card">
   <div class="content">
     <p class="app-name">{{application.name}}</p>
     <p class="license-name">{{license.name}}</p>
@@ -17,7 +17,7 @@
       <span class="expire-on-value">{{item.expiresOn}}</span>
     </p>
 
-    <p class="state">{{item.state}}</p>
+    <p class="state">{{TokenModel.parseTokenStateEnum(item.state)}}</p>
 
     <input type="text" [(ngModel)]="price" class="p-inputtext-sm token-price-input" placeholder="Price" pInputText/>
     <button pButton type="button" class="sell-button" label="Sell" *ngIf="item.state !== TokenStateEnum.SALE"

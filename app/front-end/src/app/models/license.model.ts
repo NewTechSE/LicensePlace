@@ -15,6 +15,20 @@ export class TokenModel {
     public price: number,
     public state: TokenStateEnum,) {
   }
+
+  public static parseTokenStateEnum(tokenState: TokenStateEnum) {
+    if (tokenState === TokenStateEnum.INACTIVE) {
+      return 'Inactive';
+    } else if (tokenState === TokenStateEnum.ACTIVE) {
+      return 'Active';
+    } else if (tokenState === TokenStateEnum.SALE) {
+      return 'Sale';
+    } else if (tokenState === TokenStateEnum.EXPIRED) {
+      return 'Expired';
+    }
+
+    return 'Unknown';
+  }
 }
 
 export class LicenseModel extends ContractModel {

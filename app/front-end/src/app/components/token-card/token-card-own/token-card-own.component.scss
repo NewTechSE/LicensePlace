@@ -80,7 +80,7 @@
           display: inline-block;
           font-family: $font-family-mono;
           font-size: 12px;
-          word-wrap: break-word;
+          word-break: break-all;
         }
       }
 
