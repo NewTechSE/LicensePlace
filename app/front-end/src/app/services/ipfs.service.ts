@@ -12,8 +12,8 @@ export class IpfsService {
     port: IpfsConstant.IPFS_PORT,
   })
 
-  public async upload(file: File): Promise<CID> {
-    const result = await this.ipfsServer.add(file)
-    return result.cid
+  public async upload(content: File): Promise<CID> {
+    const result = await this.ipfsServer.add(content);
+    return result.cid;
   }
 }

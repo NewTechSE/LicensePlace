@@ -3,6 +3,15 @@
 :host ::ng-deep .application-dialog-form-container {
   @include set-flex(column, flex-start, stretch);
   font-family: $font-family-tertiary;
+  min-height: 500px;
+
+  .title-section {
+    font-family: $font-family-tertiary;
+    font-size: 14.5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #0c5460;
+  }
 
   .base-button {
     font-family: $font-family-tertiary;
@@ -82,7 +91,7 @@
     //}
   }
 
-  .upload-to-ipfs-btn {
+  .upload-to-ipfs-btn, .upload-metadata-to-ipfs {
     @extend .base-button;
     color: $color-primary;
 
@@ -90,6 +99,11 @@
       background-color: $color-primary-mask;
       color: #fff;
     }
+  }
+
+  .upload-metadata-to-ipfs {
+    width: initial !important;
+    align-self: flex-start;
   }
 
   #app-logo-cid-input {
