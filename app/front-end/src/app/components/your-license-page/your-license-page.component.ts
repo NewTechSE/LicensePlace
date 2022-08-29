@@ -40,11 +40,11 @@ export class YourLicensePageComponent extends SubscriptionAwareAbstractComponent
     }, 0);
 
     const licenses = [];
-    Object.values(this.licenseplaceService.licenseplace.value.applications).forEach(app => {
-      Object.values(app.licenses).forEach(license => {
-        license.publisher === this.accountService.account.value.address && licenses.push(license);
-      });
-    });
+    // Object.values(this.licenseplaceService.licenseplace.value.applications).forEach(app => {
+    //   Object.values(app.licenses).forEach(license => {
+    //     license.publisher === this.accountService.account.value.address && licenses.push(license);
+    //   });
+    // });
   }
 
   onCreateLicenseButtonClicked() {

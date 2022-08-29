@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ApplicationModel } from '../../models/application.model';
@@ -14,8 +14,6 @@ import { IpfsUtil } from '../../utils/ipfs.util';
   styleUrls: ['./application-dialog.component.scss']
 })
 export class ApplicationDialogComponent implements OnInit {
-  @Input() visible = false;
-
   data: ApplicationModel;
   isUpdateMode: boolean = false;
 
@@ -115,8 +113,6 @@ export class ApplicationDialogComponent implements OnInit {
     }
 
     if (this.isUpdateMode) {
-      alert(this.data.address);
-
       const updateApplication = new ApplicationModel(
         this.providerService.signer.value,
         this.data.address,
