@@ -1,6 +1,6 @@
 <p-card class="license-card-own-container">
   <p class="app-name">{{application.name}}</p>
-  <img [src]="AppSrcAssetsConstant.EMPTY_LOGO_APP_CARD" class="app-logo" alt="app-logo-card">
+  <img [src]="IpfsUtil.cidToLink(item.cid)" class="app-logo" alt="app-logo-card">
   <p class="app-address">
     <span class="app-address-label">App Address:</span>
     <span class="app-address-value">{{application.address}}</span>

@@ -4,6 +4,7 @@ import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
 import { ApplicationModel } from '../../../models/application.model';
 import { LicenseModel } from '../../../models/license.model';
 import { LicenseplaceService } from '../../../services/licenseplace.service';
+import { IpfsUtil } from '../../../utils/ipfs.util';
 import { LicenseDialogComponent } from '../../license-dialog/license-dialog.component';
 
 @Component({
@@ -13,6 +14,7 @@ import { LicenseDialogComponent } from '../../license-dialog/license-dialog.comp
 })
 export class LicenseCardOwnComponent implements OnInit {
   readonly AppSrcAssetsConstant = AppSrcAssetsConstant;
+  readonly IpfsUtil = IpfsUtil;
 
   @Input() item: LicenseModel;
 
