@@ -1,6 +1,6 @@
 import { Contract, Signer } from 'ethers';
 import { CID } from 'ipfs-http-client';
-import LicenseArtifact from "../../../../../smart-contract/artifacts/contracts/License.sol/License.json";
+import LicenseArtifact from "../../artifacts/contracts/License.sol/License.json";
 import { IpfsUtil } from '../utils/ipfs.util';
 import { ContractModel } from './contract.model';
 

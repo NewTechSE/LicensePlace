@@ -42,5 +42,5 @@ services:
       - 4200:4200
       - 3030:3000
     volumes:
-      - ./app/front-end/src:/app/src
-      - ./app/front-end/package.json:/app/package.json
+      - ./app/front-end/:/app/
+      - /app/node_modules/

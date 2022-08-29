@@ -1,5 +1,5 @@
 import { ethers, Signer } from 'ethers';
-import LicenseplaceArtifact from '../../../../../smart-contract/artifacts/contracts/LicensePlace.sol/LicensePlace.json';
+import LicenseplaceArtifact from '../../artifacts/contracts/LicensePlace.sol/LicensePlace.json';
 import { SmartContractAddressConstant } from '../common/smart-contract-address.constant';
 import { ApplicationModel } from './application.model';
 import { ContractModel } from './contract.model';
