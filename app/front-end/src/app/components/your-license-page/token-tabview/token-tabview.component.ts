@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SizeEnum } from '../../../enums/size.enum';
 import { TokenModel } from '../../../models/license.model';
 import { LicenseplaceService } from '../../../services/licenseplace.service';
@@ -10,7 +10,7 @@ import { SubscriptionAwareAbstractComponent } from '../../subscription-aware.abs
   templateUrl: './token-tabview.component.html',
   styleUrls: ['./token-tabview.component.scss']
 })
-export class TokenTabviewComponent extends SubscriptionAwareAbstractComponent implements OnInit, OnChanges {
+export class TokenTabviewComponent extends SubscriptionAwareAbstractComponent implements OnChanges {
   readonly SizeEnum = SizeEnum;
 
   @Input() tokens: TokenModel[] = [];
@@ -20,9 +20,6 @@ export class TokenTabviewComponent extends SubscriptionAwareAbstractComponent im
 
   constructor(public licenseplaceService: LicenseplaceService) {
     super();
-  }
-
-  ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -41,11 +38,11 @@ export class TokenTabviewComponent extends SubscriptionAwareAbstractComponent im
   }
 
   search(keyword: string) {
-    this.searchFilter = keyword;
-    this.tokensFiltered = this.tokens.filter(license => (
-      license.tokenId === parseInt(keyword)
-      || license.price === parseInt(keyword)
-      // || license.publisher.toLowerCase().includes(keyword.toLowerCase())
+    this.searchFilter = keyword.toString();
+    this.tokensFiltered = this.tokens.filter(token => (
+      token.tokenId === parseInt(keyword)
+      || token.price === parseInt(keyword)
+      || TokenModel.parseTokenStateEnum(token.state).toString().includes(keyword)
     ));
   }
 }

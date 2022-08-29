@@ -21,7 +21,6 @@ export class ApplicationCardDashboardComponent implements OnInit {
 
   constructor(public router: Router,
               public route: ActivatedRoute) {
-
   }
 
   onActionButtonClick(option: string) {
@@ -31,6 +30,4 @@ export class ApplicationCardDashboardComponent implements OnInit {
   ngOnInit() {
     this.item.loadLicenses().then();
   }
-
-
 }

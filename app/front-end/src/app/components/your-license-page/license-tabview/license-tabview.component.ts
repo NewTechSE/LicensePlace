@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SizeEnum } from '../../../enums/size.enum';
 import { LicenseModel } from '../../../models/license.model';
 import { ArrayUtil } from '../../../utils/array.util';
@@ -9,7 +9,7 @@ import { SubscriptionAwareAbstractComponent } from '../../subscription-aware.abs
   templateUrl: './license-tabview.component.html',
   styleUrls: ['./license-tabview.component.scss']
 })
-export class LicenseTabviewComponent extends SubscriptionAwareAbstractComponent implements OnInit, OnChanges {
+export class LicenseTabviewComponent extends SubscriptionAwareAbstractComponent implements OnChanges {
   readonly SizeEnum = SizeEnum;
 
   @Input() licenses: LicenseModel[] = [];
@@ -19,9 +19,6 @@ export class LicenseTabviewComponent extends SubscriptionAwareAbstractComponent 
 
   constructor() {
     super();
-  }
-
-  ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
