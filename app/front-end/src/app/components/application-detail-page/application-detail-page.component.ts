@@ -6,7 +6,7 @@ import { AppRouteConstant } from '../../common/app-route.constant';
 import { AppSrcAssetsConstant } from '../../common/app-src-assets.constant';
 import { SizeEnum } from '../../enums/size.enum';
 import { ApplicationModel } from '../../models/application.model';
-import { LicenseModel } from '../../models/license.model';
+import { LicenseModel, TokenModel, TokenStateEnum } from '../../models/license.model';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
 import { LicenseplaceService } from '../../services/licenseplace.service';
 import { SubscriptionAwareAbstractComponent } from '../subscription-aware.abstract.component';
@@ -24,6 +24,9 @@ export class ApplicationDetailPageComponent extends SubscriptionAwareAbstractCom
   selectedTabIndex: number = 0;
   address: string = '';
   application: ApplicationModel = null;
+
+  tokens: TokenModel[] = [];
+  tokenFiltered: TokenModel[] = [];
 
   licenseSearchKeyword: string = '';
   licenseFiltered: LicenseModel[] = [];
@@ -54,6 +57,17 @@ export class ApplicationDetailPageComponent extends SubscriptionAwareAbstractCom
             this.licenseplaceService.licenseplace.subscribe(licenseplace => {
               if (licenseplace && licenseplace.applications) {
                 this.application = licenseplace.applications[this.address];
+
+                this.tokens = [];
+                Object.values(this.application.licenses).forEach(license => {
+                  license.tokens.forEach(token => {
+                    if (token.state === TokenStateEnum.SALE) {
+                      this.tokens.push(token);
+                    }
+                  })
+                });
+
+                this.search(this.licenseSearchKeyword);
               } else {
                 this.application = null;
               }
@@ -90,10 +104,10 @@ export class ApplicationDetailPageComponent extends SubscriptionAwareAbstractCom
   search(keyword: string) {
     this.licenseSearchKeyword = keyword;
 
-    this.licenseFiltered = Object.values(this.application.licenses).filter(license => (
-      license.name.toLowerCase().includes(keyword.toLowerCase())
-      || license.symbol.toLowerCase().includes(keyword.toLowerCase())
-      || license.price.toString().includes(keyword)
+    this.tokenFiltered = Object.values(this.tokens).filter(token => (
+      token.tokenId === parseInt(keyword)
+      || token.owner.toLowerCase().includes(keyword.toLowerCase())
+      || token.price.toString().includes(keyword)
       // || license.publisher.toLowerCase().includes(keyword.toLowerCase())
     ));
   }

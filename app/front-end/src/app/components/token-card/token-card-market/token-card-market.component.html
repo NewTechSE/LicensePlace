@@ -1,1 +1,22 @@
-<p>token-card-market works!</p>
+<p-card class="token-card-market-container" *ngIf="item">
+  <img [src]="AppSrcAssetsConstant.EMPTY_LOGO_APP_CARD" class="license-logo" alt="license-card">
+  <div class="content">
+    <p class="app-name">{{application.name}}</p>
+    <p class="license-name">{{license.name}}</p>
+    <p class="license-address">
+      <span class="license-address-label">License Address:</span>
+      <span class="license-address-value">{{license.address}}</span>
+    </p>
+
+    <p class="token-register-on">
+      <span class="token-register-on-label">Register On:</span>
+      <span class="token-register-on-value">{{item.registerOn}}</span>
+    </p>
+    <p class="expire-on">
+      <span class="expire-on-label">Expired On:</span>
+      <span class="expire-on-value">{{item.expiresOn}}</span>
+    </p>
+
+    <button pButton type="button" class="buy-button" label="Buy"></button>
+  </div>
+</p-card>

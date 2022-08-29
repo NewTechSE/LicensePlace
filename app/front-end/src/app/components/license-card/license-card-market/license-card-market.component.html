@@ -2,18 +2,18 @@
   <img [src]="AppSrcAssetsConstant.EMPTY_LOGO_APP_CARD" class="app-logo" alt="app-logo-card">
   <p class="license-address">
     <span class="license-address-label">License Address:</span>
-    <span class="license-address-value">{{item.address}}</span>
+    <span class="license-address-value">{{license.address}}</span>
   </p>
   <p class="owner-address">
     <span class="owner-address-label">Owner Address:</span>
-    <span class="owner-address-value">{{item.ownerAddress}}</span>
+    <span class="owner-address-value">{{item.owner}}</span>
   </p>
   <p class="license-price">
     <img [src]="AppSrcAssetsConstant.ETH_LOGO" alt="eth-logo">
     <span>{{item.price.toFixed(3)}}</span>
   </p>
   <p class="license-symbol">Vip</p>
-  <p class="license-updated-on"><em>Updated on: {{item.updateOn}}</em></p>
+  <p class="license-updated-on"><em>Updated on: {{item.registerOn}}</em></p>
   <div class="action-group">
     <button pButton class="buy-button p-button-outlined" label="Buy" (click)="onBuyButtonClicked()"></button>
   </div>

@@ -35,8 +35,8 @@
         <div class="license-market-tabview">
           <app-searchbar [size]="SizeEnum.SMALL" (keywordChangedEmitter)="search($event)"></app-searchbar>
           <div class="list-container">
-            <app-license-card-market *ngFor="let license of licenseFiltered ?? []"
-                                     [item]="license">
+            <app-license-card-market *ngFor="let token of tokenFiltered ?? []"
+                                     [item]="token">
             </app-license-card-market>
           </div>
         </div>
