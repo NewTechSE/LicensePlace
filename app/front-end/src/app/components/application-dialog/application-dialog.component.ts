@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ApplicationModel } from '../../models/application.model';
 import { IpfsService } from '../../services/ipfs.service';
+import { LicenseplaceService } from '../../services/licenseplace.service';
+import { ProviderService } from '../../services/provider.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { IpfsUtil } from '../../utils/ipfs.util';
 
@@ -15,6 +17,7 @@ export class ApplicationDialogComponent implements OnInit {
   @Input() visible = false;
 
   data: ApplicationModel;
+  isUpdateMode: boolean = false;
 
   applicationFormGroup: FormGroup = new FormGroup({});
 
@@ -22,14 +25,17 @@ export class ApplicationDialogComponent implements OnInit {
               public config: DynamicDialogConfig,
               public fb: FormBuilder,
               public snackbarService: SnackbarService,
+              public licenseplaceService: LicenseplaceService,
+              public providerService: ProviderService,
               public ipfsService: IpfsService) {
 
     this.applicationFormGroup = this.fb.group({
       name: ['', Validators.required],
       symbol: ['', Validators.required],
+      metadataCid: ['', Validators.required],
+      publisherName: [''],
       shortDescription: [''],
       description: [''],
-      logoCid: ['', Validators.required],
       logo: [''],
     });
   }
@@ -38,12 +44,15 @@ export class ApplicationDialogComponent implements OnInit {
     this.data = this.config.data?.application || null;
 
     if (this.data) {
+      this.isUpdateMode = true;
+
       this.applicationFormGroup.patchValue({
         name: this.data.name,
         symbol: this.data.symbol,
+        metadataCid: this.data.cid,
+        publisherName: this.data.publisherName,
         shortDescription: this.data.shortDescription,
         description: this.data.description,
-        logoCid: IpfsUtil.cidToLink(this.data.cid),
       })
     }
   }
@@ -71,21 +80,32 @@ export class ApplicationDialogComponent implements OnInit {
     this.patch('logoCid', logoCid);
   }
 
+  async onUploadMetadataToIpfsButtonClicked() {
+    if (!this.applicationFormGroup.get('logo').value) {
+      this.snackbarService.openErrorAnnouncement('Please select a logo file');
+      return;
+    }
+
+    const logoCid = await this.ipfsService.upload(this.applicationFormGroup.get('logo').value);
+    this.patch('metadataCid', logoCid);
+  }
+
   onResetButtonClicked() {
     if (this.data) {
       this.applicationFormGroup.patchValue({
         name: this.data.name,
         symbol: this.data.symbol,
-        shortDescription: this.data.shortDescription,
-        description: this.data.description,
-        logoCid: IpfsUtil.cidToLink(this.data.cid),
+        metadataCid: IpfsUtil.cidToLink(this.data.cid),
+        shortDescription: '',
+        description: '',
+        logoCid: '',
       })
     } else {
       this.applicationFormGroup.reset();
     }
   }
 
-  onSaveButtonClicked() {
+  async onSaveButtonClicked() {
     this.applicationFormGroup.markAllAsTouched();
     this.markFormDirty();
 
@@ -94,8 +114,21 @@ export class ApplicationDialogComponent implements OnInit {
       return;
     }
 
-    alert('Save application');
+    if (this.isUpdateMode) {
+      // TODO: use updateApplication method
+    } else {
+      const newApplication = new ApplicationModel(
+        this.providerService.singer.value,
+        '',
+        {
+          name: this.applicationFormGroup.get('name').value,
+          symbol: this.applicationFormGroup.get('symbol').value,
+          cid: this.applicationFormGroup.get('metadataCid').value,
+        }
+      )
 
+      await this.licenseplaceService.registerApplication(newApplication);
+    }
   }
 
   markFormDirty() {

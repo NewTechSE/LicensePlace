@@ -29,4 +29,8 @@ export class LicenseplaceService {
       this.snackbarService.openRequestErrorAnnouncement(error);
     }
   }
+
+  public async updateApplication(application: ApplicationModel) {
+    // TODO: implement updateApplication
+  }
 }
