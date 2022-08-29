@@ -152,7 +152,7 @@ contract License is ERC721, Pausable, Ownable {
             revert NotExistedResourceError("tokenId");
         }
         LicenseInfo memory token = tokensMapping[_tokenId];
-        require(token.state == LicenseState.ACTIVE);
+        require(token.state != LicenseState.EXPIRED);
         token.state = LicenseState.SALE;
         token.price = _price;
 
