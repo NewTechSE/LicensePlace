@@ -50,7 +50,7 @@ export class LicenseDialogComponent extends SubscriptionAwareAbstractComponent i
   }
 
   ngOnInit(): void {
-    this.data = this.config.data?.application || null;
+    this.data = this.config.data?.license || null;
 
     if (this.data) {
       this.isUpdateMode = true;
@@ -99,13 +99,11 @@ export class LicenseDialogComponent extends SubscriptionAwareAbstractComponent i
           name: this.licenseFormGroup.get('name').value,
           symbol: this.licenseFormGroup.get('symbol').value,
           cid: this.licenseFormGroup.get('metadataCid').value,
-          price: this.licenseFormGroup.get('price').value,
+          price: parseFloat(this.licenseFormGroup.get('price').value),
         }
       )
 
-      // updateLicense.publisher = this.data.publisher;
-
-      // await this.applicationService.update(updateLicense);
+      await this.applicationService.updateLicense(updateLicense);
 
     } else {
       const newLicense = new LicenseModel(
@@ -115,7 +113,7 @@ export class LicenseDialogComponent extends SubscriptionAwareAbstractComponent i
           name: this.licenseFormGroup.get('name').value,
           symbol: this.licenseFormGroup.get('symbol').value,
           cid: this.licenseFormGroup.get('metadataCid').value,
-          price: this.licenseFormGroup.get('price').value,
+          price: parseFloat(this.licenseFormGroup.get('price').value),
         }
       )
 
