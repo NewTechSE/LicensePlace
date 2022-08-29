@@ -35,6 +35,8 @@
         <div class="license-market-tabview">
           <app-searchbar [size]="SizeEnum.SMALL" (keywordChangedEmitter)="search($event)"></app-searchbar>
           <div class="list-container">
+            <button pButton class="buy-from-publisher" label="Buy From Publisher"
+                    (click)="buyPublisherLicense()"></button>
             <app-license-card-market *ngFor="let token of tokenFiltered ?? []"
                                      [item]="token">
             </app-license-card-market>

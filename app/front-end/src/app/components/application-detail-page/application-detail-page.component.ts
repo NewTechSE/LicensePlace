@@ -112,4 +112,8 @@ export class ApplicationDetailPageComponent extends SubscriptionAwareAbstractCom
     ));
   }
 
+  buyPublisherLicense() {
+    this.router.navigate([AppRouteConstant.LICENSEPLACE_DASHBOARD, this.address], {queryParams: {tab: 'overview'}}).then();
+  }
+
 }

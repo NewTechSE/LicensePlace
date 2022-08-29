@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import moment from 'moment';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AppRouteConstant } from '../../../common/app-route.constant';
 import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
 import { ApplicationModel } from '../../../models/application.model';
 import { LicenseService } from '../../../services/license.service';
@@ -23,7 +25,8 @@ export class ApplicationCardOwnComponent {
   applicationDialogRef: DynamicDialogRef;
 
   constructor(public licenseService: LicenseService,
-              public dialogService: DialogService) {
+              public dialogService: DialogService,
+              public router: Router) {
   }
 
   getMyTotalLicense(): number {
@@ -46,6 +49,6 @@ export class ApplicationCardOwnComponent {
   }
 
   onViewLicenseButtonClicked(): void {
-    alert('View license list');
+    this.router.navigate([AppRouteConstant.YOUR_LICENSE]).then();
   }
 }
