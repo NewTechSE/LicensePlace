@@ -43,4 +43,3 @@ services:
       - 3030:3000
     volumes:
       - ./app/front-end/:/app/
-      - /app/node_modules/

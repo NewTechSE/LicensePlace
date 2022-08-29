@@ -50,6 +50,32 @@ contract Application is Ownable, Pausable, AccessControlEnumerable {
         _grantRole(ADMIN, publisher);
     }
 
+    function update(AppInitRequest memory request) public onlyRole(ADMIN) whenNotPaused{
+        if (bytes(request.name).length == 0) {
+            revert EmptyField("name");
+        }
+
+        if (bytes(request.symbol).length == 0) {
+            revert EmptyField("symbol");
+        }
+
+        if (request.cid == bytes32(0x0)) {
+            revert EmptyField("cid");
+        }
+
+        if (request.publisher == address(0x0)) {
+            revert EmptyField("publisher");
+        }
+
+        name = request.name;
+        symbol = request.symbol;
+        cid = request.cid;
+        publisher = request.publisher;
+
+        _grantRole(ADMIN, msg.sender);
+        _grantRole(ADMIN, publisher);
+    }
+
     function setName(string memory _name) public onlyRole(ADMIN) whenNotPaused {
         name = _name;
     }
