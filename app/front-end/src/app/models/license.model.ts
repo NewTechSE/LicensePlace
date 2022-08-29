@@ -34,14 +34,21 @@ export class LicenseModel extends ContractModel {
     data?: { name: string, symbol: string, cid: CID, price: number }
   ) {
     super(signer, LicenseArtifact, address);
+
     if (data) {
+      const price = data.price
+      console.log(`New license price:L ${price}`)
       this.name = data.name;
       this.symbol = data.symbol;
       this.cid = data.cid;
-      this.price = parseFloat(data.price.toFixed(3));
+      this.price = price;
       this.tokens = []
     }
   }
+
+  // private bignumberToEthers (n: BigNumber) {
+  //   return ethers.utils.formatEther()
+  // }
 
   private bigNumberToDateTime(n: BigNumber) {
     return new Date(n.toNumber() * 1000)
@@ -52,7 +59,7 @@ export class LicenseModel extends ContractModel {
 
     this.name = await this.contract.name();
     this.symbol = await this.contract.symbol();
-    this.price = await this.contract.price();
+    this.price = parseFloat(ethers.utils.formatEther(await this.contract.price()));
     this.cid = IpfsUtil.parseToCid(await this.contract.cid());
 
     const total = await this.contract.totalSupply()
@@ -81,14 +88,15 @@ export class LicenseModel extends ContractModel {
   }
 
   public override toDeployJson(): object {
+    const price = ethers.utils.formatUnits(ethers.utils.parseEther(this.price.toString()), 'wei')
+    console.log(price)
     return {
       name: this.name,
       symbol: this.symbol,
-      price: this.price,
+      price: price,
       cid: this.cid.toV1().multihash.digest
     }
   }
-
 
   public async buyToken(price: number) {
     const response = await this.contract.buyLicense({ value: ethers.utils.parseEther(`${price}`) })
@@ -110,4 +118,7 @@ export class LicenseModel extends ContractModel {
     }
     return this.tokens[tokenId].state != TokenState.EXPIRED
   }
+
+
+
 }
