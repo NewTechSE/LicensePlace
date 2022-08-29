@@ -45,11 +45,11 @@ export class ApplicationModel extends ContractModel {
 
     for (const address of await this.contract.getLicenseContracts()) {
       const license = new LicenseModel(this.signer, address);
-      // await license.init();
+      await license.init();
       this.licenses[address] = license;
     }
 
-    await this.loadLicenses()
+    // await this.loadLicenses()
   }
 
   public async createLicense(license: LicenseModel) {
@@ -85,15 +85,18 @@ export class ApplicationModel extends ContractModel {
 
   public async loadLicenses() {
     for (const address in this.licenses) {
+      console.log(address)
       await this.licenses[address].init();
     }
   }
 
   public getLowestLicensePrice(): number {
-    return this.licenses
+    const minPrice = this.licenses
       ? Object.values(this.licenses).reduce((min, license) => {
         return license.price < min ? license.price : min;
       }, Number.MAX_VALUE)
       : 0;
+      console.log(`MIN PRICE: ${minPrice}`)
+    return minPrice
   }
 }

@@ -7,7 +7,7 @@
     <p class="app-publish-on"><em>Publish on: {{moment(item.publishOn).format("DD/MM/YYYY")}}</em></p>
     <p class="app-license-price">
       <img [src]="AppSrcAssetsConstant.ETH_LOGO" alt="eth-logo">
-      <span>{{item.getLowestLicensePrice().toFixed(3)}}</span>
+      <span>{{item.getLowestLicensePrice()}}</span>
     </p>
     <p class="app-short-description">{{item.shortDescription}}</p>
   </div>

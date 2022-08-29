@@ -32,6 +32,11 @@ contract License is ERC721, Pausable, Ownable {
         cid = request.cid;
     }
 
+    function update(CreateLicenseRequest memory request) public onlyOwner whenNotPaused{
+        price = request.price;
+        cid = request.cid;
+    }
+    
     function totalSupply() public view returns (uint256 total) {
         return _tokenIdCounter.current();
     }
