@@ -95,7 +95,7 @@ export class ApplicationModel extends ContractModel {
       ? Object.values(this.licenses).reduce((min, license) => {
         return license.price < min ? license.price : min;
       }, Number.MAX_VALUE)
-      : 0;
+      : 0.0;
       console.log(`MIN PRICE: ${minPrice}`)
     return minPrice
   }

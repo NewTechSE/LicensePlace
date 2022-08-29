@@ -38,7 +38,7 @@ export class LicenseModel extends ContractModel {
       this.name = data.name;
       this.symbol = data.symbol;
       this.cid = data.cid;
-      this.price = data.price;
+      this.price = parseFloat(data.price.toFixed(3));
       this.tokens = []
     }
   }
