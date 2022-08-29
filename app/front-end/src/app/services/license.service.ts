@@ -21,9 +21,18 @@ export class LicenseService {
     }
   }
 
-  async sellingLicenseToken(token: TokenModel, license: LicenseModel) {
+  async buyLicenseToken(token: TokenModel, license: LicenseModel) {
     try {
-      await license.contract.buyLicenseByTokenId(token.tokenId);
+      await license.contract.buyLicenseByTokenId(token.tokenId, {value: ethers.utils.parseEther(`${token.price}`)});
+      this.snackbarService.openSuccessAnnouncement('Buy license successfully');
+    } catch (error) {
+      this.snackbarService.openRequestErrorAnnouncement(error);
+    }
+  }
+
+  async sellingLicenseToken(token: TokenModel, license: LicenseModel, price: number) {
+    try {
+      await license.contract.putLicenseForSale(token.tokenId, price);
       this.snackbarService.openSuccessAnnouncement('Token in sold successfully');
     } catch (error) {
       this.snackbarService.openRequestErrorAnnouncement(error);

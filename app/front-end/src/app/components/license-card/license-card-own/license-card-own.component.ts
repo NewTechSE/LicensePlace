@@ -46,6 +46,6 @@ export class LicenseCardOwnComponent implements OnInit {
   }
 
   onWithdrawButtonClicked(): void {
-
+    this.item.withdraw()
   }
 }

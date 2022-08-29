@@ -46,6 +46,6 @@ export class LicenseCardMarketComponent extends SubscriptionAwareAbstractCompone
   }
 
   onBuyButtonClicked() {
-
+    this.licenseService.buyLicenseToken(this.item, this.license)
   }
 }

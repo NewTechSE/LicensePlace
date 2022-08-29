@@ -46,6 +46,6 @@ export class TokenCardOwnComponent extends SubscriptionAwareAbstractComponent im
   }
 
   onSellButtonClicked() {
-    this.licenseService.sellingLicenseToken(this.item, this.license).then();
+    this.licenseService.sellingLicenseToken(this.item, this.license, this.price).then();
   }
 }
