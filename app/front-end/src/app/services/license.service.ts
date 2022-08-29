@@ -32,7 +32,7 @@ export class LicenseService {
 
   async sellingLicenseToken(token: TokenModel, license: LicenseModel, price: number) {
     try {
-      await license.contract.putLicenseForSale(token.tokenId, price);
+      await license.contract.putLicenseForSale(token.tokenId, ethers.utils.parseEther(`${price}`));
       this.snackbarService.openSuccessAnnouncement('Token in sold successfully');
     } catch (error) {
       this.snackbarService.openRequestErrorAnnouncement(error);
