@@ -29,3 +29,18 @@ services:
       - 3000:3000
     volumes:
       - ./app/webapp/src:/app/src
+  
+  app:
+    build: ./app/front-end
+    container_name: front-end
+    image: front-end
+    command: > 
+      sh -c "
+        tail -f /dev/null
+      "
+    ports:
+      - 4200:4200
+      - 3030:3000
+    volumes:
+      - ./app/front-end/src:/app/src
+      - ./app/front-end/package.json:/app/package.json
