@@ -15,7 +15,7 @@ export class Token {
     public state: TokenState,) { }
 }
 export class LicenseModel extends ContractModel {
-  
+
   public name: string;
   public symbol: string;
   public cid: CID;
@@ -47,9 +47,9 @@ export class LicenseModel extends ContractModel {
     }
   }
 
-  // private bignumberToEthers (n: BigNumber) {
-  //   return ethers.utils.formatEther()
-  // }
+  private bigNumberToEthers(n: BigNumber) {
+    return parseFloat(ethers.utils.formatEther(n))
+  }
 
   private bigNumberToDateTime(n: BigNumber) {
     return new Date(n.toNumber() * 1000)
@@ -60,14 +60,16 @@ export class LicenseModel extends ContractModel {
 
     this.name = await this.contract.name();
     this.symbol = await this.contract.symbol();
-    this.price = parseFloat(ethers.utils.formatEther(await this.contract.price()));
+    this.price = this.bigNumberToEthers(await this.contract.price())
     this.cid = IpfsUtil.parseToCid(await this.contract.cid());
 
     const total = await this.contract.totalSupply()
     this.tokens = []
     for (let i = 0; i < total; i++) {
       const data = await this.contract.tokensMapping(i)
-      const token = new Token(i, this.bigNumberToDateTime(data['expiresOn']), this.bigNumberToDateTime(data['registeredOn']), data['owner'], data['price'].toNumber(), data['state'])
+      const token = new Token(i, this.bigNumberToDateTime(data['expiresOn']), this.bigNumberToDateTime(data['registeredOn']), data['owner'],
+        this.bigNumberToEthers(data['price']),
+        data['state'])
       this.tokens.push(token)
     }
 
