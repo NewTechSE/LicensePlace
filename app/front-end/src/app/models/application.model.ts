@@ -83,6 +83,10 @@ export class ApplicationModel extends ContractModel {
     }
   }
 
+  public override toUpdateJson(): object {
+    return this.toDeployJson()
+  }
+
   public async loadLicenses() {
     for (const address in this.licenses) {
       await this.licenses[address].init();
@@ -90,12 +94,12 @@ export class ApplicationModel extends ContractModel {
   }
 
   public getLowestLicensePrice(): number {
-    const minPrice = this.licenses && Object.values(this.licenses).length
+    const minPrice = (this.licenses && Object.values(this.licenses) && Object.values(this.licenses).length)
       ? Object.values(this.licenses).reduce((min, license) => {
         return license.price < min ? license.price : min;
       }, Number.MAX_VALUE)
       : 0.0;
-      console.log(`MIN PRICE: ${minPrice}`)
+    console.log(`MIN PRICE: ${minPrice}`)
     return minPrice
   }
 }

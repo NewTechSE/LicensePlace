@@ -12,8 +12,8 @@ export abstract class ContractModel {
   public abstract init(): Promise<void>;
 
   public abstract toJson(): object;
-
   public abstract toDeployJson(): object;
+  public abstract toUpdateJson(): object;
 
   private getContractFactory = (signer: Signer, artifact: any) => {
     return new ethers.ContractFactory(
@@ -30,6 +30,6 @@ export abstract class ContractModel {
   }
 
   public async update() {
-    await this.contract.update(this.toDeployJson());
+    await this.contract.update(this.toUpdateJson());
   }
 }

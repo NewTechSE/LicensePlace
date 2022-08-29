@@ -15,6 +15,7 @@ export class Token {
     public state: TokenState,) { }
 }
 export class LicenseModel extends ContractModel {
+  
   public name: string;
   public symbol: string;
   public cid: CID;
@@ -89,10 +90,17 @@ export class LicenseModel extends ContractModel {
 
   public override toDeployJson(): object {
     const price = ethers.utils.formatUnits(ethers.utils.parseEther(this.price.toString()), 'wei')
-    console.log(price)
     return {
       name: this.name,
       symbol: this.symbol,
+      price: price,
+      cid: this.cid.toV1().multihash.digest
+    }
+  }
+
+  public toUpdateJson(): object {
+    const price = ethers.utils.formatUnits(ethers.utils.parseEther(this.price.toString()), 'wei')
+    return {
       price: price,
       cid: this.cid.toV1().multihash.digest
     }

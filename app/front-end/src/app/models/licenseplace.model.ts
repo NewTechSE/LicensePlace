@@ -37,4 +37,9 @@ export class LicenseplaceModel extends ContractModel {
   public override toDeployJson(): object {
     throw new Error('Permission Denied');
   }
+
+  public override toUpdateJson(): object {
+    throw new Error('Permission Denied');
+
+  }
 }

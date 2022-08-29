@@ -99,11 +99,11 @@ export class LicenseDialogComponent extends SubscriptionAwareAbstractComponent i
           name: this.licenseFormGroup.get('name').value,
           symbol: this.licenseFormGroup.get('symbol').value,
           cid: this.licenseFormGroup.get('metadataCid').value,
-          price: parseFloat(this.licenseFormGroup.get('price').value),
+          price: this.licenseFormGroup.get('price').value,
         }
       )
-
-      await this.applicationService.updateLicense(updateLicense);
+        await updateLicense.update()
+      // await this.applicationService.updateLicense(updateLicense);
 
     } else {
       const newLicense = new LicenseModel(

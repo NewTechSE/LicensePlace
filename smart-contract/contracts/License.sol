@@ -20,6 +20,7 @@ contract License is ERC721, Pausable, Ownable {
 
     uint256 public price;
     bytes32 public cid;
+    
 
     EnumerableSet.UintSet private tokens;
 
@@ -27,7 +28,8 @@ contract License is ERC721, Pausable, Ownable {
 
     constructor(CreateLicenseRequest memory request)
         ERC721(request.name, request.symbol)
-    {
+    {   
+        
         price = request.price;
         cid = request.cid;
     }
@@ -36,7 +38,7 @@ contract License is ERC721, Pausable, Ownable {
         price = request.price;
         cid = request.cid;
     }
-    
+
     function totalSupply() public view returns (uint256 total) {
         return _tokenIdCounter.current();
     }
