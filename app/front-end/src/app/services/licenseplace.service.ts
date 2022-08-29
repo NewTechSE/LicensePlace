@@ -16,7 +16,7 @@ export class LicenseplaceService {
   }
 
   public async loadLicenseplace() {
-    const licenseplace = new LicenseplaceModel(this.providerService.singer.value);
+    const licenseplace = new LicenseplaceModel(this.providerService.signer.value);
     await licenseplace.init();
     this.licenseplace.next(licenseplace);
   }

@@ -14,7 +14,7 @@ export class AccountService {
 
   async getAccountInformation(): Promise<void> {
     const provider = this.providerService.provider.value;
-    const signer = this.providerService.singer.value;
+    const signer = this.providerService.signer.value;
 
     if (!signer) return null;
     const account = new AccountModel({

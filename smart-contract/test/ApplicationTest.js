@@ -85,7 +85,25 @@ contract("Application And License", () => {
             expect((await license.price()).toNumber()).to.equal(10);
             expect(await license.cid()).to.equal(cid);
         });
+        
+        it("Should be able to update license", async () => {
+            license = await License.new(
+                {
+                    name: "STF",
+                    symbol: "STF",
+                    price: 99,
+                    cid: newCid,
+                    // cid: web3.utils.asciiToHex("QmP3wj5BPtj8cmU6hpDvnFscKDChj1hLzLifeh2QwFmR9e"),
+                },
+                { from: publisher.address }
+            );
 
+            expect(await license.name()).to.equal("STF");
+            expect(await license.symbol()).to.equal("STF");
+            expect((await license.price()).toNumber()).to.equal(99);
+            expect(await license.cid()).to.equal(newCid);
+        });
+        
         it("Should allow publisher to register their license contract", async () => {
             await application.addLicenseContract(license.address, { from: publisher.address });
             const licenseContracts = await application.getLicenseContracts();

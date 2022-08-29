@@ -48,11 +48,16 @@ export class ApplicationModel extends ContractModel {
     }
   }
 
+  public async update() {
+    await this.contract.update(this.toDeployJson())
+  }
+
   public async createLicense(license: LicenseModel) {
     await license.deploy();
     await this.contract?.addLicenseContract(license.address);
     this.licenses[license.address] = license;
   }
+  
 
   public override async deploy(): Promise<Contract> {
     this.publisher = await this.signer.getAddress();
