@@ -14,8 +14,6 @@ export class ApplicationService {
 
   public async createLicense(application: ApplicationModel, license: LicenseModel) {
     try {
-      console.log('Creating license for application: ', application);
-      console.log('License: ', license);
       await application.createLicense(license);
       this.snackbarService.openSuccessAnnouncement(`Create license Success: ${license.address}`)
     } catch (error) {

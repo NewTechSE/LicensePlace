@@ -13,7 +13,7 @@ export class LicenseplaceModel extends ContractModel {
   }
 
   public async init() {
-    if (!this.contract) throw new Error('Deployed address not defined!')
+    if (!this.contract) throw new Error('Deployed address not defined!');
 
     this.fee = (await this.contract.appPrice());
     for (const address of await this.contract.getAppAddresses()) {

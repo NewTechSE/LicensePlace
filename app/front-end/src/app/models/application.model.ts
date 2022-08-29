@@ -44,7 +44,9 @@ export class ApplicationModel extends ContractModel {
     this.cid = IpfsUtil.parseToCid(await this.contract.cid());
 
     for (const address of await this.contract.getLicenseContracts()) {
-      this.licenses[address] = new LicenseModel(this.signer, address);
+      const license = new LicenseModel(this.signer, address);
+      // await license.init();
+      this.licenses[address] = license;
     }
   }
 
@@ -86,6 +88,10 @@ export class ApplicationModel extends ContractModel {
   }
 
   public getLowestLicensePrice(): number {
-    return 0;
+    return this.licenses
+      ? Object.values(this.licenses).reduce((min, license) => {
+        return license.price < min ? license.price : min;
+      }, Number.MAX_VALUE)
+      : 0;
   }
 }

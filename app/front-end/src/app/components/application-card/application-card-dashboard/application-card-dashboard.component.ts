@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { AppRouteConstant } from '../../../common/app-route.constant';
@@ -11,7 +11,7 @@ import { IpfsUtil } from '../../../utils/ipfs.util';
   templateUrl: './application-card-dashboard.component.html',
   styleUrls: ['./application-card-dashboard.component.scss']
 })
-export class ApplicationCardDashboardComponent {
+export class ApplicationCardDashboardComponent implements OnInit {
   readonly AppSrcAssetsConstant = AppSrcAssetsConstant;
   readonly AppRouteConstant = AppRouteConstant;
   readonly IpfsUtil = IpfsUtil;
@@ -21,10 +21,15 @@ export class ApplicationCardDashboardComponent {
 
   constructor(public router: Router,
               public route: ActivatedRoute) {
+
   }
 
   onActionButtonClick(option: string) {
     this.router.navigate([this.item.address], {relativeTo: this.route, queryParams: {tab: option}}).then();
+  }
+
+  ngOnInit() {
+    this.item.loadLicenses().then();
   }
 
 
