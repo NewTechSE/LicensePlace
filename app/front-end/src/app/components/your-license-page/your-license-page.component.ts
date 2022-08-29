@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AppRouteConstant } from '../../common/app-route.constant';
+import { ApplicationModel } from '../../models/application.model';
 import { LicenseModel } from '../../models/license.model';
 import { AccountService } from '../../services/account.service';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
@@ -21,9 +22,9 @@ export class YourLicensePageComponent extends SubscriptionAwareAbstractComponent
     routerLink: [AppRouteConstant.YOUR_LICENSE]
   };
 
-  licenseTicketsInMarket: LicenseModel[] = [];
-  licenseTicketsInUsage: LicenseModel[] = [];
-  licenseTicketsInOutdated: LicenseModel[] = [];
+  applications: ApplicationModel[];
+
+  licenses: LicenseModel[] = [];
 
   licenseDialog: DynamicDialogRef;
 
@@ -39,12 +40,23 @@ export class YourLicensePageComponent extends SubscriptionAwareAbstractComponent
       this.breadcrumbService.initBreadcrumb([YourLicensePageComponent.breadcrumb]);
     }, 0);
 
-    const licenses = [];
-    // Object.values(this.licenseplaceService.licenseplace.value.applications).forEach(app => {
-    //   Object.values(app.licenses).forEach(license => {
-    //     license.publisher === this.accountService.account.value.address && licenses.push(license);
-    //   });
-    // });
+    this.registerSubscription(
+      this.licenseplaceService.licenseplace.subscribe(licenseplace => {
+        if (licenseplace && licenseplace.applications) {
+          this.applications = Object.values(licenseplace.applications).filter(app => (
+            app.publisher.toLowerCase() === this.accountService.account.value.address.toLowerCase()
+          ));
+
+          this.licenses = [];
+          this.applications.forEach(app => {
+            this.licenses.push(...Object.values(app.licenses));
+          });
+        } else {
+          this.applications = [];
+          this.licenses = [];
+        }
+      })
+    )
   }
 
   onCreateLicenseButtonClicked() {

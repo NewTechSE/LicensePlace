@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
 import { ApplicationModel } from '../../../models/application.model';
 import { LicenseModel } from '../../../models/license.model';
 import { LicenseplaceService } from '../../../services/licenseplace.service';
+import { LicenseDialogComponent } from '../../license-dialog/license-dialog.component';
 
 @Component({
   selector: 'app-license-card-own',
@@ -16,7 +18,10 @@ export class LicenseCardOwnComponent implements OnInit {
 
   application: ApplicationModel;
 
-  constructor(public licenseplaceService: LicenseplaceService) {
+  licenseDialogRef: DynamicDialogRef;
+
+  constructor(public licenseplaceService: LicenseplaceService,
+              public dialogService: DialogService) {
   }
 
   ngOnInit(): void {
@@ -28,6 +33,13 @@ export class LicenseCardOwnComponent implements OnInit {
   }
 
   onViewDetailButtonClicked(): void {
-    alert('View and update license information');
+    this.licenseDialogRef = this.dialogService.open(LicenseDialogComponent, {
+      header: 'License Information',
+      data: {
+        license: this.item
+      },
+      width: '50vw',
+      baseZIndex: 1000000,
+    })
   }
 }

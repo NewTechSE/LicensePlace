@@ -85,7 +85,6 @@ export class ApplicationModel extends ContractModel {
 
   public async loadLicenses() {
     for (const address in this.licenses) {
-      console.log(address)
       await this.licenses[address].init();
     }
   }
