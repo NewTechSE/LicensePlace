@@ -115,19 +115,22 @@ export class ApplicationDialogComponent implements OnInit {
     }
 
     if (this.isUpdateMode) {
-      // TODO: use updateApplication method
-      const application = new  ApplicationModel(
+      alert(this.data.address);
+
+      const updateApplication = new ApplicationModel(
         this.providerService.signer.value,
-        this.applicationFormGroup.get('address').value,
+        this.data.address,
         {
           name: this.applicationFormGroup.get('name').value,
           symbol: this.applicationFormGroup.get('symbol').value,
           cid: this.applicationFormGroup.get('metadataCid').value,
         }
       )
-      application.publisher = this.applicationFormGroup.get('publisher').value
-      await application.update()
-      
+
+      updateApplication.publisher = this.data.publisher;
+
+      await this.licenseplaceService.updateApplication(updateApplication);
+
     } else {
       const newApplication = new ApplicationModel(
         this.providerService.signer.value,

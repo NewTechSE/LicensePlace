@@ -28,4 +28,8 @@ export abstract class ContractModel {
     this.address = this.contract.address;
     return this.contract;
   }
+
+  public async update() {
+    await this.contract.update(this.toDeployJson());
+  }
 }

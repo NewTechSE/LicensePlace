@@ -31,6 +31,11 @@ export class LicenseplaceService {
   }
 
   public async updateApplication(application: ApplicationModel) {
-    // TODO: implement updateApplication
+    try {
+      await application.update();
+      this.snackbarService.openSuccessAnnouncement(`Update Application Success: ${application.address}`);
+    } catch (error) {
+      this.snackbarService.openRequestErrorAnnouncement(error);
+    }
   }
 }
