@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AppRouteConstant } from '../../common/app-route.constant';
 import { ApplicationModel } from '../../models/application.model';
-import { LicenseModel } from '../../models/license.model';
+import { LicenseModel, TokenModel } from '../../models/license.model';
 import { AccountService } from '../../services/account.service';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
 import { LicenseplaceService } from '../../services/licenseplace.service';
@@ -25,6 +25,7 @@ export class YourLicensePageComponent extends SubscriptionAwareAbstractComponent
   applications: ApplicationModel[];
 
   licenses: LicenseModel[] = [];
+  tokens: TokenModel[] = [];
 
   licenseDialog: DynamicDialogRef;
 
@@ -51,6 +52,17 @@ export class YourLicensePageComponent extends SubscriptionAwareAbstractComponent
           this.applications.forEach(app => {
             this.licenses.push(...Object.values(app.licenses));
           });
+
+          this.tokens = [];
+          Object.values(licenseplace.applications).forEach(app => {
+            Object.values(app.licenses).forEach(license => {
+              license.tokens.forEach(token => {
+                if (token.owner.toLowerCase() === this.accountService.account.value.address.toLowerCase()) {
+                  this.tokens.push(token);
+                }
+              })
+            })
+          })
         } else {
           this.applications = [];
           this.licenses = [];

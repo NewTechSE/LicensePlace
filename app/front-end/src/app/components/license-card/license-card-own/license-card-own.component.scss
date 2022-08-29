@@ -117,6 +117,17 @@
           color: #fff;
         }
       }
+
+      .withdraw-button {
+        @extend .base-button;
+        background: $color-danger;
+        flex: 1;
+
+        &:hover {
+          background-color: #8d1b1b;
+          color: #fff;
+        }
+      }
     }
   }
 

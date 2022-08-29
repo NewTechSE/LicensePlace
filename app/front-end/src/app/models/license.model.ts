@@ -4,23 +4,26 @@ import LicenseArtifact from "../../artifacts/contracts/License.sol/License.json"
 import { IpfsUtil } from '../utils/ipfs.util';
 import { ContractModel } from './contract.model';
 
-export enum TokenState { INACTIVE, ACTIVE, SALE, EXPIRED }
-export class Token {
+export enum TokenStateEnum { INACTIVE, ACTIVE, SALE, EXPIRED }
+
+export class TokenModel {
   constructor(
     public tokenId: number,
     public expiresOn: Date,
     public registerOn: Date,
     public owner: string,
     public price: number,
-    public state: TokenState,) { }
+    public state: TokenStateEnum,) {
+  }
 }
+
 export class LicenseModel extends ContractModel {
 
   public name: string;
   public symbol: string;
   public cid: CID;
   public price: number;
-  public tokens: Token[];
+  public tokens: TokenModel[];
 
   // TODO: update metadata to ipfs
   public description: string = 'Description of the license. Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
@@ -67,7 +70,7 @@ export class LicenseModel extends ContractModel {
     this.tokens = []
     for (let i = 0; i < total; i++) {
       const data = await this.contract.tokensMapping(i)
-      const token = new Token(i, this.bigNumberToDateTime(data['expiresOn']), this.bigNumberToDateTime(data['registeredOn']), data['owner'],
+      const token = new TokenModel(i, this.bigNumberToDateTime(data['expiresOn']), this.bigNumberToDateTime(data['registeredOn']), data['owner'],
         this.bigNumberToEthers(data['price']),
         data['state'])
       this.tokens.push(token)
@@ -122,7 +125,7 @@ export class LicenseModel extends ContractModel {
     if (tokenId >= this.tokens.length) {
       return false
     }
-    return this.tokens[tokenId].state != TokenState.EXPIRED
+    return this.tokens[tokenId].state != TokenStateEnum.EXPIRED
   }
 
 

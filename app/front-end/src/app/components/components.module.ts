@@ -27,9 +27,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SubscriptionAwareAbstractComponent } from './subscription-aware.abstract.component';
+import { TokenCardMarketComponent } from './token-card/token-card-market/token-card-market.component';
+import { TokenCardOwnComponent } from './token-card/token-card-own/token-card-own.component';
 import { UserAccountPanelComponent } from './user-account-panel/user-account-panel.component';
 import { YourApplicationPageComponent } from './your-application-page/your-application-page.component';
 import { LicenseTabviewComponent } from './your-license-page/license-tabview/license-tabview.component';
+import { TokenTabviewComponent } from './your-license-page/token-tabview/token-tabview.component';
 import { YourLicensePageComponent } from './your-license-page/your-license-page.component';
 
 @NgModule({
@@ -54,6 +57,9 @@ import { YourLicensePageComponent } from './your-license-page/your-license-page.
     LicenseCardDescriptionComponent,
     LicenseCardMarketComponent,
     UserAccountPanelComponent,
+    TokenTabviewComponent,
+    TokenCardOwnComponent,
+    TokenCardMarketComponent,
   ],
   imports: [
     CommonModule,

@@ -44,4 +44,8 @@ export class LicenseCardOwnComponent implements OnInit {
       baseZIndex: 1000000,
     })
   }
+
+  onWithdrawButtonClicked(): void {
+
+  }
 }
