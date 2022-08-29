@@ -91,7 +91,7 @@ export class ApplicationModel extends ContractModel {
   }
 
   public getLowestLicensePrice(): number {
-    const minPrice = this.licenses
+    const minPrice = this.licenses && Object.values(this.licenses).length
       ? Object.values(this.licenses).reduce((min, license) => {
         return license.price < min ? license.price : min;
       }, Number.MAX_VALUE)
