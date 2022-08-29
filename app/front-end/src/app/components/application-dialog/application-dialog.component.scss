@@ -101,9 +101,40 @@
     }
   }
 
-  .upload-metadata-to-ipfs {
+  .p-fileupload-choose {
+    @include set-flex(row, center, center);
+    font-family: $font-family-tertiary;
+    font-size: 12.5px;
+    border-radius: 5px;
+    background: $color-primary;
+  }
+
+  .p-fileupload-row {
+    font-family: $font-family-tertiary;
+    font-size: 12.5px;
+
+    .p-fileupload-filename {
+      padding: 0 8px;
+    }
+
+    .p-component.p-button-icon-only {
+      @include set-flex(row, center, center);
+      font-family: $font-family-tertiary;
+      font-size: 12.5px;
+      border-radius: 5px;
+      background: $color-primary;
+
+      .p-button-label {
+        display: none;
+      }
+    }
+  }
+
+
+  .upload-metadata-to-ipfs, p-fileUpload {
     width: initial !important;
     align-self: flex-start;
+    max-width: 300px;
   }
 
   #app-logo-cid-input {

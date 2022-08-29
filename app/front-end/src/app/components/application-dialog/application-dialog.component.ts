@@ -65,7 +65,7 @@ export class ApplicationDialogComponent implements OnInit {
   }
 
   onLogoFileChanged(event: any) {
-    const formFiles = event.target?.files;
+    const formFiles = event.files;
     if (!formFiles || formFiles?.length === 0) {
       this.snackbarService.openErrorAnnouncement('Please select a logo file');
       return;
