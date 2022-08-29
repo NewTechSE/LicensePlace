@@ -1,4 +1,4 @@
-import { BigNumber, Contract, ethers, Signer } from 'ethers';
+import { BigNumber, Contract, Signer } from 'ethers';
 import { CID } from 'ipfs-http-client';
 import LicenseArtifact from "../../artifacts/contracts/License.sol/License.json";
 import { IpfsUtil } from '../utils/ipfs.util';
@@ -87,11 +87,6 @@ export class LicenseModel extends ContractModel {
       price: this.price,
       cid: this.cid.toV1().multihash.digest
     }
-  }
-
-
-  public async buyToken(price: number) {
-    const response = await this.contract.buyLicense({ value: ethers.utils.parseEther(`${price}`) })
   }
 
   public async withdraw() {

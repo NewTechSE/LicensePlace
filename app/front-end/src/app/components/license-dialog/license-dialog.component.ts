@@ -103,6 +103,7 @@ export class LicenseDialogComponent extends SubscriptionAwareAbstractComponent i
         }
       )
 
+      console.log(updateLicense);
       await this.applicationService.updateLicense(updateLicense);
 
     } else {
@@ -118,6 +119,7 @@ export class LicenseDialogComponent extends SubscriptionAwareAbstractComponent i
       )
 
       const application = this.applications.find(app => app.address === this.licenseFormGroup.get('appAddress').value);
+
 
       await this.applicationService.createLicense(application, newLicense);
     }

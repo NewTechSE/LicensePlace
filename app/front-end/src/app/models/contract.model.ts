@@ -1,7 +1,7 @@
 import { Contract, ContractFactory, ethers, Signer } from "ethers"
 
 export abstract class ContractModel {
-  protected contract: Contract;
+  public contract: Contract;
   private contractFactory: ContractFactory;
 
   protected constructor(public signer: Signer, protected artifact: any, public address: string) {

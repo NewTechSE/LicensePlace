@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AppSrcAssetsConstant } from '../../../common/app-src-assets.constant';
 import { LicenseModel } from '../../../models/license.model';
-
+import { LicenseService } from '../../../services/license.service';
+import { IpfsUtil } from '../../../utils/ipfs.util';
 
 @Component({
   selector: 'app-license-card-description',
@@ -10,11 +11,17 @@ import { LicenseModel } from '../../../models/license.model';
 })
 export class LicenseCardDescriptionComponent implements OnInit {
   readonly AppSrcAssetsConstant = AppSrcAssetsConstant;
+  readonly IpfsUtil = IpfsUtil;
+
   @Input() item: LicenseModel;
 
-  constructor() {
+  constructor(public licenseService: LicenseService) {
   }
 
   ngOnInit() {
+  }
+
+  public buyFromPublisher() {
+    this.licenseService.buyFromPublisher(this.item).then();
   }
 }

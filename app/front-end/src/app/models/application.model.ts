@@ -95,7 +95,6 @@ export class ApplicationModel extends ContractModel {
         return license.price < min ? license.price : min;
       }, Number.MAX_VALUE)
       : 0.0;
-      console.log(`MIN PRICE: ${minPrice}`)
-    return minPrice
+    return minPrice;
   }
 }
