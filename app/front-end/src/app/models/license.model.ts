@@ -99,11 +99,7 @@ export class LicenseModel extends ContractModel {
   }
 
   public toUpdateJson(): object {
-    const price = ethers.utils.formatUnits(ethers.utils.parseEther(this.price.toString()), 'wei')
-    return {
-      price: price,
-      cid: this.cid.toV1().multihash.digest
-    }
+    return this.toDeployJson()
   }
 
   public async buyToken(price: number) {

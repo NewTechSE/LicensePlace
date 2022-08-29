@@ -102,8 +102,11 @@ export class LicenseDialogComponent extends SubscriptionAwareAbstractComponent i
           price: this.licenseFormGroup.get('price').value,
         }
       )
-        await updateLicense.update()
+        // await updateLicense.update()
       // await this.applicationService.updateLicense(updateLicense);
+
+      // console.log(updateLicense);
+      await this.applicationService.updateLicense(updateLicense);
 
     } else {
       const newLicense = new LicenseModel(
@@ -118,6 +121,7 @@ export class LicenseDialogComponent extends SubscriptionAwareAbstractComponent i
       )
 
       const application = this.applications.find(app => app.address === this.licenseFormGroup.get('appAddress').value);
+
 
       await this.applicationService.createLicense(application, newLicense);
     }
