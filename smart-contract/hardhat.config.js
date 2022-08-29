@@ -6,6 +6,9 @@ require("hardhat-gas-reporter");
 require("solidity-coverage");
 require('@nomiclabs/hardhat-truffle5');
 
+require('@typechain/hardhat')
+require('@nomiclabs/hardhat-ethers')
+
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
@@ -46,5 +49,12 @@ module.exports = {
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
+  },
+  typechain: {
+    outDir: 'artifacts/types',
+    target: 'truffle-v5',
+    alwaysGenerateOverloads: false, // should overloads with full signatures like deposit(uint256) be generated always, even if there are no overloads?
+    externalArtifacts: ['externalArtifacts/*.json'], // optional array of glob patterns with external artifacts to process (for example external libs from node_modules)
+    dontOverrideCompile: false // defaults to false
   },
 };

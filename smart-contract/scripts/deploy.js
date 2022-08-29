@@ -5,6 +5,8 @@
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
 
+import { createApplications } from './fake-data'
+
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
@@ -18,7 +20,13 @@ async function main() {
   const LicensePlaceContract = await hre.ethers.getContractFactory("LicensePlace");
   const licensePlaceContract = await LicensePlaceContract.deploy()
   await licensePlaceContract.deployed()
+
   console.log("License Place Contract deployed to: ", licensePlaceContract.address)
+
+  const accounts = await ethers.getSigners()
+  const apps = await createApplications(licensePlaceContract, accounts[0])
+
+  console.log(`Created ${apps.length} applications`)
 };
 
 
