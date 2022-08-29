@@ -103,7 +103,7 @@ export class LicenseDialogComponent extends SubscriptionAwareAbstractComponent i
         }
       )
 
-      updateLicense.publisher = this.data.publisher;
+      // updateLicense.publisher = this.data.publisher;
 
       // await this.applicationService.update(updateLicense);
 

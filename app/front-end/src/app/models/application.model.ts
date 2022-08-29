@@ -46,6 +46,8 @@ export class ApplicationModel extends ContractModel {
     for (const address of await this.contract.getLicenseContracts()) {
       this.licenses[address] = new LicenseModel(this.signer, address);
     }
+
+    await this.loadLicenses()
   }
 
   public async createLicense(license: LicenseModel) {

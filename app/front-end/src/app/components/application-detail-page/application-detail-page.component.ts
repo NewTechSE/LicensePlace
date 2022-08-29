@@ -94,7 +94,7 @@ export class ApplicationDetailPageComponent extends SubscriptionAwareAbstractCom
       license.name.toLowerCase().includes(keyword.toLowerCase())
       || license.symbol.toLowerCase().includes(keyword.toLowerCase())
       || license.price.toString().includes(keyword)
-      || license.publisher.toLowerCase().includes(keyword.toLowerCase())
+      // || license.publisher.toLowerCase().includes(keyword.toLowerCase())
     ));
   }
 
