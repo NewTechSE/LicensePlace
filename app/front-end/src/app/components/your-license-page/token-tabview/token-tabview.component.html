@@ -1,8 +1,0 @@
-<div class="token-tabview-container">
-  <app-searchbar [size]="SizeEnum.SMALL" (keywordChangedEmitter)="search($event)"
-                 placeholder="Search by token address and symbol or price">
-  </app-searchbar>
-  <div class="token-list-container">
-    <app-token-card-own *ngFor="let token of tokens" [item]="token"></app-token-card-own>
-  </div>
-</div>

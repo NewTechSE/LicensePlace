@@ -1,0 +1,28 @@
+<p-card class="token-card-own-container" *ngIf="item">
+  <img [src]="IpfsUtil.cidToLink(license.cid)" class="license-logo" alt="license-card">
+  <div class="content">
+    <p class="app-name">{{application.name}}</p>
+    <p class="license-name">{{license.name}}</p>
+    <p class="license-address">
+      <span class="license-address-label">License Address:</span>
+      <span class="license-address-value">{{license.address}}</span>
+    </p>
+
+    <p class="token-register-on">
+      <span class="token-register-on-label">Register On:</span>
+      <span class="token-register-on-value">{{item.registerOn}}</span>
+    </p>
+    <p class="expire-on">
+      <span class="expire-on-label">Expired On:</span>
+      <span class="expire-on-value">{{item.expiresOn}}</span>
+    </p>
+
+    <p class="state">{{TokenModel.parseTokenStateEnum(item.state)}}</p>
+
+    <input type="text" [(ngModel)]="price" class="p-inputtext-sm token-price-input" placeholder="Price" pInputText/>
+    <button pButton type="button" class="sell-button" label="Sell" *ngIf="item.state !== TokenStateEnum.SALE"
+            (click)="onSellButtonClicked()"></button>
+    <button pButton type="button" class="unsell-button" label="Unsell"
+            *ngIf="item.state === TokenStateEnum.SALE"></button>
+  </div>
+</p-card>

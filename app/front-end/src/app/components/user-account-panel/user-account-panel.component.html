@@ -1,8 +1,0 @@
-<div class='user-account-panel-container' *ngIf="item?.address">
-  <p-panel header='Your Account Information' [toggleable]='true' [collapsed]='true'>
-    <p class='address'><span class='title'>Address:</span> {{item.address}}</p>
-    <p class='balance'><span class='title'>Balance:</span> {{ethers.utils.formatEther(item.balance)}} ether</p>
-    <p class='number-of-txs'><span class='title'>Number of Txs:</span> {{item.numberOfTransactions}} txs</p>
-    <p class='number-of-block'><span class='title'>Number of Blocks:</span> {{item.numberOfBlock}} bks</p>
-  </p-panel>
-</div>

@@ -1,0 +1,205 @@
+@import "~src/variables";
+
+:host {
+  @include set-flex(column, flex-start, center);
+  flex: 1;
+  align-self: stretch;
+}
+
+:host ::ng-deep .application-detail-page-container {
+  @include set-flex(column, flex-start, center);
+  align-self: stretch;
+  padding: 25px 20px;
+
+  .app-general-container {
+    @include set-flex(row, flex-start, flex-end);
+    align-self: stretch;
+    margin-bottom: 20px;
+
+    .app-logo {
+      height: 225px;
+      width: auto;
+      border-radius: 5px;
+      box-shadow: 0 0 1.5px 0 rgba(0, 0, 0, 0.045), 0 0 8.5px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .general-info {
+      width: 500px;
+      @include set-flex(column, flex-start, flex-start);
+      margin-left: 50px;
+
+      .app-name {
+        font-family: $font-family-tertiary;
+        color: $color-primary-dark;
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: capitalize;
+        margin-bottom: 10px;
+      }
+
+      .app-address {
+        margin-top: 8.5px;
+        color: $color-on-background-gray;
+
+        &-label {
+          font-family: $font-family-tertiary;
+          font-size: 15px;
+        }
+
+        &-value {
+          width: 265px;
+          margin-left: 20px;
+          font-family: $font-family-mono;
+          font-size: 15px;
+          word-wrap: break-word;
+        }
+      }
+
+      .app-version {
+        font-family: $font-family-tertiary;
+        font-size: 16px;
+        color: $color-on-background-gray;
+        margin-top: 2.5px;
+      }
+
+      .app-short-description {
+        font-family: $font-family-tertiary;
+        font-size: 15.5px;
+        margin-top: 7.5px;
+        color: $color-on-background-gray-dark;
+        word-break: break-all;
+      }
+
+      .app-publish-on {
+        font-family: $font-family-primary;
+        font-size: 14px;
+        margin-top: 8.5px;
+        align-self: flex-end;
+        color: $color-on-background-gray-light;
+      }
+    }
+  }
+
+  .app-detail-container {
+    align-self: stretch;
+    flex: 1;
+
+    .tabview-container, p-tabview, .p-tabview {
+      flex: 1;
+      align-self: stretch;
+      @include set-flex(column, flex-start, stretch);
+    }
+
+    .p-tabview {
+      border: 1px solid $color-border-gray;
+      border-radius: 5px;
+
+      .p-tabview-panels {
+        flex: 1;
+        min-height: 400px;
+      }
+
+      .p-tabview-nav-container {
+        .p-tabview-nav-content {
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+        }
+
+        .p-tabview-nav {
+          font-family: $font-family-primary;
+          font-size: 15px;
+
+          .p-tabview-nav-link {
+            padding: 15px 25px;
+            border: 0;
+          }
+
+          .p-tabview-ink-bar, .p-highlight .p-tabview-nav-link {
+            color: $color-primary;
+          }
+        }
+      }
+
+      .p-tabview-panels {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        padding: 15px 25px;
+
+        p-tabpanel, .p-tabview-panel {
+        }
+
+        .content-base {
+          font-family: $font-family-tertiary;
+          font-size: 15.5px;
+          color: $color-on-background-gray-dark;
+
+          .label {
+            display: block;
+            font-family: $font-family-tertiary;
+            font-size: 16px;
+            font-weight: bold;
+            color: $color-on-background-gray;
+            margin-top: 7.5px;
+            margin-bottom: 10px;
+          }
+        }
+
+        .overview-tabview {
+          .app-description {
+            @extend .content-base;
+
+            .value {
+              display: inline-block;
+              margin: 0 25px;
+              text-align: justify;
+            }
+          }
+
+          .app-license {
+            @extend .content-base;
+            margin-top: 25px;
+          }
+
+          .list-container {
+            margin-top: 15px;
+
+            @include set-flex(row, flex-start, flex-start);
+
+            & > * {
+              margin-bottom: 10px;
+              margin-right: 15px;
+            }
+          }
+        }
+
+        .license-market-tabview {
+          .list-container {
+            margin-top: 15px;
+
+            @include set-flex(row, flex-start, flex-start);
+
+            & > * {
+              margin-bottom: 10px;
+              margin-right: 15px;
+            }
+
+            .buy-from-publisher {
+              font-family: $font-family-tertiary;
+              font-size: 12.5px;
+              border-radius: 5px;
+              background: $color-primary;
+
+              &:active {
+                @include outline-focus($color-focus-gray);
+              }
+
+              &:hover {
+                background: $color-primary-dark;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

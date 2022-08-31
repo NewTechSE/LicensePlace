@@ -1,0 +1,31 @@
+@import "~src/variables";
+
+:host {
+  @include set-flex(column, flex-start, center);
+  flex: 1;
+  align-self: stretch;
+}
+
+@import "~src/variables";
+
+:host ::ng-deep .token-tabview-container {
+  @include set-flex(column, flex-start, flex-start);
+  align-self: stretch;
+  flex: 1;
+
+  app-searchbar {
+    margin-bottom: 15px;
+  }
+
+  .token-list-container {
+    @include set-flex(row, flex-start, flex-start);
+    flex-wrap: wrap;
+    align-self: stretch;
+
+    & > app-token-card-own {
+      margin-bottom: 20px;
+      margin-right: 15px;
+    }
+  }
+
+}

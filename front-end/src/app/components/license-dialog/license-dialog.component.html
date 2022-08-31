@@ -1,0 +1,60 @@
+<form class="license-dialog-form-container" [formGroup]="licenseFormGroup" (ngSubmit)="onSaveButtonClicked()">
+  <p class="title-section">License System</p>
+  <span class='p-field app-name-input-wrapper'>
+      <label for='app-name-input'>Application Name<span>*</span>:</label>
+    <p-dropdown [options]="applications" id='app-name-input' formControlName="appAddress" optionValue="address"
+                optionLabel="name"></p-dropdown>
+  </span>
+
+  <div class="license-name-and-symbol-wrapper">
+    <span class='p-field license-name-input-wrapper'>
+      <label for='license-name-input'>License Name<span>*</span>:</label>
+      <input type='text' id='license-name-input' formControlName="name" pInputText placeholder='License name'/>
+    </span>
+
+    <span class='p-field license-symbol-input-wrapper'>
+      <label for='license-symbol-input'>License Symbol <span>*</span>:</label>
+      <input type='text' id='license-symbol-input' formControlName="symbol" pInputText placeholder='License symbol'/>
+    </span>
+  </div>
+
+  <div class="license-price-and-selling-wrapper">
+    <span class='p-field license-price-input-wrapper'>
+      <label for='license-price-input'>License Price<span>*</span>:</label>
+      <input type='text' id='license-price-input' formControlName="price" pInputText placeholder='License price'/>
+  </span>
+  </div>
+
+  <p class="title-section">Application Metadata</p>
+  <span class='p-field license-cid-wrapper'>
+    <label for='license-metadata-cid'>Metadata CID:</label>
+    <input type='text' id='license-metadata-cid' formControlName="metadataCid" pInputText
+           placeholder='License metadata CID'/>
+  </span>
+
+  <span class='p-field license-des-input-wrapper'>
+      <label for='license-des-input'>License Description:</label>
+      <textarea pInputTextarea id='license-des-input' formControlName="description" placeholder='License description'
+                [autoResize]="true"
+                [rows]="4"></textarea>
+  </span>
+
+  <div class="license-logo-input-and-upload-wrapper">
+    <span class='p-field license-logo-input-wrapper'>
+      <label>License Logo<span>*</span>:</label>
+      <p-fileUpload accept="image/*" [auto]="true" [customUpload]="true" [multiple]="false"
+                    (uploadHandler)="onLogoFileChanged($event)"></p-fileUpload>
+    </span>
+  </div>
+  <button pButton class="p-button-outlined upload-metadata-to-ipfs"
+          (click)="onUploadMetadataToIpfsButtonClicked()"
+          type="button">Upload metadata to ipfs
+  </button>
+
+  <div class="action-btn-groups">
+    <button pButton class="reset-button p-button-outlined" type="button" label="Reset"
+            (click)="onResetButtonClicked()"></button>
+    <button pButton class="save-button" type="submit" label="Save"></button>
+  </div>
+
+</form>

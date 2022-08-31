@@ -1,0 +1,46 @@
+@import "~src/variables";
+
+:host {
+  @include set-flex(column, flex-start, center);
+  flex: 1;
+  align-self: stretch;
+}
+
+.your-application-page-container {
+  @include set-flex(column, flex-start, flex-start);
+  align-self: stretch;
+  padding: 25px 100px;
+
+  app-searchbar {
+    margin-bottom: 25px;
+    margin-left: 25px;
+    align-self: flex-start;
+  }
+
+  .create-new-application {
+    background: $color-primary;
+    font-size: 13px;
+    font-family: $font-family-tertiary;
+    margin-bottom: 15px;
+    margin-left: 25px;
+
+    &:active {
+      @include outline-focus($color-focus-gray);
+    }
+
+    &:hover {
+      background: $color-primary-overlay;
+    }
+  }
+
+  .application-list-container {
+    @include set-flex(row, flex-start, flex-start);
+    flex-wrap: wrap;
+    align-self: stretch;
+
+    & > app-application-card-own {
+      margin-bottom: 20px;
+      margin-left: 25px;
+    }
+  }
+}

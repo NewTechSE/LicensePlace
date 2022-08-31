@@ -28,7 +28,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 module.exports = {
   solidity: "0.8.4",
   paths: {
-    artifacts: "./artifacts"
+    artifacts: "../shared/artifacts",
   },
   networks: {
     ropsten: {
@@ -38,6 +38,7 @@ module.exports = {
     },
     development: {
       url: 'http://0.0.0.0:8545',
+      chainId: 31337,
     },
     quorum: {
       url: 'http://0.0.0.0:22000',
@@ -49,12 +50,5 @@ module.exports = {
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
-  },
-  typechain: {
-    outDir: 'artifacts/types',
-    target: 'truffle-v5',
-    alwaysGenerateOverloads: false, // should overloads with full signatures like deposit(uint256) be generated always, even if there are no overloads?
-    externalArtifacts: ['externalArtifacts/*.json'], // optional array of glob patterns with external artifacts to process (for example external libs from node_modules)
-    dontOverrideCompile: false // defaults to false
   },
 };

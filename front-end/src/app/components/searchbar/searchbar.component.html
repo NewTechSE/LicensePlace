@@ -1,0 +1,9 @@
+<span class='p-input-icon-left searchbar-container' [class]="size == SizeEnum.SMALL ? 'small' : 'normal'">
+  <i class='pi pi-search'></i>
+  <input
+    pInputText
+    type='text'
+    [placeholder]="placeholder ?? 'Enter your keyword ...'"
+    (input)="keywordChangedEmitter.emit($any($event).target.value)"
+  />
+</span>

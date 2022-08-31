@@ -1,81 +1,115 @@
-# BLOCKCHAIN SOFTWARE LICENSE MANAGEMENT MARKET
+# LicensePlace
 
-    []: # Frontend Framework: Angular - PrimeNG UI
-    []: # Backend Framework: NodeJS - ExpressJS
-    []: # API: REST
-    []: # Blockchain - IPFS - Smart Constract
+The marketplace for selling and redistributing software license
 
-This is a blockchain-based for software license management market system.
+## Requirements
 
-#### How to run?
+To run this project, you need to have:
 
-##### Webapp UI
-    1. Goto webapp-ui: `cd app/webapp-ui`
-    2. Install dependencies: `npm install`
-    3. Run: `npm start`
+- NodeJS
+- IPFS
+- Meta Mask
 
-##### Blockchain Server
-    1. Goto blockchain-server: `cd app/blockchain-server`
-    2. Install dependencies: `npm install`
-    3. Run: `npm start:dev`
+## Installation
 
-##### List Accounts: 
-hardhat  | Account #0: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 (10000 ETH)
-hardhat  | Private Key: 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
-hardhat  | 
-hardhat  | Account #1: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 (10000 ETH)
-hardhat  | Private Key: 0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d
-hardhat  | 
-hardhat  | Account #2: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC (10000 ETH)
-hardhat  | Private Key: 0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a
-hardhat  | 
-hardhat  | Account #3: 0x90F79bf6EB2c4f870365E785982E1f101E93b906 (10000 ETH)
-hardhat  | Private Key: 0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6
-hardhat  | 
-hardhat  | Account #4: 0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65 (10000 ETH)
-hardhat  | Private Key: 0x47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a
-hardhat  | 
-hardhat  | Account #5: 0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc (10000 ETH)
-hardhat  | Private Key: 0x8b3a350cf5c34c9194ca85829a2df0ec3153be0318b5e2d3348e872092edffba
-hardhat  | 
-hardhat  | Account #6: 0x976EA74026E726554dB657fA54763abd0C3a0aa9 (10000 ETH)
-hardhat  | Private Key: 0x92db14e403b83dfe3df233f83dfa3a0d7096f21ca9b0d6d6b8d88b2b4ec1564e
-hardhat  | 
-hardhat  | Account #7: 0x14dC79964da2C08b23698B3D3cc7Ca32193d9955 (10000 ETH)
-hardhat  | Private Key: 0x4bbbf85ce3377467afe5d46f804f221813b2bb87f24d81f60f1fcdbf7cbf4356
-hardhat  | 
-hardhat  | Account #8: 0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f (10000 ETH)
-hardhat  | Private Key: 0xdbda1821b80551c9d65939329250298aa3472ba22feea921c0cf5d620ea67b97
-hardhat  | 
-hardhat  | Account #9: 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720 (10000 ETH)
-hardhat  | Private Key: 0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6
-hardhat  | 
-hardhat  | Account #10: 0xBcd4042DE499D14e55001CcbB24a551F3b954096 (10000 ETH)
-hardhat  | Private Key: 0xf214f2b2cd398c806f84e317254e0f0b801d0643303237d97a22a48e01628897
-hardhat  | 
-hardhat  | Account #11: 0x71bE63f3384f5fb98995898A86B02Fb2426c5788 (10000 ETH)
-hardhat  | Private Key: 0x701b615bbdfb9de65240bc28bd21bbc0d996645a3dd57e7b12bc2bdf6f192c82
-hardhat  | 
-hardhat  | Account #12: 0xFABB0ac9d68B0B445fB7357272Ff202C5651694a (10000 ETH)
-hardhat  | Private Key: 0xa267530f49f8280200edf313ee7af6b827f2a8bce2897751d06a843f644967b1
-hardhat  | 
-hardhat  | Account #13: 0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec (10000 ETH)
-hardhat  | Private Key: 0x47c99abed3324a2707c28affff1267e45918ec8c3f20b8aa892e8b065d2942dd
-hardhat  | 
-hardhat  | Account #14: 0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097 (10000 ETH)
-hardhat  | Private Key: 0xc526ee95bf44d8fc405a158bb884d9d1238d99f0612e9f33d006bb0789009aaa
-hardhat  | 
-hardhat  | Account #15: 0xcd3B766CCDd6AE721141F452C550Ca635964ce71 (10000 ETH)
-hardhat  | Private Key: 0x8166f546bab6da521a8369cab06c5d2b9e46670292d85c875ee9ec20e84ffb61
-hardhat  | 
-hardhat  | Account #16: 0x2546BcD3c84621e976D8185a91A922aE77ECEc30 (10000 ETH)
-hardhat  | Private Key: 0xea6c44ac03bff858b476bba40716402b03e41b8e97e276d1baec7c37d42484a0
-hardhat  | 
-hardhat  | Account #17: 0xbDA5747bFD65F08deb54cb465eB87D40e51B197E (10000 ETH)
-hardhat  | Private Key: 0x689af8efa8c651a91ad287602527f3af2fe9f6501a7ac4b061667b5a93e037fd
-hardhat  | 
-hardhat  | Account #18: 0xdD2FD4581271e230360230F9337D5c0430Bf44C0 (10000 ETH)
-hardhat  | Private Key: 0xde9be858da4a475276426320d5e9262ecfc3ba460bfac56360bfa6c4c28b4ee0
-hardhat  | 
-hardhat  | Account #19: 0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199 (10000 ETH)
-hardhat  | Private Key: 0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e
+The project has 3 part:
+
+- IPFS: A decentralized file server to store images
+- Smart contract: A Ethereum blockchain that mine, store transactions and execute the smart contracts
+- Front-end: The UI of **LicensePlace**
+
+### Running IPFS
+
+You can run a IPFS server via `docker-compose.yml` in `./ipfs` folder or download the app at [IPFS Desktop | IPFS Docs](https://docs.ipfs.tech/install/ipfs-desktop/)
+
+Go to `./smart-coontract/scripts`, upload folder `sample-img` to your IPFS server. They will be the sample data
+
+### Running Smart Contract
+
+- Open a terminal at `./smart-contract`, run `npm i` to install dependencies.
+
+- After that, run `npx hardhat node` to start an development Ethereum blockchain
+
+```shell
+> npx hardhat node
+
+Started HTTP and WebSocket JSON-RPC server at http://127.0.0.1:8545/
+
+Accounts
+========
+
+WARNING: These accounts, and their private keys, are publicly known.
+Any funds sent to them on Mainnet or any other live network WILL BE LOST.
+
+Account #0: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 (10000 ETH)
+Private Key: 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+
+Account #1: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 (10000 ETH)
+Private Key: 0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d
+
+Account #2: 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC (10000 ETH)
+Private Key: 0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a
+
+...
+```
+
+- Open another terminal at `./smart-contract`, run `npx hardhat run scripts/deploy.js --network development` to deploy the smart contract and some samples data to the blockchain
+
+```shell
+> npx hardhat run scripts/deploy.js --network development
+
+Nothing to compile
+No need to generate any newer typings.
+License Place Contract deployed to:  0x5FbDB2315678afecb367f032d93F642f64180aa3
+Create IntelliJ at 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+License: Create Normal at 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
+License: Create Premium at 0x5FC8d32690cc91D4c39d9d3abcBD16989F875707
+License: Create Ultimate at 0xa513E6E4b8f2a923D98304ec87F64353C4D5C853
+Create 3 licenses for IntelliJ
+Create Visual Studio at 0x8A791620dd6260079BF849Dc5567aDC3F2FdC318
+License: Create Normal at 0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e
+License: Create Premium at 0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82
+License: Create Ultimate at 0x0B306BF915C4d645ff596e518fAf3F9669b97016
+Create 3 licenses for Visual Studio
+Create The Witcher 3 at 0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE
+License: Create Normal at 0x3Aa5ebB10DC797CAC828524e59A333d0A371443c
+License: Create Premium at 0x59b670e9fA9D0A427751Af201D676719a970857b
+License: Create Ultimate at 0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44
+Create 3 licenses for The Witcher 3
+
+...
+```
+
+### Running Front-end
+
+- Notice the account list and `License Place Contract deployed to:  0x5FbDB2315678afecb367f032d93F642f64180aa3`. You would need them in this step
+
+- Download [The crypto wallet for Defi, Web3 Dapps and NFTs | MetaMask](https://metamask.io/) extension for your browser. Add Network > Fill in like the image
+
+![image-20220831222316585](Readme.assets/image-20220831222316585.png)
+
+- Log in to one of accounts above
+
+![image-20220831222500197](Readme.assets/image-20220831222500197.png)
+
+- Open a terminal at `./front-end`, run `npm i`
+
+- Go to `.\front-end\src\app\common\smart-contract-address.constant.ts`, change `LICENSEPLACE_SMART_CONTRACT_ADDRESS` to above address
+- Go to `.\front-end\src\app\common\ipfs.constant.ts`, change `IPFS_HOST` to your appropriate value
+- Finally, run `npm start`
+
+## Result
+
+![image-20220831230134205](Readme.assets/image-20220831230134205.png)
+
+![image-20220831230206507](Readme.assets/image-20220831230206507.png)
+
+![image-20220831230222078](Readme.assets/image-20220831230222078.png)
+
+![image-20220831230323153](Readme.assets/image-20220831230323153.png)
+
+![image-20220831230446016](Readme.assets/image-20220831230446016.png)
+
+![image-20220831230707581](Readme.assets/image-20220831230707581.png)
+
+![image-20220831230940023](Readme.assets/image-20220831230940023.png)

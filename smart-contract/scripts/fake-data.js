@@ -1,9 +1,9 @@
-const bs58 = require("bs58")
+const bs58 = require("bs58");
 
 const Application = artifacts.require("Application");
 const License = artifacts.require("License");
 
-const createApplications = async (licensePlace, publisher) => {
+async function createApplications(licensePlace, publisher) {
   const appPrice = 30;
 
   const appData = [
@@ -11,7 +11,7 @@ const createApplications = async (licensePlace, publisher) => {
       name: "IntelliJ",
       symbol: "ITJ",
       publisher: publisher.address,
-      cid: to32ByteString("QmSZqJQibmzwXBknVj8hwgeuDPYQwYMfyh3ZqsSArvX5JJ"),
+      cid: to32ByteString("QmWHAPjV3mDyLuxvwJcK11Ud9g4Net8tanLJLefpuLVJ1K"),
     },
     {
       name: "Visual Studio",
@@ -23,7 +23,7 @@ const createApplications = async (licensePlace, publisher) => {
       name: "The Witcher 3",
       symbol: "WIT3",
       publisher: publisher.address,
-      cid: to32ByteString("QmVzop9HTPNWMMf1xz1R511yqNPpi5TRtqsVm7Lg7JTV2e"),
+      cid: to32ByteString("QmZVxB2ub6EVVRz36A1R3UMX72NYgc1tCLdjvZoNamiby3"),
     },
     {
       name: "God of War",
@@ -35,75 +35,84 @@ const createApplications = async (licensePlace, publisher) => {
       name: "Only Fans",
       symbol: "OF",
       publisher: publisher.address,
-      cid: to32ByteString("QmefBZqLQoBkzkUndj5mPn2Qa7BhXSamHBJJi3LGD5FpXL"),
+      cid: to32ByteString("QmS98nZHtFJmTo1AFtGjoDf8eXkFtrk3zBWE8UhH7cVRNp"),
     },
     {
       name: "Photoshop",
       symbol: "PTS",
       publisher: publisher.address,
-      cid: to32ByteString("QmcPfFQfwtkKJgaUpqSkdFb5w5Km5CNZGZcpeEGp296Pqu"),
+      cid: to32ByteString("QmWBZ74DJfDsDX8idngjSAdVkH1dXp9RnTLQB6mpzxfUd8"),
     },
   ];
 
-  const apps = appData.map(async (appDatum) => {
+  const apps = [];
+  for (const appDatum of appData) {
     const app = await Application.new(appDatum, { from: publisher.address });
+
+    console.log(`Create ${appDatum.name} at ${app.address}`);
 
     await licensePlace.connect(publisher).registerApp(app.address, {
       value: web3.utils.toWei(`${appPrice}`, "wei"),
     });
 
-    const licenses = await createLicenses(publisher);
-    licenses.forEach(async (license) => {
-      // console.log(license)
-      await app.addLicenseContract(license.address, { from: publisher.address });
-    })
+    await createLicenses(publisher, app);
 
-    return app;
-  });
+    apps.push(app);
+  }
 
   return apps;
-};
+}
 
-const createLicenses = async (publisher) => {
+async function createLicenses(publisher, app) {
   const licenseData = [
     {
       name: "Normal",
       symbol: "NOR",
-      price: getRandomInt(500, 5000),
+      price: getRandomInt(50, 100),
       cid: to32ByteString("QmYor4FyNXyg3xfp9znDN2za2yczHAtT63oTMgQWR5nMnA"),
     },
     {
       name: "Premium",
       symbol: "PRE",
-      price: getRandomInt(500, 5000),
+      price: getRandomInt(50, 100),
       cid: to32ByteString("QmW32hWEPUiFHsqfThzbgrwXGsfpJdFckTf7rbB2g6TaQW"),
     },
     {
       name: "Ultimate",
       symbol: "UTM",
-      price: getRandomInt(500, 5000),
+      price: getRandomInt(50, 100),
       cid: to32ByteString("QmcoCVFmx8ZrcySeT2ZqypVRjuGiTs1AT74p1vNaba5zdg"),
     },
   ];
 
-  const licenses = []
-  licenseData.forEach(async (datum) => {
+  const licenses = [];
+  for (const datum of licenseData) {
     const license = await License.new(datum, { from: publisher.address });
 
-    licenses.push(license)
-  });
+    await app.addLicenseContract(license.address, {
+      from: publisher.address,
+    });
+
+    console.log(`License: Create ${datum.name} at ${license.address}`);
+
+    licenses.push(license);
+  }
+
+  console.log(`Create ${licenses.length} licenses for ${await app.name()}`);
 
   return licenses;
-};
+}
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return web3.utils.toWei(`${Math.floor(Math.random() * (max - min + 1)) + min}`, "wei");
+  return web3.utils.toWei(
+    `${Math.floor(Math.random() * (max - min + 1)) + min}`
+  );
 }
 
 const to32ByteString = (hash) => {
-  return web3.utils.bytesToHex(bs58.decode(hash).slice(2))
-}
+  return web3.utils.bytesToHex(bs58.decode(hash).slice(2));
+};
 
 module.exports = { createApplications };

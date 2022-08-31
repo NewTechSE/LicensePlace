@@ -1,0 +1,12 @@
+<p-card class="license-card-description-container" *ngIf="item">
+  <p class="license-symbol">{{item.symbol}}</p>
+  <p class="license-price">
+    <img [src]="AppSrcAssetsConstant.ETH_LOGO" alt="eth-logo">
+    <span>{{item.price}}</span>
+  </p>
+  <img [src]="IpfsUtil.cidToLink(item.cid)" class="app-logo" alt="app-logo-card">
+  <p class="license-description">
+    {{item.description}}
+  </p>
+  <button pButton class="buy-license-token" label="Buy" (click)="buyFromPublisher()"></button>
+</p-card>

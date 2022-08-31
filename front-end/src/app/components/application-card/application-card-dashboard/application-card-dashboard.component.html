@@ -1,0 +1,21 @@
+<p-card class="application-card-dashboard-container">
+  <img [src]="IpfsUtil.cidToLink(item.cid)" class="app-logo" alt="app-logo-card">
+
+  <div class="content">
+    <p class="app-name">{{item.name}}</p>
+    <p class="app-company">{{item.publisherName}}</p>
+    <p class="app-publish-on"><em>Publish on: {{moment(item.publishOn).format("DD/MM/YYYY")}}</em></p>
+    <p class="app-license-price">
+      <img [src]="AppSrcAssetsConstant.ETH_LOGO" alt="eth-logo">
+      <span>{{item.getLowestLicensePrice()}}</span>
+    </p>
+    <p class="app-short-description">{{item.shortDescription}}</p>
+  </div>
+
+  <div class="action-group">
+    <button pButton class="view-detail-button" label="View Detail" (click)="onActionButtonClick('overview')"></button>
+    <button pButton class="buy-license" label="Buy License" (click)="onActionButtonClick('license-market')"></button>
+  </div>
+</p-card>
+
+
